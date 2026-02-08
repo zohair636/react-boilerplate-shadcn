@@ -1,7 +1,7 @@
-import { ComponentExample } from "@/components/component-example";
+import MainRouter from './router'
 
-export function App() {
-return <ComponentExample />;
+const App = () => {
+  return <MainRouter />;
 }
 
 export default App;
