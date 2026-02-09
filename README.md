@@ -80,13 +80,13 @@ src/
 
 This section explains the purpose of each major folder and how it fits into the overall architecture.
 
-## `assets/`
+### `assets/`
 
 Contains static assets such as images, icons, and fonts.
 
 Use this folder only for files that do not contain logic and do not change at runtime.
 
-## `components/`
+### `components/`
 `components/ui/`
 
 Houses shadcn/ui components only.
@@ -115,7 +115,7 @@ Reusable components specific to the application.
 
 These components can be used across multiple features but should remain logic-light.
 
-## `config/`
+### `config/`
 
 Application-wide configuration and setup files.
 
@@ -136,7 +136,7 @@ Typed environment variables.
 
 This folder exists to keep setup logic out of features and UI.
 
-## `constants/`
+### `constants/`
 
 Static values used across the app.
 
@@ -150,7 +150,7 @@ Static values used across the app.
 
 No logic. No side effects. Just constants.
 
-## `features/`
+### `features/`
 
 The heart of the application.
 
@@ -169,7 +169,7 @@ Typical feature contents:
 Features do not depend on other features.
 They may depend on shared components or config, but never sideways.
 
-## `hooks/`
+### `hooks/`
 
 Reusable hooks that are not tied to a specific feature.
 
@@ -214,7 +214,7 @@ Routing configuration split by responsibility.
 
 This keeps access control explicit and avoids conditional routing chaos.
 
-## `types/`
+### `types/`
 
 Global TypeScript types.
 
@@ -226,7 +226,7 @@ Used for:
 
 Feature-specific types should stay inside their feature.
 
-## `utils/`
+### `utils/`
 
 Small helper functions tied to browser or app behavior.
 
