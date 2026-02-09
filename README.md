@@ -79,10 +79,10 @@ src/
 ## 🧠 Why Feature-Based Architecture?
 This boilerplate uses feature-based architecture, and that choice is intentional.
 
-# What it means
+### What it means
 Instead of grouping files by type (all hooks together, all services together), everything related to a feature lives in one place.
 
-# Example:
+### Example:
 ```
 features/auth/
 ├─ api.ts
