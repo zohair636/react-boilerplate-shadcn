@@ -93,29 +93,29 @@ features/auth/
 
 ## 🚀 Why Feature-Based Architecture Wins
 
-# 1. Scales without pain
+### 1. Scales without pain
 
 As the app grows, features grow independently. You can add new features without touching unrelated parts of the app.
 
-# 2. Easier to reason about
+### 2. Easier to reason about
 
 Want to work on auth? Go to `features/auth`. No hunting across five folders.
 
-# 3. Cleaner mental model
+### 3. Cleaner mental model
 
 Each feature behaves like a mini app. This reduces cognitive load and speeds up development.
 
-# 4. Safer refactors
+### 4. Safer refactors
 
 Removing or updating a feature does not risk breaking others. The blast radius stays small.
 
-# 5. Team-friendly
+### 5. Team-friendly
 
 Multiple developers can work on different features without stepping on each other.
 
 ## ⚠️ Drawbacks of Other Common Approaches
 
-# Type-based folders (components, hooks, services)
+### Type-based folders (components, hooks, services)
 - Becomes unmanageable as the app grows
 
 - Files related to one feature are scattered
@@ -124,7 +124,7 @@ Multiple developers can work on different features without stepping on each othe
 
 - Encourages tight coupling over time
 
-# Page-based only structure
+### Page-based only structure
 - Business logic leaks into UI
 
 - Hard to reuse logic across pages
@@ -133,7 +133,7 @@ Multiple developers can work on different features without stepping on each othe
 
 This boilerplate avoids those traps.
 
-# 🎨 shadcn/ui Integration
+### 🎨 shadcn/ui Integration
 - All shadcn components live inside components/ui
 
 - Shared app components live inside components/shared
@@ -142,7 +142,7 @@ This boilerplate avoids those traps.
 
 - Easy to customize and extend
 
-# 🔐 Routing Strategy
+### 🔐 Routing Strategy
 Routes are split by responsibility:
 
 - auth-routes.tsx
@@ -153,7 +153,7 @@ Routes are split by responsibility:
 
 This keeps access control explicit and readable.
 
-# 🌍 API & Data Handling
+### 🌍 API & Data Handling
 - Centralized Axios instance
 
 - Typed API responses
@@ -162,7 +162,7 @@ This keeps access control explicit and readable.
 
 - Predictable and cache-friendly data flow
 
-# ✅ Who This Boilerplate Is For
+### ✅ Who This Boilerplate Is For
 - Developers building real products
 
 - Teams that care about structure
