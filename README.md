@@ -18,18 +18,18 @@ This boilerplate is not a demo setup. It is structured the way professional team
 
 ```
 src/
-├─ assets/              # Static assets
+├─ assets/
 ├─ components/
-│  ├─ shared/            # App-specific reusable components
-│  └─ ui/                # shadcn/ui components
+│  ├─ shared/
+│  └─ ui/
 │
 ├─ config/
 │  ├─ api-client.ts
-   ├─ api-endpoints.ts
+|  ├─ api-endpoints.ts
 │  ├─ axios-instance.ts
 │  ├─env.ts
-   └─ tanstack-keys.ts
-│
+|  └─ tanstack-keys.ts
+|
 ├─ constants/
 │  └─ roles.ts
 │
@@ -75,6 +75,179 @@ src/
 ├─ main.tsx
 └─ index.css
 ```
+
+## 📂 Folder Breakdown and Responsibilities
+
+This section explains the purpose of each major folder and how it fits into the overall architecture.
+
+## `assets/`
+
+Contains static assets such as images, icons, and fonts.
+
+Use this folder only for files that do not contain logic and do not change at runtime.
+
+## `components/`
+`components/ui/`
+
+Houses shadcn/ui components only.
+
+- No business logic
+
+- No API calls
+
+- No feature-specific behavior
+
+This keeps the design system clean and portable.
+
+`components/shared/`
+
+Reusable components specific to the application.
+
+### Examples:
+
+- Layout components
+
+- Modals
+
+- Tables
+
+- Form wrappers
+
+These components can be used across multiple features but should remain logic-light.
+
+## `config/`
+
+Application-wide configuration and setup files.
+
+- `axios-instance.ts`
+Central Axios configuration with interceptors.
+
+- `api-client.ts`
+Thin wrapper around Axios for consistency.
+
+- `api-endpoints.ts`
+Central source of truth for API routes.
+
+- `tanstack-keys.ts`
+Query keys for TanStack Query to avoid duplication and cache bugs.
+
+- `env.ts`
+Typed environment variables.
+
+This folder exists to keep setup logic out of features and UI.
+
+## `constants/`
+
+Static values used across the app.
+
+### Examples:
+
+- Roles
+
+- Enums
+
+- Fixed labels
+
+No logic. No side effects. Just constants.
+
+## `features/`
+
+The heart of the application.
+
+Each feature contains everything required for its own functionality.
+
+Typical feature contents:
+
+- API logic
+
+- Feature-specific hooks
+
+- Feature-specific components
+
+- Feature-specific types
+
+Features do not depend on other features.
+They may depend on shared components or config, but never sideways.
+
+## `hooks/`
+
+Reusable hooks that are not tied to a specific feature.
+
+### Examples:
+
+- Debounce logic
+
+- Generic TanStack Query helpers
+
+If a hook belongs to one feature only, it should live inside that feature.
+
+### `lib/`
+
+Low-level utilities and helpers.
+
+This is where generic helpers live that have no React or business logic dependency.
+
+### `pages/`
+
+Route-level components.
+
+Pages should:
+
+- Compose features
+
+- Handle layout
+
+- Stay thin
+
+Pages should not contain business logic.
+If logic appears, it belongs in a feature.
+
+### `router/`
+
+Routing configuration split by responsibility.
+
+- `auth-routes.tsx`
+
+- `admin-routes.tsx`
+
+- `public-routes.tsx`
+
+This keeps access control explicit and avoids conditional routing chaos.
+
+## `types/`
+
+Global TypeScript types.
+
+Used for:
+
+- API responses
+
+- Shared models
+
+Feature-specific types should stay inside their feature.
+
+## `utils/`
+
+Small helper functions tied to browser or app behavior.
+
+### Examples:
+
+- LocalStorage helpers
+
+- Icon mapping helpers
+
+Keep this folder small and intentional.
+
+### Entry Files
+
+- `App.tsx`
+Application shell and provider setup.
+
+- `main.tsx`
+Application bootstrap.
+
+- `index.css`
+Global styles only.
 
 ## 🧠 Why Feature-Based Architecture?
 This boilerplate uses feature-based architecture, and that choice is intentional.
