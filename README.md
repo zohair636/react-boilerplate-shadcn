@@ -25,13 +25,13 @@ src/
 │
 ├─ config/
 │  ├─ api-client.ts
+   ├─ api-endpoints.ts
 │  ├─ axios-instance.ts
-│  └─ env.ts
+│  ├─env.ts
+   └─ tanstack-keys.ts
 │
 ├─ constants/
-│  ├─ api-endpoints.ts
-│  ├─ roles.ts
-│  └─ tanstack-keys.ts
+│  └─ roles.ts
 │
 ├─ features/
 │  ├─ auth/
