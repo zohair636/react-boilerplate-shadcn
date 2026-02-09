@@ -5,10 +5,7 @@ Designed for real-world applications where maintainability, clarity, and growth 
 
 This boilerplate is not a demo setup. It is structured the way professional teams build and scale products.
 
----
-
 ## ✨ Tech Stack
-
 - ⚡ Vite
 - ⚛️ React + TypeScript
 - 🎨 shadcn/ui
@@ -16,8 +13,6 @@ This boilerplate is not a demo setup. It is structured the way professional team
 - 🌐 Axios (centralized API handling)
 - 🔐 Feature-based routing
 - 🧩 Reusable UI and shared components
-
----
 
 ## 📁 Folder Structure
 
@@ -81,25 +76,21 @@ src/
 └─ index.css
 ```
 
----
-
 ## 🧠 Why Feature-Based Architecture?
-
 This boilerplate uses feature-based architecture, and that choice is intentional.
 
 ## What it means
-
 Instead of grouping files by type (all hooks together, all services together), everything related to a feature lives in one place.
 
-Example:
+## Example:
 
-`features/auth/`
-`├─ api.ts`
-`├─ hooks.ts`
-`├─ types.ts`
-`└─ components.tsx`
-
----
+```
+features/auth/
+├─ api.ts
+├─ hooks.ts
+├─ types.ts
+└─ components.tsx
+```
 
 ## 🚀 Why Feature-Based Architecture Wins
 
@@ -123,12 +114,8 @@ Removing or updating a feature does not risk breaking others. The blast radius s
 
 Multiple developers can work on different features without stepping on each other.
 
----
-
 ## ⚠️ Drawbacks of Other Common Approaches
-
 ## Type-based folders (components, hooks, services)
-
 - Becomes unmanageable as the app grows
 
 - Files related to one feature are scattered
@@ -138,7 +125,6 @@ Multiple developers can work on different features without stepping on each othe
 - Encourages tight coupling over time
 
 ## Page-based only structure
-
 - Business logic leaks into UI
 
 - Hard to reuse logic across pages
@@ -147,10 +133,7 @@ Multiple developers can work on different features without stepping on each othe
 
 This boilerplate avoids those traps.
 
----
-
 ## 🎨 shadcn/ui Integration
-
 - All shadcn components live inside components/ui
 
 - Shared app components live inside components/shared
@@ -159,10 +142,7 @@ This boilerplate avoids those traps.
 
 - Easy to customize and extend
 
----
-
 ## 🔐 Routing Strategy
-
 Routes are split by responsibility:
 
 - auth-routes.tsx
@@ -173,10 +153,7 @@ Routes are split by responsibility:
 
 This keeps access control explicit and readable.
 
----
-
 ## 🌍 API & Data Handling
-
 - Centralized Axios instance
 
 - Typed API responses
@@ -185,10 +162,7 @@ This keeps access control explicit and readable.
 
 - Predictable and cache-friendly data flow
 
----
-
 ## ✅ Who This Boilerplate Is For
-
 - Developers building real products
 
 - Teams that care about structure
@@ -197,17 +171,11 @@ This keeps access control explicit and readable.
 
 - Anyone tired of messy React folders
 
----
-
 ## 🏁 Getting Started
-
 `npm install`
 `npm run dev`
 
----
-
 ## 📌 Final Note
-
 This boilerplate prioritizes clarity over cleverness.
 If your app grows, this structure grows with it.
 No rewrites. No folder chaos. No regrets.
