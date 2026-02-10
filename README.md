@@ -46,8 +46,8 @@ src/
 │
 ├─ pages/
 │  ├─ admin/
+│  │  └─ dashboard.tsx
 │  │  └─ settings/
-│  │     ├─ dashboard.tsx
 │  │     ├─ profile.tsx
 │  │     └─ notifications.tsx
 │  ├─ auth/
