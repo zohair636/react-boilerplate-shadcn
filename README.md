@@ -57,9 +57,9 @@ features/
 ## High-Level Breakdown
 
 - `features/`: The heart of the app. Contains feature-specific components, hooks, and API logic. Features should not depend on other features "sideways."
-- `config/`: Centralizes setup logic. Includes axios-instance.ts for interceptors and tanstack-keys.ts for standardized caching.
+- `config/`: Centralizes setup logic. Includes `axios-instance.ts` for interceptors and tanstack-keys.ts for standardized caching.
 - `pages/`: These are "thin" wrappers. They handle layout and compose various features but contain zero business logic.
-- `router/`: Explicitly split into auth-routes.tsx, admin-routes.tsx, etc., to make access control readable.
+- `router/`: Explicitly split into `auth-routes.tsx`, `admin-routes.tsx`, etc., to make access control readable.
 
 ## 🔄 Application Flow
 
@@ -88,8 +88,8 @@ This boilerplate uses a centralized API layer to ensure predictable data flow:
 ## 🔐 Environment Management
 This boilerplate is configured to handle multiple environments out-of-the-box using Vite's built-in mode detection. This eliminates the manual headache of switching URLs between local development and live production.
 
-- `.env.development`: Automatically loaded during npm run dev. Use this for your local or staging API URLs.
-- `.env.production`: Automatically loaded during npm run build. Use this for your live production endpoints.
+- `.env.development`: Automatically loaded during `npm run dev`. Use this for your local or staging API URLs.
+- `.env.production`: Automatically loaded during `npm run build`. Use this for your live production endpoints.
 - `.env.example`: A template file containing all required keys. Always keep this updated for new collaborators.
 
 **Note**: Never commit `.env.development` or `.env.production` to version control. They are already included in the `.gitignore` to protect your secrets.
@@ -137,7 +137,7 @@ cp .env.example .env.production
 `npm run build`
 
 ## 🤝 Contributing
-We welcome contributions from everyone! Whether you're fixing bugs, improving documentation, or adding new features, your help is appreciated.
+I welcome contributions from everyone! Whether you're fixing bugs, improving documentation, or adding new features, your help is appreciated.
 
 ### How to Contribute
 1. **Fork the repository** and create a new branch.
