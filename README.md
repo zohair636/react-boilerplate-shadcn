@@ -96,7 +96,8 @@ This boilerplate is configured to handle multiple environments out-of-the-box us
 
 ### Accessing Environment Variables
 In your code, access environment variables using Vite’s built-in `import.meta.env`:
-```
+
+```typescript
 const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
 // or using config helper
 import { env } from "@/config/env";
