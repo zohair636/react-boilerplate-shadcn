@@ -5,7 +5,7 @@
 ## ✨ Tech Stack
 
 - ⚡ **Vite** – lightning-fast bundler
-- ⚛️ **React + TypeScript** – typed and reliable
+- ⚛️ **React 19.2 + TypeScript** – latest React features with the React Compiler
 - 🎨 **shadcn/ui** – atomic UI components
 - 🔁 **TanStack Query** – client-state & caching
 - 🌐 **Axios** – centralized API handling
