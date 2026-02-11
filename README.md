@@ -51,23 +51,21 @@ Most projects collapse because they group files by **technical type** (all hooks
 ## 🔄 Application Flow
 
 User Action
-↓
-Page (layout only)
-↓
-Feature Hook
-↓
+    ↓
+Page (Layout & Composition Only)
+    ↓
+Feature Hook (Business Logic)
+    ↓
 API Client
-↓
-Axios Instance (interceptors)
-↓
-Backend
-
-Response
-↓
+    ↓
+Axios Instance (Interceptors, Tokens, Error Handling)
+    ↓
+Backend Response
+    ↓
 TanStack Query Cache
-↓
-Feature
-↓
+    ↓
+Feature Layer
+    ↓
 UI Update
 
 ## 🌍 API & Data Handling
