@@ -344,11 +344,69 @@ This keeps access control explicit and readable.
 
 - Anyone tired of messy React folders
 
+## 🔐 Environment Management
+This boilerplate is configured to handle multiple environments out-of-the-box using Vite's built-in mode detection. This eliminates the manual headache of switching URLs between local development and live production.
+
+- `.env.development`: Automatically loaded during npm run dev. Use this for your local or staging API URLs.
+- `.env.production`: Automatically loaded during npm run build. Use this for your live production endpoints.
+- `.env.example`: A template file containing all required keys. Always keep this updated for new collaborators.
+
+**Note**: Never commit `.env.development` or `.env.production` to version control. They are already included in the `.gitignore` to protect your secrets.
+
+## ⚡ Key Features
+
+- **Pre-configured API Layer**: Includes `api-client.ts` and `axios-instance.ts` for immediate backend integration.
+
+- **Comprehensive Auth Flow**: Ready-to-use pages for Login, Signup, OTP, and Password Reset.
+
+- **Advanced UI Kit**: Full suite of shadcn components including ComboBox, Sonner, and Popovers.
+
+- **Type Safety**: Strict TypeScript implementation with centralized `api-types.ts`.
+
 ## 🏁 Getting Started
+
+### 1. Clone & Install
 ```
+git clone <your-repo-link>
+cd <your-repo-name>
 npm install
-npm run dev
 ```
+
+### 2. Environment Setup
+Create your local environment files based on the example.
+```
+cp .env.example .env.development
+cp .env.example .env.production
+```
+
+### 3. Start Development
+`npm run dev`
+
+## 🤝 Contributing
+We welcome contributions from everyone! Whether you're fixing bugs, improving documentation, or adding new features, your help is appreciated.
+
+### How to Contribute
+1. **Fork the repository** and create a new branch.
+2. **Follow the project’s coding style** (TypeScript, Prettier, ESLint).
+3. **Write clear, descriptive commit messages** (e.g., `feat: add dark mode support`, `fix: resolve login API bug`).
+4. **Test your changes** to ensure they work as expected.
+5. **Open a Pull Request (PR)** with a detailed description of your changes.
+
+For major changes or new features, please open an issue first to discuss the proposed changes.
+
+## 🤝 Contribution Strategy
+This project is built for speed and precision. To maintain the codebase:
+
+1. **New Features**: Create a new sub-folder in `src/features`.
+
+2. **UI Components**: Add raw shadcn components to `src/components/ui`.
+
+3. **Routing**: Register new views in the appropriate file within `src/router`.
+
+**Note**: This is a living boilerplate. If you find a way to optimize the "Feature" workflow further, open a PR.
+
+### 📜 License
+This project is licensed under the MIT License - see the [LICENSE](https://github.com/zohair636/react-boilerplate-shadcn/blob/main/LICENSE) file for details.
 
 ## 📌 Final Note
 This boilerplate prioritizes clarity over cleverness.
