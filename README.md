@@ -33,6 +33,7 @@ Most projects collapse because they group files by **technical type** (all hooks
 │   ├── ui/         # Atomic shadcn components (No business logic)
 │   └── shared/     # App-specific reusable components (Modals, Tables)
 ├── features/       # Modular business logic (Auth, Settings, etc.)
+├── pages/          # Route-level composition layer (Thin wrappers, no business logic)
 ├── config/         # API Clients, TanStack keys, and Env config
 ├── router/         # Split routing (Admin, Auth, Public)
 ├── hooks/          # Domain-agnostic hooks (e.g., use-debounce)
@@ -47,16 +48,27 @@ Most projects collapse because they group files by **technical type** (all hooks
 - `pages/`: These are "thin" wrappers. They handle layout and compose various features but contain zero business logic.
 - `router/`: Explicitly split into auth-routes.tsx, admin-routes.tsx, etc., to make access control readable.
 
-## 🚀 Why Feature-Based Architecture Wins
+## 🔄 Application Flow
 
-- Features scale independently
-- Refactoring stays safe
-- Navigation is fast
-- Teams work in parallel
-- Business logic stays contained
+User Action
+↓
+Page (layout only)
+↓
+Feature Hook
+↓
+API Client
+↓
+Axios Instance (interceptors)
+↓
+Backend
 
-Traditional type-based folders eventually scatter logic and increase coupling.  
-This structure prevents that.
+Response
+↓
+TanStack Query Cache
+↓
+Feature
+↓
+UI Update
 
 ## 🌍 API & Data Handling
 This boilerplate uses a centralized API layer to ensure predictable data flow:
@@ -82,11 +94,21 @@ This boilerplate is configured to handle multiple environments out-of-the-box us
 In your code, access environment variables using `import.meta.env` or with `env`:
 ```
 const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
-
+```
 or
-
+```
 const apiBaseUrl = env.VITE_API_BASE_URL;
 ```
+
+## 🎯 Who This Boilerplate Is For
+
+- Developers building production-grade applications
+
+- Teams that care about structure and long-term maintainability
+
+- Projects expected to scale beyond MVP
+
+- Engineers who prefer clear boundaries over scattered logic
 
 ## 🏁 Getting Started
 
@@ -107,6 +129,9 @@ cp .env.example .env.production
 ### 3. Start Development
 `npm run dev`
 
+## 4. Build for Production
+`npm run build`
+
 ## 🤝 Contributing
 We welcome contributions from everyone! Whether you're fixing bugs, improving documentation, or adding new features, your help is appreciated.
 
@@ -123,4 +148,4 @@ For major changes or new features, please open an issue first to discuss the pro
 This project is licensed under the MIT License. See the [LICENSE](https://github.com/zohair636/react-boilerplate-shadcn/blob/main/LICENSE) file for details.
 
 ## 📌 Final Note
-This boilerplate prioritizes **clarity over cleverness**. If your app grows, this structure grows with it. No rewrites. No folder chaos. No regrets.
+This boilerplate prioritizes **clarity over cleverness**. If your app grows, this structure grows with it. Built for predictable growth and long-term maintainability.
