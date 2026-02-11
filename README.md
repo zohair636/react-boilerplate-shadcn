@@ -104,6 +104,16 @@ import { env } from "@/config/env";
 const apiBaseUrl = env.VITE_API_BASE_URL;
 ```
 
+## 🎯 Who This Boilerplate Is For
+
+- Developers building **production-grade applications**
+
+- Teams that care about **structure and long-term maintainability**
+
+- Projects expected to **scale beyond MVP**
+
+- Engineers who prefer **clear boundaries** over scattered logic
+
 ## 🏁 Getting Started
 
 ### 1. Clone & Install
@@ -123,7 +133,7 @@ cp .env.example .env.production
 ### 3. Start Development
 `npm run dev`
 
-## 4. Build for Production
+### 4. Build for Production
 `npm run build`
 
 ## 🤝 Contributing
@@ -137,16 +147,6 @@ We welcome contributions from everyone! Whether you're fixing bugs, improving do
 5. **Open a Pull Request (PR)** with a detailed description of your changes.
 
 For major changes or new features, please open an issue first to discuss the proposed changes.
-
-## 🎯 Who This Boilerplate Is For
-
-- Developers building **production-grade applications**
-
-- Teams that care about **structure and long-term maintainability**
-
-- Projects expected to **scale beyond MVP**
-
-- Engineers who prefer **clear boundaries** over scattered logic
 
 ## 📜 License
 This project is licensed under the MIT License. See the [LICENSE](https://github.com/zohair636/react-boilerplate-shadcn/blob/main/LICENSE) file for details.
