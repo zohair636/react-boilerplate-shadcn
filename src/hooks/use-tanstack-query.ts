@@ -29,6 +29,27 @@ export const useGetQuery = <TData = unknown>(
   return query;
 };
 
+export const useGetMutation = <TData = unknown, TResponse = unknown>(
+  key: string,
+  url: string,
+  config: AxiosRequestConfig = {},
+  options: Omit<
+    UseMutationOptions<TResponse, Error, TData>,
+    "mutationKey" | "mutationFn"
+  > = {},
+) => {
+  const mutation = useMutation({
+    mutationKey: [key],
+    mutationFn: async (params: TData) => {
+      const response = await apiClient.get(url, config, params || {});
+      return response || {};
+    },
+    ...options,
+  });
+
+  return mutation;
+};
+
 export const usePostMutation = <TData = unknown, TResponse = unknown>(
   key: string,
   url: string,
