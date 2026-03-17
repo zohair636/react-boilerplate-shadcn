@@ -5,11 +5,12 @@ import {
   type UseMutationOptions,
   type UseQueryOptions,
 } from "@tanstack/react-query";
+import type { AxiosRequestConfig } from "axios";
 
 export const useGetQuery = <TData = unknown>(
   key: string[],
   url: string,
-  config = {},
+  config: AxiosRequestConfig = {},
   params = {},
   options: Omit<
     UseQueryOptions<TData, Error, TData>,
@@ -31,7 +32,7 @@ export const useGetQuery = <TData = unknown>(
 export const usePostMutation = <TData = unknown, TResponse = unknown>(
   key: string,
   url: string,
-  config = {},
+  config: AxiosRequestConfig = {},
   options: Omit<
     UseMutationOptions<TResponse, Error, TData>,
     "mutationKey" | "mutationFn"
@@ -52,7 +53,7 @@ export const usePostMutation = <TData = unknown, TResponse = unknown>(
 export const usePutMutation = <TData = unknown, TResponse = unknown>(
   key: string,
   url: string,
-  config = {},
+  config: AxiosRequestConfig = {},
   options: Omit<
     UseMutationOptions<TResponse, Error, TData>,
     "mutationKey" | "mutationFn"
@@ -74,7 +75,7 @@ export const usePatchMutation = <TData = unknown, TResponse = unknown>(
   key: string,
   url: string,
   data = {},
-  config = {},
+  config: AxiosRequestConfig = {},
   options: Omit<
     UseMutationOptions<TData, Error, TResponse>,
     "mutationKey" | "mutationFn"
@@ -95,7 +96,7 @@ export const usePatchMutation = <TData = unknown, TResponse = unknown>(
 export const useDeleteMutation = <TData = unknown, TResponse = unknown>(
   key: string | string[],
   url: string,
-  config = {},
+  config: AxiosRequestConfig = {},
   options: Omit<
     UseMutationOptions<TData, Error, TResponse>,
     "mutationKey" | "mutationFn"
