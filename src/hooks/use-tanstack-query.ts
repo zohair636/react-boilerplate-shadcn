@@ -41,8 +41,12 @@ export const useGetMutation = <TData = unknown, TResponse = unknown>(
   const mutation = useMutation({
     mutationKey: [key],
     mutationFn: async (params: TData) => {
-      const response = await apiClient.get(url, config, params || {});
-      return response || {};
+      const response = await apiClient.get<TResponse>(
+        url,
+        config,
+        params || {},
+      );
+      return response;
     },
     ...options,
   });
@@ -59,11 +63,11 @@ export const usePostMutation = <TData = unknown, TResponse = unknown>(
     "mutationKey" | "mutationFn"
   > = {},
 ) => {
-  const mutation = useMutation({
+  const mutation = useMutation<TResponse, Error, TData>({
     mutationKey: [key],
     mutationFn: async (data: TData) => {
-      const response = await apiClient.post(url, data, config);
-      return response || {};
+      const response = await apiClient.post<TResponse>(url, data, config);
+      return response;
     },
     ...options,
   });
@@ -73,18 +77,21 @@ export const usePostMutation = <TData = unknown, TResponse = unknown>(
 
 export const usePutMutation = <TData = unknown, TResponse = unknown>(
   key: string,
-  url: string,
+  url: string | ((variables: TData) => string),
   config: AxiosRequestConfig = {},
   options: Omit<
     UseMutationOptions<TResponse, Error, TData>,
     "mutationKey" | "mutationFn"
   > = {},
 ) => {
-  const mutation = useMutation({
+  const mutation = useMutation<TResponse, Error, TData>({
     mutationKey: [key],
     mutationFn: async (data: TData) => {
-      const response = await apiClient.put(url, data, config);
-      return response || {};
+      const resolvedUrl =
+        typeof url === "function" ? url(data) : url;
+      const payload = typeof url === "function" ? {} : data;
+      const response = await apiClient.put<TResponse>(resolvedUrl, payload, config);
+      return response;
     },
     ...options,
   });
@@ -94,19 +101,21 @@ export const usePutMutation = <TData = unknown, TResponse = unknown>(
 
 export const usePatchMutation = <TData = unknown, TResponse = unknown>(
   key: string,
-  url: string,
-  data = {},
+  url: string | ((variables: TData) => string),
   config: AxiosRequestConfig = {},
   options: Omit<
-    UseMutationOptions<TData, Error, TResponse>,
+    UseMutationOptions<TResponse, Error, TData>,
     "mutationKey" | "mutationFn"
   > = {},
 ) => {
-  const mutation = useMutation({
+  const mutation = useMutation<TResponse, Error, TData>({
     mutationKey: [key],
-    mutationFn: async () => {
-      const response = await apiClient.patch(url, data, config);
-      return response || {};
+    mutationFn: async (data: TData) => {
+      const resolvedUrl =
+        typeof url === "function" ? url(data) : url;
+      const payload = typeof url === "function" ? {} : data;
+      const response = await apiClient.patch<TResponse>(resolvedUrl, payload, config);
+      return response;
     },
     ...options,
   });
@@ -116,21 +125,23 @@ export const usePatchMutation = <TData = unknown, TResponse = unknown>(
 
 export const useDeleteMutation = <TData = unknown, TResponse = unknown>(
   key: string | string[],
-  url: string,
+  url: string | ((variables: TData) => string),
   config: AxiosRequestConfig = {},
-  options: Omit<
-    UseMutationOptions<TData, Error, TResponse>,
+  options?: Omit<
+    UseMutationOptions<TResponse, Error, TData>,
     "mutationKey" | "mutationFn"
-  > = {},
+  >,
 ) => {
-  const mutation = useMutation({
+  return useMutation<TResponse, Error, TData>({
     mutationKey: [key],
-    mutationFn: async () => {
-      const response = await apiClient.delete(url, config);
-      return response || {};
+    mutationFn: (data: TData) => {
+      const resolvedUrl =
+        typeof url === "function" ? url(data) : url;
+      if (typeof url === "function") {
+        return apiClient.delete<TResponse>(resolvedUrl, config);
+      }
+      return apiClient.delete<TResponse>(resolvedUrl, { ...config, data });
     },
     ...options,
   });
-
-  return mutation;
 };

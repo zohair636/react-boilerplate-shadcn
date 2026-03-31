@@ -1,4 +1,4 @@
-import { isAxiosError } from "axios";
+import { isAxiosError, type AxiosRequestConfig } from "axios";
 import axiosInstance from "./axios-instance";
 import { removeLocalStorageStorageItem } from "@/utils/localstorage-utils";
 
@@ -19,58 +19,67 @@ const handleError = (error: unknown) => {
 };
 
 export const apiClient = {
-  get: async (url: string, config = {}, params = {}) => {
+  get: async <TResponse = unknown>(
+    url: string,
+    config: AxiosRequestConfig = {},
+    params = {},
+  ): Promise<TResponse> => {
     try {
       const mergeConfig = {
         ...config,
         params,
       };
       const response = await axiosInstance.get(url, mergeConfig);
-      const { payload } = response.data;
-
-      return payload;
+      return response.data?.payload as TResponse;
     } catch (error) {
-      handleError(error);
+      return handleError(error);
     }
   },
-  post: async (url: string, data: unknown = {}, config = {}) => {
+  post: async <TResponse = unknown>(
+    url: string,
+    data: unknown = {},
+    config: AxiosRequestConfig = {},
+  ): Promise<TResponse> => {
     try {
       const response = await axiosInstance.post(url, data, config);
-      const { payload } = response.data;
-
-      return payload;
+      return response.data?.payload as TResponse;
     } catch (error) {
-      handleError(error);
+      return handleError(error);
     }
   },
-  put: async (url: string, data: unknown = {}, config = {}) => {
+  put: async <TResponse = unknown>(
+    url: string,
+    data: unknown = {},
+    config: AxiosRequestConfig = {},
+  ): Promise<TResponse> => {
     try {
       const response = await axiosInstance.put(url, data, config);
-      const { payload } = response.data;
-
-      return payload;
+      return response.data?.payload as TResponse;
     } catch (error) {
-      handleError(error);
+      return handleError(error);
     }
   },
-  patch: async (url: string, data: unknown = {}, config = {}) => {
+  patch: async <TResponse = unknown>(
+    url: string,
+    data: unknown = {},
+    config: AxiosRequestConfig = {},
+  ): Promise<TResponse> => {
     try {
       const response = await axiosInstance.patch(url, data, config);
-      const { payload } = response.data;
-
-      return payload;
+      return response.data?.payload as TResponse;
     } catch (error) {
-      handleError(error);
+      return handleError(error);
     }
   },
-  delete: async (url: string, config = {}) => {
+  delete: async <TResponse = unknown>(
+    url: string,
+    config: AxiosRequestConfig = {},
+  ): Promise<TResponse> => {
     try {
       const response = await axiosInstance.delete(url, config);
-      const { payload } = response.data;
-
-      return payload;
+      return response.data?.payload as TResponse;
     } catch (error) {
-      handleError(error);
+      return handleError(error);
     }
   },
 };
