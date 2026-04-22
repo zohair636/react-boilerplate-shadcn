@@ -9,17 +9,20 @@ import { Activity, forwardRef, useId } from "react";
 import type { CommonTextAreaProps } from "./types";
 
 const CommonTextArea = forwardRef<HTMLTextAreaElement, CommonTextAreaProps>(
-  ({
-    id,
-    label,
-    description,
-    error,
-    required = false,
-    labelClassName,
-    descriptionClassName,
-    errorClassName,
-    ...rest
-  }, ref) => {
+  (
+    {
+      id,
+      label,
+      description,
+      error,
+      required,
+      labelClassName,
+      descriptionClassName,
+      errorClassName,
+      ...rest
+    },
+    ref,
+  ) => {
     const generatedId = useId();
     const fieldId = id ?? generatedId;
     const descriptionId = description ? `${fieldId}-description` : undefined;
@@ -35,10 +38,7 @@ const CommonTextArea = forwardRef<HTMLTextAreaElement, CommonTextAreaProps>(
           </Activity>
         </div>
         <Activity mode={description ? "visible" : "hidden"}>
-          <FieldDescription
-            id={descriptionId}
-            className={descriptionClassName}
-          >
+          <FieldDescription id={descriptionId} className={descriptionClassName}>
             {description}
           </FieldDescription>
         </Activity>
@@ -48,6 +48,7 @@ const CommonTextArea = forwardRef<HTMLTextAreaElement, CommonTextAreaProps>(
           aria-invalid={!!error}
           aria-errormessage={errorId}
           aria-describedby={descriptionId}
+          aria-required={required}
           {...rest}
         />
         <Activity mode={error ? "visible" : "hidden"}>
