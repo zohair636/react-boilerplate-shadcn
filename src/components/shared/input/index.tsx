@@ -1,7 +1,7 @@
 import { Input } from "@/components/ui/input";
 import { Activity, forwardRef } from "react";
 import type { CommonInputProps } from "./types";
-import CommonLabel from "../label/common-label";
+import CommonLabel from "../label";
 import { cn } from "@/lib/utils";
 import { CircleAlert } from "lucide-react";
 

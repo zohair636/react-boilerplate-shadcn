@@ -24,9 +24,9 @@ class CommonErrorBoundary extends Component<Props, State> {
     console.error("Uncaught error:", error, errorInfo);
   }
 
-  private resetErrorBoundary = () => {
-    this.setState({ hasError: false, error: null });
-  };
+  // private resetErrorBoundary = () => {
+  //   this.setState({ hasError: false, error: null });
+  // };
 
   public render() {
     if (this.state.hasError) {

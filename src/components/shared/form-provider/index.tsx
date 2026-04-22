@@ -1,4 +1,4 @@
-import { Activity, type FC } from "react";
+import { Activity } from "react";
 import type { FormFieldWrapperProps, FormProviderProps } from "./types";
 import {
   FormProvider as HookFormProvider,
@@ -6,7 +6,7 @@ import {
   useFormContext,
   type FieldValues,
 } from "react-hook-form";
-import { Field, FieldDescription, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field";
+import { Field, FieldDescription, FieldError, FieldLabel } from "@/components/ui/field";
 import { cn } from "@/lib/utils";
 
 export const FormProvider = <T extends FieldValues>({

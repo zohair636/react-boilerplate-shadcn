@@ -8,8 +8,8 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import CommonInput from "./common-input";
-import CommonLabel from "../label/common-label";
+import CommonInput from ".";
+import CommonLabel from "../label";
 import type { CommonInputDayPickerProps } from "./types";
 
 const CommonInputDayPicker = ({

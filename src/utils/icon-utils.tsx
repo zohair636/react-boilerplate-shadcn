@@ -1,4 +1,4 @@
-import CommonImage from '@/components/shared/image/common-image'
+import CommonImage from '@/components/shared/image'
 import type { ReactNode } from 'react'
 
 export const renderIcon = (icon: string | ReactNode) => {
