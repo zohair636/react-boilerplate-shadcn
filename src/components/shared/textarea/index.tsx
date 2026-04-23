@@ -1,12 +1,8 @@
-import {
-  Field,
-  FieldDescription,
-  FieldError,
-  FieldLabel,
-} from "@/components/ui/field";
+import { Field, FieldDescription, FieldError } from "@/components/ui/field";
 import { Textarea } from "@/components/ui/textarea";
 import { Activity, forwardRef, useId } from "react";
 import type { CommonTextAreaProps } from "./types";
+import CommonFieldLabel from "../label/field-label";
 
 const CommonTextArea = forwardRef<HTMLTextAreaElement, CommonTextAreaProps>(
   (
@@ -29,14 +25,12 @@ const CommonTextArea = forwardRef<HTMLTextAreaElement, CommonTextAreaProps>(
     const errorId = error ? `${fieldId}-error` : undefined;
     return (
       <Field>
-        <div className="flex items-center gap-1">
-          <FieldLabel htmlFor={fieldId} className={labelClassName}>
-            {label}
-          </FieldLabel>
-          <Activity mode={required ? "visible" : "hidden"}>
-            <span className="text-destructive">*</span>
-          </Activity>
-        </div>
+        <CommonFieldLabel
+          id={fieldId}
+          label={label}
+          className={labelClassName}
+          required={required}
+        />
         <Activity mode={description ? "visible" : "hidden"}>
           <FieldDescription id={descriptionId} className={descriptionClassName}>
             {description}

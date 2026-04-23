@@ -27,8 +27,6 @@ export interface CommonInputDayPickerProps {
   required?: boolean;
   labelClassName?: string;
   suppressErrorMessage?: boolean;
-  /** Earliest selectable date. Restricts calendar navigation and disables earlier days. */
   minDate?: Date;
-  /** Latest selectable date. Restricts calendar navigation and disables later days. */
   maxDate?: Date;
 }

@@ -1,16 +1,16 @@
 import { Input } from "@/components/ui/input";
-import { Activity, forwardRef } from "react";
+import { Activity, forwardRef, useId } from "react";
 import type { CommonInputProps } from "./types";
-import CommonLabel from "../label";
 import { cn } from "@/lib/utils";
 import { CircleAlert } from "lucide-react";
+import CommonFieldLabel from "../label/field-label";
+import { Field } from "@/components/ui/field";
 
 const CommonInput = forwardRef<HTMLInputElement, CommonInputProps>(
   (
     {
       label,
       labelClassName,
-      placeholder,
       value,
       onChange,
       leftIcon,
@@ -20,64 +20,58 @@ const CommonInput = forwardRef<HTMLInputElement, CommonInputProps>(
       className,
       onClick,
       error,
-      required = false,
-      isFocused,
+      required,
       ...rest
     },
     ref,
   ) => {
+    const generatedId = useId();
+    const inputId = rest.id ?? generatedId;
     return (
       <div className="w-full">
-        <Activity mode={label ? "visible" : "hidden"}>
-          <div className="flex justify-between items-center mb-2">
-            <CommonLabel
+        <Field>
+          <Activity mode={label ? "visible" : "hidden"}>
+            <CommonFieldLabel
+              id={inputId}
               label={label}
-              className={cn("text-base font-semibold", labelClassName)}
               required={required}
+              className={labelClassName}
             />
-          </div>
-        </Activity>
-        <div
-          className={cn(
-            "relative"
-          )}
-        >
-          <Activity mode={leftIcon ? "visible" : "hidden"}>
-            <span
+          </Activity>
+          <div className={cn("relative")}>
+            <Activity mode={leftIcon ? "visible" : "hidden"}>
+              <span
+                onClick={onClick}
+                className={cn(
+                  "absolute left-3 z-10 cursor-pointer",
+                  leftIconClassName,
+                )}
+              >
+                {leftIcon}
+              </span>
+            </Activity>
+            <Input
+              id={inputId}
+              ref={ref}
+              value={value}
+              onChange={onChange}
               onClick={onClick}
-              className={cn(
-                "absolute left-3 z-10 cursor-pointer",
-                leftIconClassName,
-              )}
-            >
-              {leftIcon}
-            </span>
-          </Activity>
-          <Input
-            ref={ref}
-            placeholder={placeholder}
-            value={value}
-            onChange={onChange}
-            onClick={onClick}
-            className={cn(
-              className,
-            )}
-            autoComplete="off"
-            readOnly={rest.readOnly}
-            {...rest}
-          />
-          <Activity mode={rightIcon ? "visible" : "hidden"}>
-            <div className={cn("absolute right-3 z-10", rightIconClassName)}>
-              {rightIcon}
-            </div>
-          </Activity>
-        </div>
-        {error && !rest.suppressErrorMessage && (
-          <p className="flex items-center gap-1 error-message mt-2.5 text-sm text-destructive">
-            <CircleAlert className="w-3 h-3 shrink-0" />
-            {error}
-          </p>
-        )}
+              className={cn(className)}
+              {...rest}
+            />
+            <Activity mode={rightIcon ? "visible" : "hidden"}>
+              <div className={cn("absolute right-3 z-10", rightIconClassName)}>
+                {rightIcon}
+              </div>
+            </Activity>
+          </div>
+          {error && !rest.suppressErrorMessage && (
+            <p className="flex items-center gap-1 error-message mt-2.5 text-sm text-destructive">
+              <CircleAlert className="w-3 h-3 shrink-0" />
+              {error}
+            </p>
+          )}
+        </Field>
       </div>
     );
   },

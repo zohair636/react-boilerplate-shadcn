@@ -1,10 +1,8 @@
-import React from "react";
+import React, { type LabelHTMLAttributes } from "react";
 
-export interface CommonLabelProps
-  extends React.LabelHTMLAttributes<HTMLLabelElement> {
+export interface CommonLabelProps extends LabelHTMLAttributes<HTMLLabelElement> {
+  id?: string;
   label?: string | React.ReactNode;
-  showInfoIcon?: string | React.ReactNode;
   required?: boolean;
-  helper?: string;
   className?: string;
 }
