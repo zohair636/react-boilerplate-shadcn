@@ -1,7 +1,7 @@
 import type { TextareaHTMLAttributes } from "react";
 
 export interface CommonTextAreaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
-  id?: string;
+  // id?: string;
   label: string;
   description?: string;
   error?: string;

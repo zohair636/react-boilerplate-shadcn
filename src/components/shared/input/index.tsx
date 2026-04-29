@@ -4,11 +4,12 @@ import type { CommonInputProps } from "./types";
 import { cn } from "@/lib/utils";
 import { CircleAlert } from "lucide-react";
 import CommonFieldLabel from "../label/field-label";
-import { Field } from "@/components/ui/field";
+import { Field, FieldError } from "@/components/ui/field";
 
 const CommonInput = forwardRef<HTMLInputElement, CommonInputProps>(
   (
     {
+      id,
       label,
       labelClassName,
       value,
@@ -26,7 +27,8 @@ const CommonInput = forwardRef<HTMLInputElement, CommonInputProps>(
     ref,
   ) => {
     const generatedId = useId();
-    const inputId = rest.id ?? generatedId;
+    const inputId = id ?? generatedId;
+    const errorId = error ? `${inputId}-error` : undefined;
     return (
       <div className="w-full">
         <Field>
@@ -38,10 +40,9 @@ const CommonInput = forwardRef<HTMLInputElement, CommonInputProps>(
               className={labelClassName}
             />
           </Activity>
-          <div className={cn("relative")}>
+          <div className="relative">
             <Activity mode={leftIcon ? "visible" : "hidden"}>
               <span
-                onClick={onClick}
                 className={cn(
                   "absolute left-3 z-10 cursor-pointer",
                   leftIconClassName,
@@ -56,7 +57,10 @@ const CommonInput = forwardRef<HTMLInputElement, CommonInputProps>(
               value={value}
               onChange={onChange}
               onClick={onClick}
-              className={cn(className)}
+              aria-invalid={!!error}
+              aria-errormessage={errorId}
+              aria-required={required}
+              className={className}
               {...rest}
             />
             <Activity mode={rightIcon ? "visible" : "hidden"}>
@@ -65,11 +69,14 @@ const CommonInput = forwardRef<HTMLInputElement, CommonInputProps>(
               </div>
             </Activity>
           </div>
-          {error && !rest.suppressErrorMessage && (
-            <p className="flex items-center gap-1 error-message mt-2.5 text-sm text-destructive">
+          {error && (
+            <FieldError
+              id={errorId}
+              className="flex items-center gap-1 error-message text-sm text-destructive"
+            >
               <CircleAlert className="w-3 h-3 shrink-0" />
               {error}
-            </p>
+            </FieldError>
           )}
         </Field>
       </div>
