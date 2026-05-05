@@ -137,7 +137,7 @@ cp .env.example .env.production
 `npm run build`
 
 ## 🤝 Contributing
-I welcome contributions from everyone! Whether you're fixing bugs, improving documentation, or adding new features, your help is appreciated.
+Contributions are welcome. Please read the [CONTRIBUTING.md](./CONTRIBUTING.md) file before opening a pull request.
 
 ### How to Contribute
 1. **Fork the repository** and create a new branch.
