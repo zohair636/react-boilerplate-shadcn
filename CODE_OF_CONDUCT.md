@@ -4,8 +4,6 @@
 
 This project is committed to providing a welcoming, respectful, and harassment-free experience for everyone. Participation is open to all, regardless of age, body size, disability, ethnicity, gender identity and expression, level of experience, nationality, personal appearance, race, religion, or sexual orientation.
 
----
-
 ## Expected Behavior
 
 We expect all contributors to:
@@ -16,8 +14,6 @@ We expect all contributors to:
 - Focus on what benefits the project and community  
 - Show empathy toward other members  
 
----
-
 ## Unacceptable Behavior
 
 The following behaviors are not tolerated:
@@ -27,8 +23,6 @@ The following behaviors are not tolerated:
 - Sharing private information without permission  
 - Sexualized language or unwanted advances  
 - Any conduct considered inappropriate in a professional environment  
-
----
 
 ## Enforcement
 
@@ -42,8 +36,6 @@ They have the authority to:
 
 Enforcement decisions will be made fairly and consistently.
 
----
-
 ## Scope
 
 This Code of Conduct applies to all project spaces, including:
@@ -51,8 +43,6 @@ This Code of Conduct applies to all project spaces, including:
 - GitHub repositories, issues, and pull requests  
 - Community discussions and communication channels  
 - Any public or private interaction representing the project  
-
----
 
 ## Reporting
 
@@ -62,13 +52,9 @@ If you experience or witness unacceptable behavior, please report it by contacti
 
 All reports will be handled confidentially and reviewed fairly.
 
----
-
 ## Enforcement Guidelines
 
 Violations may result in actions ranging from warnings to temporary or permanent bans, depending on severity.
-
----
 
 ## Attribution
 
