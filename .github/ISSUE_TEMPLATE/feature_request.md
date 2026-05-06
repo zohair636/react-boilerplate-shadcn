@@ -1,14 +1,5 @@
 ---
 name: Feature request
-about: Suggest an idea for this project
-title: ''
-labels: ''
-assignees: ''
-
----
-
----
-name: Feature request
 about: Suggest an idea or improvement
 title: "[FEATURE] "
 labels: enhancement
@@ -19,19 +10,13 @@ assignees: ""
 
 Describe the feature or improvement.
 
----
-
 ## 🎯 Problem It Solves
 
 What problem does this address?
 
----
-
 ## 💡 Proposed Solution
 
 How do you think this should work?
-
----
 
 ## 🧱 Affected Area
 
@@ -41,13 +26,9 @@ How do you think this should work?
 - [ ] Routing
 - [ ] Project structure
 
----
-
 ## 🔄 Alternatives Considered
 
 Any alternative approaches you thought about.
-
----
 
 ## 📝 Additional Context
 
