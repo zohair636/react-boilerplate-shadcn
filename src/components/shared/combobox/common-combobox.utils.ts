@@ -1,4 +1,4 @@
-import type { SelectableItem } from "./combobox.types";
+import type { SelectableItem } from "./common-combobox.types";
 
 export const getOptionValue = (option: SelectableItem) => {
   return typeof option === "string" ? option : option.value;

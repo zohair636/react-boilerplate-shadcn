@@ -15,7 +15,7 @@ import {
   ComboboxValue,
   useComboboxAnchor,
 } from "@/components/ui/combobox";
-import type { CommonComboboxProps, SelectableItem } from "./combobox.types";
+import type { CommonComboboxProps, SelectableItem } from "./common-combobox.types";
 import CommonLabel from "../label";
 import { Activity, useId } from "react";
 import { cn } from "@/lib/utils";
