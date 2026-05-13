@@ -1,0 +1,1 @@
+export {default as CommonBadge} from "./common-badge";
