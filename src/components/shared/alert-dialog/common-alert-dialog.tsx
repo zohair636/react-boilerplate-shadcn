@@ -34,9 +34,9 @@ const CommonAlertDialog = ({
           )}
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel>{cancel?.label ?? 'Cancel'}</AlertDialogCancel>
-          <AlertDialogAction variant={confirm?.variant} onClick={confirm?.onClick}>
-            {confirm?.label ?? 'Proceed'}
+          <AlertDialogCancel>{cancel?.label ?? "Cancel"}</AlertDialogCancel>
+          <AlertDialogAction {...confirm} variant={confirm?.variant}>
+            {confirm?.label ?? "Proceed"}
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
