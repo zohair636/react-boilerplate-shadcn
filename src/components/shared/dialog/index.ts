@@ -1,0 +1,1 @@
+export {default as CommonDialog} from './common-dialog'
