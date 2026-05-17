@@ -19,11 +19,8 @@ const CommonAlertDialog = ({
   description,
   icon,
   size = "default",
-  cancelLabel = "Cancel",
-  onCancel,
-  confirmLabel = "Yes, I confirm",
-  onConfirm,
-  variant = "default",
+  cancel,
+  confirm,
 }: CommonAlertDialogProps) => {
   return (
     <AlertDialog>
@@ -37,11 +34,9 @@ const CommonAlertDialog = ({
           )}
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel onClick={onCancel}>
-            {cancelLabel}
-          </AlertDialogCancel>
-          <AlertDialogAction variant={variant} onClick={onConfirm}>
-            {confirmLabel}
+          <AlertDialogCancel>{cancel?.label ?? 'Cancel'}</AlertDialogCancel>
+          <AlertDialogAction variant={confirm?.variant} onClick={confirm?.onClick}>
+            {confirm?.label ?? 'Proceed'}
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>

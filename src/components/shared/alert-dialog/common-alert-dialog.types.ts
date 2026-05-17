@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import type { CommonButtonProps } from "../button/types";
 
 export interface CommonAlertDialogProps {
   trigger: ReactNode;
@@ -6,9 +7,9 @@ export interface CommonAlertDialogProps {
   description?: string;
   icon?: ReactNode;
   size?: "default" | "sm";
-  cancelLabel?: string;
-  onCancel?: () => void;
-  confirmLabel?: string;
-  onConfirm: () => void;
-  variant?: "default" | "destructive";
+  cancel?: Partial<CommonButtonProps> & { label: string };
+  confirm?: Partial<CommonButtonProps> & {
+    label: string;
+    variant?: "default" | "destructive";
+  };
 }
