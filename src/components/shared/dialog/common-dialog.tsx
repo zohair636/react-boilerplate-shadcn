@@ -9,8 +9,8 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import type { CommonDialogProps } from "./common-dialog.types";
-import CommonButton from "../button";
 import { cn } from "@/lib/utils";
+import { CommonButton } from "../button";
 
 const CommonDialog = ({
   trigger,

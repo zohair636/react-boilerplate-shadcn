@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import type { CommonButtonProps } from "../button/types";
+import type { CommonButtonProps } from "../button";
 
 export interface CommonDialogProps {
   trigger: ReactNode;
