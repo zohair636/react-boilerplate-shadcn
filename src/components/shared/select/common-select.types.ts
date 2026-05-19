@@ -9,4 +9,5 @@ export interface CommonSelectProps {
   className?: string;
   error?: string;
   required?: boolean;
+  disabled?: boolean
 }

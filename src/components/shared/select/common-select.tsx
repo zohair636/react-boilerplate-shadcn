@@ -23,6 +23,7 @@ const CommonSelect = ({
   className,
   error,
   required,
+  disabled,
 }: CommonSelectProps) => {
   const generatedId = useId();
   const fieldId = id ?? generatedId;
@@ -47,6 +48,7 @@ const CommonSelect = ({
         value={value ?? undefined}
         onValueChange={(v) => onValueChange?.(v ?? null)}
         defaultValue={defaultValue ?? undefined}
+        disabled={disabled}
       >
         <SelectTrigger aria-invalid={isInvalid} className={className}>
           <SelectValue placeholder={placeholderOption} />
