@@ -1,4 +1,4 @@
-import type { InputHTMLAttributes, ReactNode } from "react";
+import type { InputHTMLAttributes, ReactNode, Ref } from "react";
 
 export interface CommonInputProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: string;
@@ -8,5 +8,5 @@ export interface CommonInputProps extends InputHTMLAttributes<HTMLInputElement> 
   leftIconClassName?: string;
   rightIconClassName?: string;
   error?: string;
-  required?: boolean;
+  ref?: Ref<HTMLInputElement>;
 }
