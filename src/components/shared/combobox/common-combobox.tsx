@@ -15,8 +15,11 @@ import {
   ComboboxValue,
   useComboboxAnchor,
 } from "@/components/ui/combobox";
-import type { CommonComboboxProps, SelectableItem } from "./common-combobox.types";
-import CommonLabel from "../label";
+import type {
+  CommonComboboxProps,
+  SelectableItem,
+} from "./common-combobox.types";
+import { CommonLabel } from "../label";
 import { Activity, useId } from "react";
 import { cn } from "@/lib/utils";
 import { InputGroupAddon } from "@/components/ui/input-group";
@@ -87,16 +90,14 @@ const CommonCombobox = ({
               {(values) => (
                 <>
                   {Array.isArray(values) &&
-                    values.map(
-                      (value: SelectableItem) => (
-                        <ComboboxChip
-                          key={getOptionValue(value)}
-                          className={chipClassName}
-                        >
-                          {getOptionLabel(value)}
-                        </ComboboxChip>
-                      ),
-                    )}
+                    values.map((value: SelectableItem) => (
+                      <ComboboxChip
+                        key={getOptionValue(value)}
+                        className={chipClassName}
+                      >
+                        {getOptionLabel(value)}
+                      </ComboboxChip>
+                    ))}
                   <ComboboxChipsInput className={className} />
                 </>
               )}

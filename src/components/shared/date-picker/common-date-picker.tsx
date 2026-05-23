@@ -5,7 +5,7 @@ import { CommonButton } from "../button";
 import { format } from "date-fns";
 import { cn } from "@/lib/utils";
 import { ChevronDownIcon } from "lucide-react";
-import CommonLabel from "../label";
+import { CommonLabel } from "../label";
 
 const CommonDatePicker = ({
   label,

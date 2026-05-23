@@ -1,5 +1,5 @@
 import { Switch } from "@/components/ui/switch";
-import CommonLabel from "../label";
+import { CommonLabel } from "../label";
 import { useId } from "react";
 import type { CommonSwitchProps } from "./common-switch.types";
 import { cn } from "@/lib/utils";

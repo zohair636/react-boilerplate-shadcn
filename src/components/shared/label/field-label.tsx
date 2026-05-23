@@ -1,5 +1,5 @@
 import { Activity, forwardRef, useId } from "react";
-import type { CommonLabelProps } from "./types";
+import type { CommonLabelProps } from "./common-label.types";
 import { FieldLabel } from "@/components/ui/field";
 
 const CommonFieldLabel = forwardRef<HTMLLabelElement, CommonLabelProps>(
