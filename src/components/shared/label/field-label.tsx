@@ -1,24 +1,22 @@
-import { Activity, forwardRef, useId } from "react";
-import type { CommonLabelProps } from "./common-label.types";
+import type { CommonFieldLabelProps } from "./common-label.types";
 import { FieldLabel } from "@/components/ui/field";
 
-const CommonFieldLabel = forwardRef<HTMLLabelElement, CommonLabelProps>(
-  ({ id, label, required, className, ...rest }, ref) => {
-    const generatedId = useId();
-    const fieldId = id ?? generatedId;
-    return (
-      <div className="flex items-center gap-1">
-        <FieldLabel htmlFor={fieldId} ref={ref} className={className} {...rest}>
-          {label}
-        </FieldLabel>
-        <Activity mode={required ? "visible" : "hidden"}>
-          <span className="text-destructive">*</span>
-        </Activity>
-      </div>
-    );
-  },
-);
-
-CommonFieldLabel.displayName = "CommonFieldLabel";
+const CommonFieldLabel = ({
+  id,
+  label,
+  required,
+  className,
+  ref,
+  ...rest
+}: CommonFieldLabelProps) => {
+  return (
+    <div className="flex items-center gap-1">
+      <FieldLabel htmlFor={id} ref={ref} className={className} {...rest}>
+        {label}
+      </FieldLabel>
+      {required && <span className="text-destructive">*</span>}
+    </div>
+  );
+};
 
 export default CommonFieldLabel;
