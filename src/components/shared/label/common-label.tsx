@@ -8,10 +8,12 @@ const CommonLabel = ({
   required,
   helper,
   className,
+  ref,
   ...rest
 }: CommonLabelProps) => {
   return (
     <Label
+      ref={ref}
       htmlFor={id}
       className={cn(
         "flex items-center gap-0.5 text-sm! font-normal leading-4",
