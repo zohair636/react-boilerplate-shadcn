@@ -1,7 +1,7 @@
 import { Badge } from "@/components/ui/badge";
 import type { CommonBadgeProps } from "./common-badge.types";
-import { renderIcon } from "@/utils/icon-utils";
 import { Spinner } from "@/components/ui/spinner";
+import { RenderIcon } from "@/utils/icon-utils";
 
 const CommonBadge = ({
   label,
@@ -22,10 +22,12 @@ const CommonBadge = ({
       {isLoading && variant !== "link" ? (
         <Spinner data-icon="inline-start" />
       ) : (
-        leftIcon && renderIcon(leftIcon)
+        leftIcon && <RenderIcon src={leftIcon} alt={label as string} />
       )}
       {label}
-      {!isLoading && rightIcon && renderIcon(rightIcon)}
+      {!isLoading && rightIcon && (
+        <RenderIcon src={rightIcon} alt={label as string} />
+      )}
     </Badge>
   );
 };

@@ -1,7 +1,7 @@
+import { RenderIcon } from "@/utils/icon-utils";
 import { Button } from "../../ui/button";
 import type { CommonButtonProps } from "./common-button.types";
 import { Spinner } from "@/components/ui/spinner";
-import { renderIcon } from "@/utils/icon-utils";
 
 const CommonButton = ({
   label,
@@ -24,10 +24,14 @@ const CommonButton = ({
       aria-busy={isLoading}
       {...rest}
     >
-      {leftIcon && !isLoading && renderIcon(leftIcon)}
+      {leftIcon && !isLoading && (
+        <RenderIcon src={leftIcon} alt={label as string} />
+      )}
       {isLoading && <Spinner color="white" />}
       {label}
-      {rightIcon && !isLoading && renderIcon(rightIcon)}
+      {rightIcon && !isLoading && (
+        <RenderIcon src={rightIcon} alt={label as string} />
+      )}
     </Button>
   );
 };

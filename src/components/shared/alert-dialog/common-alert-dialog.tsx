@@ -11,7 +11,7 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import type { CommonAlertDialogProps } from "./common-alert-dialog.types";
-import { renderIcon } from "@/utils/icon-utils";
+import { RenderIcon } from "@/utils/icon-utils";
 
 const CommonAlertDialog = ({
   trigger,
@@ -27,7 +27,7 @@ const CommonAlertDialog = ({
       <AlertDialogTrigger>{trigger}</AlertDialogTrigger>
       <AlertDialogContent size={size}>
         <AlertDialogHeader>
-          {icon && <AlertDialogMedia>{renderIcon(icon)}</AlertDialogMedia>}
+          {icon && <AlertDialogMedia><RenderIcon src={icon} alt={title} /></AlertDialogMedia>}
           <AlertDialogTitle>{title}</AlertDialogTitle>
           {description && (
             <AlertDialogDescription>{description}</AlertDialogDescription>

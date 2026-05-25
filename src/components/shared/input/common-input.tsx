@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 import { CircleAlert } from "lucide-react";
 import CommonFieldLabel from "../label/field-label";
 import { Field, FieldError } from "@/components/ui/field";
-import { renderIcon } from "@/utils/icon-utils";
+import { RenderIcon } from "@/utils/icon-utils";
 
 const CommonInput = ({
   id,
@@ -43,7 +43,7 @@ const CommonInput = ({
             <span
               className={cn("absolute left-3 z-10 shrink-0", leftIconClassName)}
             >
-              {renderIcon(leftIcon)}
+              <RenderIcon src={leftIcon} alt={label} />
             </span>
           )}
           <Input
@@ -65,7 +65,7 @@ const CommonInput = ({
                 rightIconClassName,
               )}
             >
-              {renderIcon(rightIcon)}
+              <RenderIcon src={rightIcon} alt={label} />
             </div>
           )}
         </div>

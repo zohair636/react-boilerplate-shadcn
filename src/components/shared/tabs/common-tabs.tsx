@@ -1,6 +1,6 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import type { CommonTabsProps } from "./common-tabs.types";
-import { renderIcon } from "@/utils/icon-utils";
+import { RenderIcon } from "@/utils/icon-utils";
 
 const CommonTabs = ({
   options,
@@ -29,7 +29,7 @@ const CommonTabs = ({
             value={option.value}
             disabled={option.disabled}
           >
-            {renderIcon(option.icon)}
+            <RenderIcon src={option.icon} alt={option.label} />
             {option.label}
           </TabsTrigger>
         ))}

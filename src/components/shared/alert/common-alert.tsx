@@ -5,8 +5,8 @@ import {
   AlertTitle,
 } from "@/components/ui/alert";
 import type { CommonAlertProps } from "./common-alert.type";
-import { renderIcon } from "@/utils/icon-utils";
 import { Activity } from "react";
+import { RenderIcon } from "@/utils/icon-utils";
 
 const CommonAlert = ({
   icon,
@@ -18,7 +18,9 @@ const CommonAlert = ({
 }: CommonAlertProps) => {
   return (
     <Alert variant={variant} className={className}>
-      <Activity mode={icon ? "visible" : "hidden"}>{renderIcon(icon)}</Activity>
+      <Activity mode={icon ? "visible" : "hidden"}>
+        <RenderIcon src={icon} alt={title} />
+      </Activity>
       <AlertTitle>{title}</AlertTitle>
       <Activity mode={description ? "visible" : "hidden"}>
         <AlertDescription>{description}</AlertDescription>
