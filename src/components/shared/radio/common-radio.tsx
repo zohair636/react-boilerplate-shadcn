@@ -1,5 +1,5 @@
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import type { CommonradioProps } from "./common-radio.types";
+import type { CommonRadioProps } from "./common-radio.types";
 import { useId } from "react";
 import {
   Field,
@@ -19,7 +19,7 @@ const CommonRadio = ({
   value,
   onSelect,
   orientation = "horizontal",
-}: CommonradioProps) => {
+}: CommonRadioProps) => {
   const generatedId = useId();
   const radioId = id ?? generatedId;
   const isInvalid = !!required && !value;

@@ -1,4 +1,4 @@
-export interface CommonradioProps {
+export interface CommonRadioProps {
   id?: string;
   defaultValue?: string;
   options: { label: string; description?: string; value: string }[];
