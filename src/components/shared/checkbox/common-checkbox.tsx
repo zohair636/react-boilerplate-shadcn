@@ -8,7 +8,7 @@ import {
   FieldSet,
 } from "@/components/ui/field";
 import CommonFieldLabel from "../label/field-label";
-import { Activity, useId } from "react";
+import { useId } from "react";
 import type { CommonCheckboxProps } from "./common-checkbox.types";
 
 const CommonCheckbox = ({
@@ -56,9 +56,9 @@ const CommonCheckbox = ({
             />
             <FieldContent>
               <CommonFieldLabel id={fieldId} label={label} />
-              <Activity mode={description ? "visible" : "hidden"}>
+              {description && (
                 <FieldDescription>{description}</FieldDescription>
-              </Activity>
+              )}
             </FieldContent>
           </Field>
         </FieldGroup>
@@ -67,12 +67,8 @@ const CommonCheckbox = ({
     if (variant === "group") {
       return (
         <FieldSet>
-          <Activity mode={label ? "visible" : "hidden"}>
-            <FieldLegend>{label}</FieldLegend>
-          </Activity>
-          <Activity mode={description ? "visible" : "hidden"}>
-            <FieldDescription>{description}</FieldDescription>
-          </Activity>
+          {label && <FieldLegend>{label}</FieldLegend>}
+          {description && <FieldDescription>{description}</FieldDescription>}
           <FieldGroup className={className}>
             {options?.map((option) => {
               const optionId = `${fieldId}-${option.value}`;

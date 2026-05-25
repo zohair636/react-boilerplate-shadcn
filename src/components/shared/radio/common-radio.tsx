@@ -1,6 +1,6 @@
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import type { CommonradioProps } from "./common-radio.types";
-import { Activity, useId } from "react";
+import { useId } from "react";
 import {
   Field,
   FieldContent,
@@ -50,9 +50,9 @@ const CommonRadio = ({
               />
               <FieldContent>
                 <FieldLabel htmlFor={optionId}>{option.label}</FieldLabel>
-                <Activity mode={option.description ? "visible" : "hidden"}>
+                {option.description && (
                   <FieldDescription>{option.description}</FieldDescription>
-                </Activity>
+                )}
               </FieldContent>
             </Field>
           );

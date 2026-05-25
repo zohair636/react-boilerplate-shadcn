@@ -20,7 +20,7 @@ import type {
   SelectableItem,
 } from "./common-combobox.types";
 import { CommonLabel } from "../label";
-import { Activity, useId } from "react";
+import { useId } from "react";
 import { cn } from "@/lib/utils";
 import { InputGroupAddon } from "@/components/ui/input-group";
 import { getOptionLabel, getOptionValue } from "./common-combobox.utils";
@@ -55,9 +55,7 @@ const CommonCombobox = ({
             showClear={showClear}
             className={className}
           >
-            <Activity mode={icon ? "visible" : "hidden"}>
-              <InputGroupAddon>{icon}</InputGroupAddon>
-            </Activity>
+            {icon && <InputGroupAddon>{icon}</InputGroupAddon>}
           </ComboboxInput>
           <ComboboxContent>
             <ComboboxEmpty>{fallback}</ComboboxEmpty>
@@ -130,9 +128,7 @@ const CommonCombobox = ({
             showClear={showClear}
             className={className}
           >
-            <Activity mode={icon ? "visible" : "hidden"}>
-              <InputGroupAddon>{icon}</InputGroupAddon>
-            </Activity>
+            {icon && <InputGroupAddon>{icon}</InputGroupAddon>}
           </ComboboxInput>
           <ComboboxContent>
             <ComboboxEmpty>{fallback}</ComboboxEmpty>
@@ -161,14 +157,14 @@ const CommonCombobox = ({
 
   return (
     <>
-      <Activity mode={label ? "visible" : "hidden"}>
+      {label && (
         <CommonLabel
           htmlFor={id}
           label={label}
           className={cn("mb-2", labelClassName)}
           required={required}
         />
-      </Activity>
+      )}
       {renderItems()}
     </>
   );
