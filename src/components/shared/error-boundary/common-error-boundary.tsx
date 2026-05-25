@@ -1,13 +1,5 @@
-import { Component, type ErrorInfo, type ReactNode } from "react";
-
-interface Props {
-  children: ReactNode;
-}
-
-interface State {
-  hasError: boolean;
-  error: Error | null;
-}
+import { Component, type ErrorInfo } from "react";
+import type { Props, State } from "./common-error-boundary.types";
 
 class CommonErrorBoundary extends Component<Props, State> {
   public state: State = {
@@ -23,15 +15,9 @@ class CommonErrorBoundary extends Component<Props, State> {
     console.error("Uncaught error:", error, errorInfo);
   }
 
-  // private resetErrorBoundary = () => {
-  //   this.setState({ hasError: false, error: null });
-  // };
-
   public render() {
     if (this.state.hasError) {
-      return (
-        <p></p>
-      );
+      return <p></p>;
     }
 
     return this.props.children;
