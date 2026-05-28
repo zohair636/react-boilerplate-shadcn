@@ -7,6 +7,7 @@ interface DropDownListItem {
   disabled?: boolean | undefined;
   shortcut?: string | undefined;
   icon?: ReactNode | undefined;
+  variant?: "default" | "destructive";
   subOptions?: DropDownListItem[];
 }
 

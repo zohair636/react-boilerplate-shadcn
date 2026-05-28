@@ -39,12 +39,17 @@ const CommonDropdown = ({
                   icon,
                   onClick,
                   shortcut,
+                  variant = 'default',
                   subOptions,
                 } = item;
                 const itemKey = `${option.label ?? "group"}-${value}-${itemIndex}`;
                 return (
                   <Fragment key={itemKey}>
-                    <DropdownMenuItem onClick={onClick} disabled={disabled}>
+                    <DropdownMenuItem
+                      onClick={onClick}
+                      disabled={disabled}
+                      variant={variant}
+                    >
                       <RenderIcon src={icon} />
                       <span
                         className={cn("truncate min-w-0 flex-1", itemClassName)}
@@ -64,12 +69,14 @@ const CommonDropdown = ({
                             disabled,
                             icon,
                             shortcut,
+                            variant = 'default',
                           } = subOption;
                           return (
                             <DropdownMenuItem
                               key={`${itemKey}-${value}-${subIndex}`}
                               onClick={onClick}
                               disabled={disabled}
+                              variant={variant}
                             >
                               <RenderIcon src={icon} />
                               <span
