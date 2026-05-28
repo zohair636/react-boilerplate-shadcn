@@ -1,5 +1,0 @@
-1. Drawer
-2. Dropdown menu
-3. Progress
-4. Sonner
-5. Input date picker, time and date picker
