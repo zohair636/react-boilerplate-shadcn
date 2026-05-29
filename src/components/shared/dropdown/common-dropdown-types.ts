@@ -4,21 +4,49 @@ interface DropDownListItem {
   label: string;
   value: string;
   onClick?: () => void;
-  disabled?: boolean | undefined;
+  disabled?: boolean;
   shortcut?: string | undefined;
   icon?: ReactNode | undefined;
   variant?: "default" | "destructive";
   subOptions?: DropDownListItem[];
 }
 
-interface DropDownOptionLabel {
+interface CheckboxDropDownListItem {
+  label: string;
+  value: string;
+  disabled?: boolean;
+  shortcut?: string | undefined;
+  icon?: ReactNode | undefined;
+}
+
+interface DefaultDropDownOptionLabel {
   label?: string | undefined;
   items?: DropDownListItem[];
 }
 
-export interface CommonDropdownProps {
+interface CheckboxDropDownOptionLabel {
+  label?: string | undefined;
+  items?: CheckboxDropDownListItem[];
+}
+
+type BaseDropdownProps = {
   trigger: ReactNode;
-  options: DropDownOptionLabel[];
   className?: string;
   itemClassName?: string;
-}
+};
+
+type DefaultDropdownProps = BaseDropdownProps & {
+  mode: "default";
+  options: DefaultDropDownOptionLabel[];
+};
+
+type CheckboxesDropdownProps = BaseDropdownProps & {
+  mode: "checkboxes";
+  checked?: boolean | undefined;
+  onCheckedChange?: (checked: boolean) => void;
+  options: CheckboxDropDownOptionLabel[];
+};
+
+export type CommonDropdownProps =
+  | DefaultDropdownProps
+  | CheckboxesDropdownProps;
