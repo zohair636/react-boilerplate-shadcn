@@ -21,14 +21,24 @@ interface CheckboxDropDownListItem {
   icon?: ReactNode;
 }
 
+type RadioGroupDropDownListItem = Omit<
+  DropDownListItem,
+  "onClick" | "variant" | "subOptions"
+>;
+
 interface DefaultDropDownOptionLabel {
-  label?: string | undefined;
+  label?: string;
   items?: DropDownListItem[];
 }
 
 interface CheckboxDropDownOptionLabel {
-  label?: string | undefined;
+  label?: string;
   items?: CheckboxDropDownListItem[];
+}
+
+interface RadioGroupDropDownOptionLabel {
+  label?: string;
+  items?: RadioGroupDropDownListItem[];
 }
 
 type BaseDropdownProps = {
@@ -47,6 +57,14 @@ type CheckboxesDropdownProps = BaseDropdownProps & {
   options: CheckboxDropDownOptionLabel[];
 };
 
+type RadioGroupDropdownProps = BaseDropdownProps & {
+  mode: "radio-groups";
+  options: RadioGroupDropDownOptionLabel[];
+  value: string;
+  onValueChange: (value: string) => void;
+};
+
 export type CommonDropdownProps =
   | DefaultDropdownProps
-  | CheckboxesDropdownProps;
+  | CheckboxesDropdownProps
+  | RadioGroupDropdownProps;

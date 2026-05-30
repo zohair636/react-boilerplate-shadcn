@@ -5,6 +5,8 @@ import {
   DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuLabel,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
   DropdownMenuSeparator,
   DropdownMenuShortcut,
   DropdownMenuTrigger,
@@ -15,13 +17,7 @@ import { RenderIcon } from "@/utils/icon-utils";
 import { cn } from "@/lib/utils";
 
 const CommonDropdown = (props: CommonDropdownProps) => {
-  const {
-    mode,
-    options,
-    trigger,
-    className,
-    itemClassName,
-  } = props;
+  const { mode, options, trigger, className, itemClassName } = props;
 
   if (!options?.length) return null;
 
@@ -159,6 +155,44 @@ const CommonDropdown = (props: CommonDropdownProps) => {
               </Fragment>
             );
           })}
+        </>
+      );
+    }
+    if (mode === "radio-groups") {
+      return (
+        <>
+          <DropdownMenuGroup>
+            {options.map((option, optionIndex) => {
+              const items = option.items || [];
+              return (
+                <Fragment key={`${option.label}-${optionIndex}`}>
+                  <DropdownMenuLabel>{option.label}</DropdownMenuLabel>
+                  <DropdownMenuRadioGroup
+                    value={props.value}
+                    onValueChange={props.onValueChange}
+                  >
+                    {items.map((item, itemIndex) => {
+                      const { label, value } = item;
+                      const itemKey = `${option.label ?? "group"}-${value}-${itemIndex}`;
+                      return (
+                        <DropdownMenuRadioItem key={itemKey} value={value}>
+                          <RenderIcon src={item.icon} />
+                          <span
+                            className={cn(
+                              "truncate min-w-0 flex-1",
+                              itemClassName,
+                            )}
+                          >
+                            {label}
+                          </span>
+                        </DropdownMenuRadioItem>
+                      );
+                    })}
+                  </DropdownMenuRadioGroup>
+                </Fragment>
+              );
+            })}
+          </DropdownMenuGroup>
         </>
       );
     }
