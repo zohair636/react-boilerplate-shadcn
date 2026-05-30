@@ -5,8 +5,8 @@ interface DropDownListItem {
   value: string;
   onClick?: () => void;
   disabled?: boolean;
-  shortcut?: string | undefined;
-  icon?: ReactNode | undefined;
+  shortcut?: string;
+  icon?: ReactNode;
   variant?: "default" | "destructive";
   subOptions?: DropDownListItem[];
 }
@@ -14,9 +14,11 @@ interface DropDownListItem {
 interface CheckboxDropDownListItem {
   label: string;
   value: string;
+  checked: boolean;
+  onCheckedChange: (checked: boolean) => void;
   disabled?: boolean;
-  shortcut?: string | undefined;
-  icon?: ReactNode | undefined;
+  shortcut?: string;
+  icon?: ReactNode;
 }
 
 interface DefaultDropDownOptionLabel {
@@ -42,8 +44,6 @@ type DefaultDropdownProps = BaseDropdownProps & {
 
 type CheckboxesDropdownProps = BaseDropdownProps & {
   mode: "checkboxes";
-  checked?: boolean | undefined;
-  onCheckedChange?: (checked: boolean) => void;
   options: CheckboxDropDownOptionLabel[];
 };
 

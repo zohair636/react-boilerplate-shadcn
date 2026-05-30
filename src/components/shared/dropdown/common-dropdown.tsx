@@ -15,7 +15,13 @@ import { RenderIcon } from "@/utils/icon-utils";
 import { cn } from "@/lib/utils";
 
 const CommonDropdown = (props: CommonDropdownProps) => {
-  const { mode, options, trigger, className, itemClassName } = props;
+  const {
+    mode,
+    options,
+    trigger,
+    className,
+    itemClassName,
+  } = props;
 
   if (!options?.length) return null;
 
@@ -122,13 +128,15 @@ const CommonDropdown = (props: CommonDropdownProps) => {
                       disabled,
                       icon,
                       shortcut,
+                      checked,
+                      onCheckedChange,
                     } = item;
                     const itemKey = `${option.label ?? "group"}-${value}-${itemIndex}`;
                     return (
                       <Fragment key={itemKey}>
                         <DropdownMenuCheckboxItem
-                          checked={props.checked}
-                          onCheckedChange={props.onCheckedChange}
+                          checked={checked}
+                          onCheckedChange={onCheckedChange}
                           disabled={disabled}
                         >
                           <RenderIcon src={icon} />
