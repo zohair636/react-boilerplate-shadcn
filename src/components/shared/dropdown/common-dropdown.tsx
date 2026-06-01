@@ -5,10 +5,14 @@ import {
   DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuLabel,
+  DropdownMenuPortal,
   DropdownMenuRadioGroup,
   DropdownMenuRadioItem,
   DropdownMenuSeparator,
   DropdownMenuShortcut,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import type { CommonDropdownProps } from "./common-dropdown-types";
@@ -42,6 +46,7 @@ const CommonDropdown = (props: CommonDropdownProps) => {
                     shortcut,
                     variant = "default",
                     subOptions,
+                    subMenu,
                   } = item;
                   const itemKey = `${option.label ?? "group"}-${value}-${itemIndex}`;
                   return (
@@ -62,6 +67,54 @@ const CommonDropdown = (props: CommonDropdownProps) => {
                         </span>
                         <DropdownMenuShortcut>{shortcut}</DropdownMenuShortcut>
                       </DropdownMenuItem>
+                      {subMenu?.map((subMenuGroup, subMenuGroupIndex) => {
+                        const { label, items } = subMenuGroup;
+                        return (
+                          <DropdownMenuSub
+                            key={`${itemKey}-subMenu-${subMenuGroupIndex}`}
+                          >
+                            <DropdownMenuSubTrigger>
+                              {label}
+                            </DropdownMenuSubTrigger>
+                            <DropdownMenuPortal>
+                              <DropdownMenuSubContent
+                                className={cn("w-auto max-w-56", className)}
+                              >
+                                {items?.map((subMenuItem, subMenuIndex) => {
+                                  const {
+                                    label,
+                                    value,
+                                    disabled,
+                                    icon,
+                                    onClick,
+                                    shortcut,
+                                  } = subMenuItem;
+                                  return (
+                                    <DropdownMenuItem
+                                      key={`${itemKey}-${value}-${subMenuIndex}`}
+                                      onClick={onClick}
+                                      disabled={disabled}
+                                    >
+                                      <RenderIcon src={icon} />
+                                      <span
+                                        className={cn(
+                                          "truncate min-w-0 flex-1",
+                                          itemClassName,
+                                        )}
+                                      >
+                                        {label}
+                                      </span>
+                                      <DropdownMenuShortcut>
+                                        {shortcut}
+                                      </DropdownMenuShortcut>
+                                    </DropdownMenuItem>
+                                  );
+                                })}
+                              </DropdownMenuSubContent>
+                            </DropdownMenuPortal>
+                          </DropdownMenuSub>
+                        );
+                      })}
                       {!!subOptions?.length && (
                         <>
                           <DropdownMenuSeparator />

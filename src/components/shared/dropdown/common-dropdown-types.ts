@@ -9,6 +9,11 @@ interface DropDownListItem {
   icon?: ReactNode;
   variant?: "default" | "destructive";
   subOptions?: DropDownListItem[];
+  subMenu?: {
+    label: string;
+    icon?: ReactNode;
+    items: DropDownListItem[];
+  }[];
 }
 
 interface CheckboxDropDownListItem {
@@ -23,7 +28,7 @@ interface CheckboxDropDownListItem {
 
 type RadioGroupDropDownListItem = Omit<
   DropDownListItem,
-  "onClick" | "variant" | "subOptions"
+  "onClick" | "variant" | "subOptions" | "subMenu"
 >;
 
 interface DefaultDropDownOptionLabel {
