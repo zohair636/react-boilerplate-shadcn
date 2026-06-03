@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 
 export interface CommonCardProps {
-  title: string;
+  title?: string;
   description?: string;
   action?: ReactNode;
   children: ReactNode;
