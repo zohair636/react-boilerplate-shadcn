@@ -1,4 +1,3 @@
-import { CommonCard } from "../../card";
 import {
   ChartContainer,
   ChartTooltip,
@@ -12,15 +11,14 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import { chartConfig } from "./common-bar-chart.config";
 import type { CommonBarChartProps } from "./common-bar-chart.types";
 
-const CommonBarChart = ({
-  title,
-  description,
-  data,
+const CommonBarChart = <TData extends Record<string, unknown>> ({
+  options,
+  config,
+  bars,
   accessibilityLayer = true,
-  vertical = false,
+  showVerticalGridLines = false,
   cursor = false,
   hideLabel = true,
   tickLine = false,
@@ -28,27 +26,23 @@ const CommonBarChart = ({
   tickMargin = 10,
   xAxisDataKey = "month",
   yAxisDataKey = "month",
-  barDataKey = "desktop",
   tickFormatter,
-  radius = 8,
   className,
-  fill = "var(--color-desktop)",
   type = "category",
   layout = "horizontal",
   indicator = "dashed",
-  showBarLabel,
   position = "top",
   offset,
   fontSize = 12,
   barLabelClassName,
-}: CommonBarChartProps) => {
-  if (!data?.length) return null;
+}: CommonBarChartProps<TData>) => {
+  if (!options?.length || !bars?.length) return null;
 
   const renderAxis = () => {
     if (layout === "horizontal") {
       return (
         <XAxis
-          dataKey={xAxisDataKey}
+          dataKey={xAxisDataKey as string}
           tickLine={tickLine}
           tickMargin={tickMargin}
           axisLine={axisLine}
@@ -60,9 +54,9 @@ const CommonBarChart = ({
     if (layout === "vertical") {
       return (
         <>
-          <XAxis dataKey="desktop" type="number" hide />
+          <XAxis dataKey={bars[0].dataKey as string} type="number" hide />
           <YAxis
-            dataKey={yAxisDataKey}
+            dataKey={yAxisDataKey as string}
             type="category"
             tickLine={tickLine}
             tickMargin={tickMargin}
@@ -74,26 +68,28 @@ const CommonBarChart = ({
     }
   };
   return (
-    <CommonCard title={title ?? ""} description={description}>
-      <ChartContainer config={chartConfig} className={className}>
-        <BarChart
-          accessibilityLayer={accessibilityLayer}
-          data={data}
-          layout={layout}
-        >
-          <CartesianGrid vertical={vertical} />
-          {renderAxis()}
-          <ChartTooltip
-            cursor={cursor}
-            content={
-              <ChartTooltipContent
-                indicator={indicator}
-                hideLabel={hideLabel}
-              />
-            }
-          />
-          <Bar dataKey={barDataKey} fill={fill} radius={radius}>
-            {showBarLabel && (
+    <ChartContainer config={config} className={className}>
+      <BarChart
+        accessibilityLayer={accessibilityLayer}
+        data={options}
+        layout={layout}
+      >
+        <CartesianGrid vertical={showVerticalGridLines} />
+        {renderAxis()}
+        <ChartTooltip
+          cursor={cursor}
+          content={
+            <ChartTooltipContent indicator={indicator} hideLabel={hideLabel} />
+          }
+        />
+        {bars.map((bar) => (
+          <Bar
+            key={bar.dataKey}
+            dataKey={bar.dataKey as string}
+            fill={bar.fill ?? `var(--color-${bar.dataKey})`}
+            radius={bar.radius}
+          >
+            {bar.showLabel && (
               <LabelList
                 position={position}
                 offset={offset}
@@ -102,9 +98,9 @@ const CommonBarChart = ({
               />
             )}
           </Bar>
-        </BarChart>
-      </ChartContainer>
-    </CommonCard>
+        ))}
+      </BarChart>
+    </ChartContainer>
   );
 };
 
