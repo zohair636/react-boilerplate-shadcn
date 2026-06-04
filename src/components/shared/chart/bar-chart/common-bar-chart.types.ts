@@ -31,4 +31,5 @@ export interface CommonBarChartProps<TData extends Record<string, unknown>> {
   offset?: LabelListProps["offset"];
   fontSize?: LabelListProps["fontSize"];
   barLabelClassName?: string;
+  chartLegend?: boolean;
 }

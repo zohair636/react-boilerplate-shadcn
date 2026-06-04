@@ -1,5 +1,7 @@
 import {
   ChartContainer,
+  ChartLegend,
+  ChartLegendContent,
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
@@ -13,7 +15,7 @@ import {
 } from "recharts";
 import type { CommonBarChartProps } from "./common-bar-chart.types";
 
-const CommonBarChart = <TData extends Record<string, unknown>> ({
+const CommonBarChart = <TData extends Record<string, unknown>>({
   options,
   config,
   bars,
@@ -35,6 +37,7 @@ const CommonBarChart = <TData extends Record<string, unknown>> ({
   offset,
   fontSize = 12,
   barLabelClassName,
+  chartLegend = false,
 }: CommonBarChartProps<TData>) => {
   if (!options?.length || !bars?.length) return null;
 
@@ -54,7 +57,7 @@ const CommonBarChart = <TData extends Record<string, unknown>> ({
     if (layout === "vertical") {
       return (
         <>
-          <XAxis dataKey={bars[0].dataKey as string} type="number" hide />
+          <XAxis dataKey={xAxisDataKey as string} type="number" hide />
           <YAxis
             dataKey={yAxisDataKey as string}
             type="category"
@@ -99,6 +102,7 @@ const CommonBarChart = <TData extends Record<string, unknown>> ({
             )}
           </Bar>
         ))}
+        {chartLegend && <ChartLegend content={<ChartLegendContent />} />}
       </BarChart>
     </ChartContainer>
   );
