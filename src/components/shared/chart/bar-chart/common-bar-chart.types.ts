@@ -1,16 +1,22 @@
 import type { ChartConfig } from "@/components/ui/chart";
 import type { LabelListProps } from "recharts";
+import type { ChartIndicator } from "../types";
 
 export interface BarConfig<TData extends Record<string, unknown>> {
   dataKey: keyof TData & string;
   fill?: string;
-  label?: string;
+  label?: {
+    show?: boolean;
+    position?: LabelListProps["position"];
+    offset?: LabelListProps["offset"];
+    fontSize?: LabelListProps["fontSize"];
+    className?: string;
+  };
   radius?: number;
-  showLabel?: boolean;
 }
 
 export interface CommonBarChartProps<TData extends Record<string, unknown>> {
-  options: TData[];
+  data: TData[];
   config: ChartConfig;
   bars: BarConfig<TData>[];
   accessibilityLayer?: boolean;
@@ -26,10 +32,6 @@ export interface CommonBarChartProps<TData extends Record<string, unknown>> {
   className?: string;
   type?: "auto" | "category" | "number";
   layout?: "horizontal" | "vertical";
-  indicator?: "dashed" | "dot" | "line";
-  position?: LabelListProps["position"];
-  offset?: LabelListProps["offset"];
-  fontSize?: LabelListProps["fontSize"];
-  barLabelClassName?: string;
+  indicator?: ChartIndicator;
   chartLegend?: boolean;
 }

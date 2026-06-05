@@ -16,7 +16,7 @@ import {
 import type { CommonBarChartProps } from "./common-bar-chart.types";
 
 const CommonBarChart = <TData extends Record<string, unknown>>({
-  options,
+  data,
   config,
   bars,
   accessibilityLayer = true,
@@ -33,13 +33,9 @@ const CommonBarChart = <TData extends Record<string, unknown>>({
   type = "category",
   layout = "horizontal",
   indicator = "dashed",
-  position = "top",
-  offset,
-  fontSize = 12,
-  barLabelClassName,
   chartLegend = false,
 }: CommonBarChartProps<TData>) => {
-  if (!options?.length || !bars?.length) return null;
+  if (!data?.length || !bars?.length) return null;
 
   const renderAxis = () => {
     if (layout === "horizontal") {
@@ -74,7 +70,7 @@ const CommonBarChart = <TData extends Record<string, unknown>>({
     <ChartContainer config={config} className={className}>
       <BarChart
         accessibilityLayer={accessibilityLayer}
-        data={options}
+        data={data}
         layout={layout}
       >
         <CartesianGrid vertical={showVerticalGridLines} />
@@ -92,12 +88,13 @@ const CommonBarChart = <TData extends Record<string, unknown>>({
             fill={bar.fill ?? `var(--color-${bar.dataKey})`}
             radius={bar.radius}
           >
-            {bar.showLabel && (
+            {bar.label?.show && (
               <LabelList
-                position={position}
-                offset={offset}
-                fontSize={fontSize}
-                className={barLabelClassName}
+                dataKey={bar.dataKey}
+                position={bar.label?.position ?? 'top'}
+                offset={bar.label?.offset}
+                fontSize={bar.label?.fontSize}
+                className={bar.label?.className}
               />
             )}
           </Bar>
