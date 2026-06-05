@@ -1,26 +1,9 @@
 import type { ChartConfig } from "@/components/ui/chart";
-import type { ChartIndicator } from "../types";
-
-type AreaTypes =
-  | "basis"
-  | "basisClosed"
-  | "basisOpen"
-  | "bump"
-  | "bumpX"
-  | "bumpY"
-  | "linear"
-  | "linearClosed"
-  | "monotone"
-  | "monotoneX"
-  | "monotoneY"
-  | "natural"
-  | "step"
-  | "stepAfter"
-  | "stepBefore";
+import type { ChartIndicator, ChartTypes } from "../types";
 
 export interface AreaConfig<TData extends Record<string, unknown>> {
   dataKey: keyof TData & string;
-  type?: AreaTypes;
+  type?: ChartTypes;
   fill?: string;
   fillOpacity?: number;
   stroke?: string;
