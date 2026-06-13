@@ -2,7 +2,7 @@ import type { ButtonProps } from "@base-ui/react";
 import type { ReactNode, Ref } from "react";
 
 export interface CommonButtonProps extends Omit<ButtonProps, "children"> {
-  label?: string | ReactNode;
+  label?: ReactNode;
   leftIcon?: string | ReactNode;
   rightIcon?: string | ReactNode;
   tooltip?: string;
@@ -24,4 +24,6 @@ export interface CommonButtonProps extends Omit<ButtonProps, "children"> {
     | "icon-lg";
   isLoading?: boolean;
   ref?: Ref<HTMLButtonElement>;
+  labelClassName?: string;
+  spinnerColor?: string;
 }

@@ -12,6 +12,8 @@ const CommonButton = ({
   isLoading,
   size,
   ref,
+  spinnerColor = "white",
+  labelClassName,
   ...rest
 }: CommonButtonProps) => {
   return (
@@ -27,8 +29,8 @@ const CommonButton = ({
       {leftIcon && !isLoading && (
         <RenderIcon src={leftIcon} alt={label as string} />
       )}
-      {isLoading && <Spinner color="white" />}
-      {label}
+      {isLoading && <Spinner color={spinnerColor} />}
+      <span className={labelClassName}>{label}</span>
       {rightIcon && !isLoading && (
         <RenderIcon src={rightIcon} alt={label as string} />
       )}
