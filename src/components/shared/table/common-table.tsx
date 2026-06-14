@@ -19,8 +19,8 @@ import {
 } from "@/components/ui/table";
 import { CommonButton } from "../button";
 import { cn } from "@/lib/utils";
-import { useState } from "react";
-import { CommonInput } from "../input";
+import { Fragment, useState } from "react";
+import { renderFilters } from "./common-table.utils";
 
 const CommonTable = <TData, TValue>({
   columns,
@@ -28,16 +28,16 @@ const CommonTable = <TData, TValue>({
   fallback = "No results.",
   pagination = true,
   sort = true,
-  filters = true,
-  searchKey,
-  searchPlaceholder,
+  filters,
   className,
   fallbackClassName,
-  searchClassName,
+  filterClassName,
 }: CommonTableProps<TData, TValue>) => {
-  // add labelClassName in common button label with span
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
+  const [selectedValue, setSelectedValue] = useState<Record<string, string[]>>(
+    {},
+  );
 
   const table = useReactTable({
     data,
@@ -48,36 +48,32 @@ const CommonTable = <TData, TValue>({
     ...(sort && { getSortedRowModel: getSortedRowModel() }),
     ...(filters && { onColumnFiltersChange: setColumnFilters }),
     ...(filters && { getFilteredRowModel: getFilteredRowModel() }),
-    ...((sort || filters) && {
-      state: {
-        sorting,
-        columnFilters,
-      },
-    }),
+    state: {
+      ...(sort && { sorting }),
+      ...(filters && { columnFilters }),
+    },
   });
 
   if (!columns?.length) return null;
 
   return (
     <div>
-      {filters && (
-        <div>
-          <CommonInput
-            placeholder={searchPlaceholder}
-            value={
-              (table
-                .getColumn(searchKey as string)
-                ?.getFilterValue() as string) ?? ""
-            }
-            onChange={(event) =>
-              table
-                .getColumn(searchKey as string)
-                ?.setFilterValue(event.target.value)
-            }
-            className={cn("max-w-sm", searchClassName)}
-          />
-        </div>
-      )}
+      {filters &&
+        (Array.isArray(filters) ? filters : [filters]).map((filter, i) => (
+          <Fragment key={i}>
+            {renderFilters(
+              filter,
+              table,
+              selectedValue[filter.key] ?? [],
+              (value) =>
+                setSelectedValue((prev) => ({
+                  ...prev,
+                  [filter.key]: value,
+                })),
+              filterClassName,
+            )}
+          </Fragment>
+        ))}
       <div className={cn("overflow-hidden rounded-md border", className)}>
         <Table>
           <TableHeader>
