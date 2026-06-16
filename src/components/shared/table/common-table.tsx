@@ -8,6 +8,7 @@ import {
   useReactTable,
   type ColumnFiltersState,
   type SortingState,
+  type VisibilityState,
 } from "@tanstack/react-table";
 import {
   Table,
@@ -21,6 +22,7 @@ import { CommonButton } from "../button";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
 import { renderFilters } from "./common-table.utils";
+import { CommonDropdown } from "../dropdown";
 
 const CommonTable = <TData, TValue>({
   columns,
@@ -29,6 +31,9 @@ const CommonTable = <TData, TValue>({
   pagination = true,
   sort = true,
   filters,
+  enableColumnVisibility = false,
+  tableWrapperClassName,
+  filtersWrapperClassName,
   className,
   fallbackClassName,
   filterClassName,
@@ -38,6 +43,7 @@ const CommonTable = <TData, TValue>({
   const [selectedValue, setSelectedValue] = useState<Record<string, string[]>>(
     {},
   );
+  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
 
   const table = useReactTable({
     data,
@@ -48,18 +54,28 @@ const CommonTable = <TData, TValue>({
     ...(sort && { getSortedRowModel: getSortedRowModel() }),
     ...(filters && { onColumnFiltersChange: setColumnFilters }),
     ...(filters && { getFilteredRowModel: getFilteredRowModel() }),
+    ...(enableColumnVisibility && {
+      onColumnVisibilityChange: setColumnVisibility,
+    }),
     state: {
       ...(sort && { sorting }),
       ...(filters && { columnFilters }),
+      ...(enableColumnVisibility && { columnVisibility }),
     },
   });
 
   if (!columns?.length) return null;
 
   return (
-    <div className="space-y-2 mx-2">
+    <div className={cn("space-y-2 mx-2", tableWrapperClassName)}>
+      {/* filters */}
       {filters && (
-        <div className="flex justify-end items-center gap-2">
+        <div
+          className={cn(
+            "flex justify-end items-center gap-2",
+            filtersWrapperClassName,
+          )}
+        >
           {(Array.isArray(filters) ? filters : [filters]).map((filter, i) => (
             <div key={i}>
               {renderFilters(
@@ -76,6 +92,27 @@ const CommonTable = <TData, TValue>({
             </div>
           ))}
         </div>
+      )}
+      {/* column visibility */}
+      {enableColumnVisibility && (
+        <CommonDropdown
+          trigger={<CommonButton label="Columns" variant="outline" />}
+          mode="checkboxes"
+          options={[
+            {
+              items: table
+                .getAllColumns()
+                .filter((columns) => columns.getCanHide())
+                .map((column) => ({
+                  label: column.id,
+                  value: column.id,
+                  checked: column.getIsVisible(),
+                  onCheckedChange: (checked: boolean) =>
+                    column.toggleVisibility(!!checked),
+                })),
+            },
+          ]}
+        />
       )}
       <div className={cn("overflow-hidden rounded-md border", className)}>
         <Table>

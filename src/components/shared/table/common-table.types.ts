@@ -20,6 +20,9 @@ export interface CommonTableProps<TData, TValue> {
   pagination?: boolean;
   sort?: boolean;
   filters?: FiltersConfig | FiltersConfig[];
+  enableColumnVisibility?: boolean;
+  tableWrapperClassName?: string;
+  filtersWrapperClassName?: string;
   className?: string;
   fallbackClassName?: string;
   filterClassName?: string;
