@@ -1,9 +1,11 @@
 import { cn } from "@/lib/utils";
-import { CommonCheckbox } from "../checkbox";
 import { CommonInput } from "../input";
 import { CommonSelect } from "../select";
 import type { FiltersConfig } from "./common-table.types";
 import type { Table } from "@tanstack/react-table";
+import { CommonButton } from "../button";
+import { ChevronDown } from "lucide-react";
+import { CommonDropdown } from "../dropdown";
 
 export const renderFilters = <TData,>(
   item: FiltersConfig,
@@ -32,25 +34,37 @@ export const renderFilters = <TData,>(
         onValueChange={(event) =>
           table.getColumn(item?.key)?.setFilterValue(event)
         }
-        className={className}
+        className={cn("max-w-sm", className)}
       />
     );
   }
   if (item?.type === "multi-select") {
     return (
-      <CommonCheckbox
-        options={item.options}
-        label={item?.key}
-        checked={selectedValue}
-        onCheckedChange={(updated) => {
-          const value = updated as string[];
-          onSelectValue(value);
-          table
-            .getColumn(item?.key)
-            ?.setFilterValue(value?.length ? value : undefined);
-        }}
-        variant="group"
-        className={className}
+      <CommonDropdown
+        mode="checkboxes"
+        trigger={
+          <CommonButton
+            label="Select Options"
+            variant="outline"
+            rightIcon={<ChevronDown />}
+          />
+        }
+        options={[
+          {
+            items: item.options.map((option) => ({
+              label: option.label,
+              value: option.value,
+              checked: selectedValue.includes(option.value),
+              onCheckedChange: (checked: boolean) => {
+                const updated = checked
+                  ? [...selectedValue, option.value]
+                  : selectedValue.filter((val) => val !== option.value);
+                  onSelectValue(updated)
+                  table.getColumn(item.key)?.setFilterValue(updated?.length ? updated : undefined)
+              },
+            })),
+          },
+        ]}
       />
     );
   }

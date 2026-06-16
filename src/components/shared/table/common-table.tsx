@@ -19,7 +19,7 @@ import {
 } from "@/components/ui/table";
 import { CommonButton } from "../button";
 import { cn } from "@/lib/utils";
-import { Fragment, useState } from "react";
+import { useState } from "react";
 import { renderFilters } from "./common-table.utils";
 
 const CommonTable = <TData, TValue>({
@@ -57,23 +57,26 @@ const CommonTable = <TData, TValue>({
   if (!columns?.length) return null;
 
   return (
-    <div>
-      {filters &&
-        (Array.isArray(filters) ? filters : [filters]).map((filter, i) => (
-          <Fragment key={i}>
-            {renderFilters(
-              filter,
-              table,
-              selectedValue[filter.key] ?? [],
-              (value) =>
-                setSelectedValue((prev) => ({
-                  ...prev,
-                  [filter.key]: value,
-                })),
-              filterClassName,
-            )}
-          </Fragment>
-        ))}
+    <div className="space-y-2 mx-2">
+      {filters && (
+        <div className="flex justify-end items-center gap-2">
+          {(Array.isArray(filters) ? filters : [filters]).map((filter, i) => (
+            <div key={i}>
+              {renderFilters(
+                filter,
+                table,
+                selectedValue[filter.key] ?? [],
+                (value) =>
+                  setSelectedValue((prev) => ({
+                    ...prev,
+                    [filter.key]: value,
+                  })),
+                filterClassName,
+              )}
+            </div>
+          ))}
+        </div>
+      )}
       <div className={cn("overflow-hidden rounded-md border", className)}>
         <Table>
           <TableHeader>
