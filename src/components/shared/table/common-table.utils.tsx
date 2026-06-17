@@ -2,10 +2,11 @@ import { cn } from "@/lib/utils";
 import { CommonInput } from "../input";
 import { CommonSelect } from "../select";
 import type { FiltersConfig } from "./common-table.types";
-import type { Table } from "@tanstack/react-table";
+import type { ColumnDef, Table } from "@tanstack/react-table";
 import { CommonButton } from "../button";
 import { ChevronDown } from "lucide-react";
 import { CommonDropdown } from "../dropdown";
+import { CommonCheckbox } from "../checkbox";
 
 export const renderFilters = <TData,>(
   item: FiltersConfig,
@@ -59,8 +60,10 @@ export const renderFilters = <TData,>(
                 const updated = checked
                   ? [...selectedValue, option.value]
                   : selectedValue.filter((val) => val !== option.value);
-                  onSelectValue(updated)
-                  table.getColumn(item.key)?.setFilterValue(updated?.length ? updated : undefined)
+                onSelectValue(updated);
+                table
+                  .getColumn(item.key)
+                  ?.setFilterValue(updated?.length ? updated : undefined);
               },
             })),
           },
@@ -69,3 +72,35 @@ export const renderFilters = <TData,>(
     );
   }
 };
+
+const getSelectionColumn = <TData,>(): ColumnDef<TData> => ({
+  id: "select",
+  header: ({ table }) => (
+    <CommonCheckbox
+      label=""
+      checked={table.getIsAllPageRowsSelected()}
+      onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+      aria-label="Select all"
+      className="ms-2"
+    />
+  ),
+  cell: ({ row }) => (
+    <CommonCheckbox
+      label=""
+      checked={row.getIsSelected()}
+      onCheckedChange={(value) => row.toggleSelected(!!value)}
+      aria-label="Select row"
+      className="ms-2"
+    />
+  ),
+  enableSorting: false,
+  enableHiding: false,
+});
+
+export const getTableColumns = <TData, TValue>(
+  columns: ColumnDef<TData, TValue>[],
+  enableRowSelection: boolean,
+): ColumnDef<TData, TValue>[] =>
+  enableRowSelection
+    ? [getSelectionColumn<TData>() as ColumnDef<TData, TValue>, ...columns]
+    : columns;

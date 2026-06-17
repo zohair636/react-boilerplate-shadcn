@@ -20,8 +20,8 @@ import {
 } from "@/components/ui/table";
 import { CommonButton } from "../button";
 import { cn } from "@/lib/utils";
-import { useState } from "react";
-import { renderFilters } from "./common-table.utils";
+import { useEffect, useMemo, useState } from "react";
+import { getTableColumns, renderFilters } from "./common-table.utils";
 import { CommonDropdown } from "../dropdown";
 
 const CommonTable = <TData, TValue>({
@@ -32,6 +32,8 @@ const CommonTable = <TData, TValue>({
   sort = true,
   filters,
   enableColumnVisibility = false,
+  enableRowSelection = false,
+  onRowSelectionChange,
   tableWrapperClassName,
   filtersWrapperClassName,
   className,
@@ -44,10 +46,16 @@ const CommonTable = <TData, TValue>({
     {},
   );
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
+  const [rowSelection, setRowSelection] = useState({});
+
+  const tableColumns = useMemo(
+    () => getTableColumns(columns, enableRowSelection),
+    [columns, enableRowSelection],
+  );
 
   const table = useReactTable({
     data,
-    columns,
+    columns: tableColumns,
     getCoreRowModel: getCoreRowModel(),
     ...(pagination && { getPaginationRowModel: getPaginationRowModel() }),
     ...(sort && { onSortingChange: setSorting }),
@@ -57,14 +65,23 @@ const CommonTable = <TData, TValue>({
     ...(enableColumnVisibility && {
       onColumnVisibilityChange: setColumnVisibility,
     }),
+    ...(enableRowSelection && { onRowSelectionChange: setRowSelection }),
     state: {
       ...(sort && { sorting }),
       ...(filters && { columnFilters }),
       ...(enableColumnVisibility && { columnVisibility }),
+      ...(enableRowSelection && { rowSelection }),
     },
   });
 
-  if (!columns?.length) return null;
+  useEffect(() => {
+    if (!enableRowSelection) return;
+    onRowSelectionChange?.(
+      table.getSelectedRowModel().rows.map((row) => row.original),
+    );
+  }, [rowSelection, enableRowSelection, onRowSelectionChange, table]);
+
+  if (!columns?.length || !data?.length) return null;
 
   return (
     <div className={cn("space-y-2 mx-2", tableWrapperClassName)}>

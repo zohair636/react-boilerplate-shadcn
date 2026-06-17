@@ -1,4 +1,5 @@
 import type { ColumnDef } from "@tanstack/react-table";
+import type { ReactNode } from "react";
 
 export type FiltersConfig =
   | { type: "search"; key: string; placeholder?: string }
@@ -16,11 +17,13 @@ export type FiltersConfig =
 export interface CommonTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
-  fallback?: string;
+  fallback?: ReactNode;
   pagination?: boolean;
   sort?: boolean;
   filters?: FiltersConfig | FiltersConfig[];
   enableColumnVisibility?: boolean;
+  enableRowSelection?: boolean;
+  onRowSelectionChange?: (rows: TData[]) => void;
   tableWrapperClassName?: string;
   filtersWrapperClassName?: string;
   className?: string;
