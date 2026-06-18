@@ -5,4 +5,5 @@ export interface RenderIconProps {
   alt?: string;
   width?: number;
   height?: number;
+  className?: string;
 }
