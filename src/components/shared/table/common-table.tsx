@@ -23,6 +23,8 @@ import { cn } from "@/lib/utils";
 import { useEffect, useMemo, useState } from "react";
 import { getTableColumns, renderFilters } from "./common-table.utils";
 import { CommonDropdown } from "../dropdown";
+import { RenderIcon } from "@/utils/icon-utils";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const CommonTable = <TData, TValue>({
   columns,
@@ -31,13 +33,16 @@ const CommonTable = <TData, TValue>({
   pagination = true,
   sort = true,
   filters,
+  fallbackIcon,
   enableColumnVisibility = false,
   enableRowSelection = false,
   onRowSelectionChange,
+  isLoading = false,
   tableWrapperClassName,
   filtersWrapperClassName,
   className,
   fallbackClassName,
+  fallbackLabelClassName,
   filterClassName,
 }: CommonTableProps<TData, TValue>) => {
   const [sorting, setSorting] = useState<SortingState>([]);
@@ -151,7 +156,19 @@ const CommonTable = <TData, TValue>({
             ))}
           </TableHeader>
           <TableBody>
-            {table.getRowModel().rows?.length ? (
+            {isLoading ? (
+              <>
+                {[...Array(5)].map((_, i) => (
+                  <TableRow key={i}>
+                    {table.getVisibleLeafColumns().map((column) => (
+                      <TableCell key={column.id}>
+                        <Skeleton className="h-4 w-full" />
+                      </TableCell>
+                    ))}
+                  </TableRow>
+                ))}
+              </>
+            ) : table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => (
                 <TableRow
                   key={row.id}
@@ -173,7 +190,15 @@ const CommonTable = <TData, TValue>({
                   colSpan={table.getVisibleLeafColumns().length}
                   className={cn("h-24 text-center", fallbackClassName)}
                 >
-                  {fallback}
+                  <span
+                    className={cn(
+                      "flex flex-col justify-center items-center gap-2",
+                      fallbackLabelClassName,
+                    )}
+                  >
+                    {fallbackIcon && <RenderIcon src={fallbackIcon} />}
+                    {fallback}
+                  </span>
                 </TableCell>
               </TableRow>
             )}

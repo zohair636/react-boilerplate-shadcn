@@ -76,12 +76,12 @@ export const renderFilters = <TData,>(
 const getSelectionColumn = <TData,>(): ColumnDef<TData> => ({
   id: "select",
   header: ({ table }) => (
-    <CommonCheckbox
+      <CommonCheckbox
       label=""
       checked={table.getIsAllPageRowsSelected()}
       onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
       aria-label="Select all"
-      className="ms-2"
+      className="ml-2"
     />
   ),
   cell: ({ row }) => (
@@ -90,7 +90,7 @@ const getSelectionColumn = <TData,>(): ColumnDef<TData> => ({
       checked={row.getIsSelected()}
       onCheckedChange={(value) => row.toggleSelected(!!value)}
       aria-label="Select row"
-      className="ms-2"
+      className="ml-2"
     />
   ),
   enableSorting: false,

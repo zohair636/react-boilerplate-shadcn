@@ -18,15 +18,18 @@ export interface CommonTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
   fallback?: ReactNode;
+  fallbackIcon?: ReactNode;
   pagination?: boolean;
   sort?: boolean;
   filters?: FiltersConfig | FiltersConfig[];
   enableColumnVisibility?: boolean;
   enableRowSelection?: boolean;
   onRowSelectionChange?: (rows: TData[]) => void;
+  isLoading?: boolean;
   tableWrapperClassName?: string;
   filtersWrapperClassName?: string;
   className?: string;
   fallbackClassName?: string;
+  fallbackLabelClassName?: string;
   filterClassName?: string;
 }
