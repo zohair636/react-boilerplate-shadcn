@@ -7,7 +7,9 @@ export interface CommonSelectProps {
   selectLabel?: string;
   label?: string;
   className?: string;
+  labelClassName?: string;
   error?: string;
   required?: boolean;
-  disabled?: boolean
+  disabled?: boolean;
+  orientation?: "horizontal" | "vertical" | "responsive";
 }

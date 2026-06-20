@@ -21,9 +21,11 @@ const CommonSelect = ({
   label,
   selectLabel,
   className,
+  labelClassName,
   error,
   required,
   disabled,
+  orientation = "vertical",
 }: CommonSelectProps) => {
   const generatedId = useId();
   const fieldId = id ?? generatedId;
@@ -38,9 +40,14 @@ const CommonSelect = ({
   }[];
 
   return (
-    <Field data-invalid={isInvalid}>
+    <Field data-invalid={isInvalid} orientation={orientation}>
       {label && (
-        <CommonFieldLabel id={fieldId} label={label} required={required} />
+        <CommonFieldLabel
+          id={fieldId}
+          label={label}
+          required={required}
+          className={labelClassName}
+        />
       )}
       <Select
         id={fieldId}
