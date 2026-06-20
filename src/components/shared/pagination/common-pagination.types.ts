@@ -3,5 +3,6 @@ export interface CommonPaginationProps {
   currentPage: number;
   limit: number;
   onCurrentPage: (page: number) => void;
-  className?: string
+  withLabel?: boolean;
+  className?: string;
 }

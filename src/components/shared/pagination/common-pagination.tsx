@@ -14,6 +14,7 @@ const CommonPagination = ({
   currentPage,
   limit,
   onCurrentPage,
+  withLabel = false,
   className,
 }: CommonPaginationProps) => {
   if (!records?.length) return null;
@@ -21,43 +22,46 @@ const CommonPagination = ({
   const totalRecords = records.length;
   const totalPages = Math.ceil(totalRecords / limit);
   return (
-      <Pagination className={className}>
-        <PaginationContent>
-          <PaginationItem>
-            <CommonButton
-              label="Previous"
-              leftIcon={<ChevronLeft />}
-              onClick={() => onCurrentPage(currentPage - 1)}
-              disabled={currentPage === 1}
-              variant="ghost"
-            />
+    <Pagination className={className}>
+      <>
+        <span>{`${currentPage} - ${totalPages} of ${totalRecords}`}</span>
+      </>
+      <PaginationContent>
+        <PaginationItem>
+          <CommonButton
+            {...(withLabel && { label: "Previous" })}
+            leftIcon={<ChevronLeft />}
+            onClick={() => onCurrentPage(currentPage - 1)}
+            disabled={currentPage === 1}
+            variant="ghost"
+          />
+        </PaginationItem>
+        {[...Array(totalPages)].map((_, page) => (
+          <PaginationItem key={page}>
+            <PaginationLink
+              onClick={() => onCurrentPage(page + 1)}
+              className={cn(
+                "border",
+                currentPage === page + 1
+                  ? "bg-black/5 border-black/10"
+                  : "border-black/5",
+              )}
+            >
+              {page + 1}
+            </PaginationLink>
           </PaginationItem>
-          {[...Array(totalPages)].map((_, page) => (
-            <PaginationItem key={page}>
-              <PaginationLink
-                onClick={() => onCurrentPage(page + 1)}
-                className={cn(
-                  "border",
-                  currentPage === page + 1
-                    ? "bg-black/5 border-black/10"
-                    : "border-black/5",
-                )}
-              >
-                {page + 1}
-              </PaginationLink>
-            </PaginationItem>
-          ))}
-          <PaginationItem>
-            <CommonButton
-              label="Next"
-              rightIcon={<ChevronRight />}
-              onClick={() => onCurrentPage(currentPage + 1)}
-              disabled={currentPage === totalPages}
-              variant="ghost"
-            />
-          </PaginationItem>
-        </PaginationContent>
-      </Pagination>
+        ))}
+        <PaginationItem>
+          <CommonButton
+            {...(withLabel && { label: "Next" })}
+            rightIcon={<ChevronRight />}
+            onClick={() => onCurrentPage(currentPage + 1)}
+            disabled={currentPage === totalPages}
+            variant="ghost"
+          />
+        </PaginationItem>
+      </PaginationContent>
+    </Pagination>
   );
 };
 
