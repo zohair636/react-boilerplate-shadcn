@@ -8,6 +8,7 @@ export interface CommonSelectProps {
   label?: string;
   className?: string;
   labelClassName?: string;
+  triggerClassName?: string;
   error?: string;
   required?: boolean;
   disabled?: boolean;

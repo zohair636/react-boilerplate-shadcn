@@ -22,6 +22,7 @@ const CommonSelect = ({
   selectLabel,
   className,
   labelClassName,
+  triggerClassName,
   error,
   required,
   disabled,
@@ -40,7 +41,11 @@ const CommonSelect = ({
   }[];
 
   return (
-    <Field data-invalid={isInvalid} orientation={orientation}>
+    <Field
+      data-invalid={isInvalid}
+      orientation={orientation}
+      className={className}
+    >
       {label && (
         <CommonFieldLabel
           id={fieldId}
@@ -57,7 +62,7 @@ const CommonSelect = ({
         defaultValue={defaultValue ?? undefined}
         disabled={disabled}
       >
-        <SelectTrigger aria-invalid={isInvalid} className={className}>
+        <SelectTrigger aria-invalid={isInvalid} className={triggerClassName}>
           <SelectValue placeholder={placeholderOption} />
         </SelectTrigger>
         <SelectContent>
