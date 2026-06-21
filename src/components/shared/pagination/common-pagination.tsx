@@ -59,7 +59,7 @@ const CommonPagination = <T,>({
         label="Show per page"
         options={rowsPerPage}
         onValueChange={(value) => {
-          onValueChange?.(value);
+          onValueChange(value);
           onPageChange(1);
         }}
         orientation="horizontal"
@@ -78,7 +78,7 @@ const CommonPagination = <T,>({
           />
         </PaginationItem>
         {getPagination(currentPage, totalPages).map((page, i) => (
-          <PaginationItem key={i}>
+          <PaginationItem key={`${page}-${i}`}>
             {page === "..." ? (
               <PaginationEllipsis />
             ) : (
