@@ -30,7 +30,9 @@ const CommonButton = ({
         <RenderIcon src={leftIcon} alt={label as string} />
       )}
       {isLoading && <Spinner color={spinnerColor} />}
-      <span className={labelClassName}>{label}</span>
+      {label != null && label !== "" && (
+        <span className={labelClassName}>{label}</span>
+      )}
       {rightIcon && !isLoading && (
         <RenderIcon src={rightIcon} alt={label as string} />
       )}
