@@ -5,7 +5,9 @@ export interface CommonButtonProps extends Omit<ButtonProps, "children"> {
   label?: ReactNode;
   leftIcon?: string | ReactNode;
   rightIcon?: string | ReactNode;
-  tooltip?: string;
+  leftIconAlt?: string;
+  rightIconAlt?: string;
+  ariaLabel?: string;
   variant?:
     | "default"
     | "destructive"
@@ -25,5 +27,7 @@ export interface CommonButtonProps extends Omit<ButtonProps, "children"> {
   isLoading?: boolean;
   ref?: Ref<HTMLButtonElement>;
   labelClassName?: string;
+  leftIconClassName?: string;
+  rightIconClassName?: string;
   spinnerColor?: string;
 }
