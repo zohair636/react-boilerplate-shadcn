@@ -10,6 +10,7 @@ import { CommonButton } from "../button";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { CommonSelect } from "../select";
+import { getPagination } from "./common-pagination.utils";
 
 const CommonPagination = <T,>(props: CommonPaginationProps<T>) => {
   const {
@@ -29,32 +30,6 @@ const CommonPagination = <T,>(props: CommonPaginationProps<T>) => {
   const safePage = Math.min(Math.max(currentPage, 1), totalPages);
   const startRange = (safePage - 1) * safeLimit + 1;
   const endRange = Math.min(safePage * safeLimit, totalRecords);
-
-  const getPagination = (page: number, total: number) => {
-    if (total <= 7) return [...Array(total)].map((_, i) => i + 1);
-    const pagination: (number | "...")[] = [];
-
-    pagination.push(1);
-
-    const start = Math.max(2, page - 2);
-    const end = Math.min(total - 1, page + 2);
-
-    if (start > 2) {
-      pagination.push("...");
-    }
-
-    for (let i = start; i <= end; i++) {
-      pagination.push(i);
-    }
-
-    if (end < total - 1) {
-      pagination.push("...");
-    }
-
-    pagination.push(total);
-
-    return pagination;
-  };
 
   const renderPagination = () => {
     if (props.mode === "default") {
