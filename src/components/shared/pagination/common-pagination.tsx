@@ -11,26 +11,28 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { CommonSelect } from "../select";
 
-const CommonPagination = <T,>({
-  records,
-  currentPage,
-  limit,
-  onPageChange,
-  onValueChange,
-  rowsPerPage,
-  withLabel = false,
-  className,
-}: CommonPaginationProps<T>) => {
-  if (!records?.length || !rowsPerPage?.length) return null;
+const CommonPagination = <T,>(props: CommonPaginationProps<T>) => {
+  const {
+    records,
+    currentPage,
+    limit,
+    onPageChange,
+    onValueChange,
+    className,
+  } = props;
+  const totalRecords = props?.totalRecords ?? records.length;
 
-  const totalRecords = records.length;
-  const totalPages = Math.ceil(totalRecords / limit);
-  const startRange = (currentPage - 1) * limit + 1;
-  const endRange = Math.min(currentPage * limit, totalRecords);
+  if (!totalRecords) return null;
+
+  const safeLimit = Math.max(limit, 1);
+  const totalPages = Math.max(1, Math.ceil(totalRecords / safeLimit));
+  const safePage = Math.min(Math.max(currentPage, 1), totalPages);
+  const startRange = (safePage - 1) * safeLimit + 1;
+  const endRange = Math.min(safePage * safeLimit, totalRecords);
 
   const getPagination = (page: number, total: number) => {
-    if(total <= 7) return [...Array(total)].map((_, i) => i + 1)
-    const pagination = [];
+    if (total <= 7) return [...Array(total)].map((_, i) => i + 1);
+    const pagination: (number | "...")[] = [];
 
     pagination.push(1);
 
@@ -53,61 +55,107 @@ const CommonPagination = <T,>({
 
     return pagination;
   };
-  return (
-    <Pagination className={className}>
-      <CommonSelect
-        label="Show per page"
-        options={rowsPerPage}
-        onValueChange={(value) => {
-          onValueChange(value);
-          onPageChange(1);
-        }}
-        orientation="horizontal"
-        className="w-fit"
-        value={String(limit)}
-      />
-      <span>{`${startRange} - ${endRange} of ${totalRecords}`}</span>
-      <PaginationContent>
-        <PaginationItem>
+
+  const renderPagination = () => {
+    if (props.mode === "default") {
+      return (
+        <div
+          className={cn(
+            "flex items-center justify-end space-x-2 py-4",
+            className,
+          )}
+        >
           <CommonButton
-            {...(withLabel && { label: "Previous" })}
-            leftIcon={<ChevronLeft />}
-            onClick={() => onPageChange(currentPage - 1)}
-            disabled={currentPage === 1}
-            variant="ghost"
+            label="Previous"
+            variant="outline"
+            size="sm"
+            onClick={() => onPageChange(safePage - 1)}
+            disabled={safePage === 1}
           />
-        </PaginationItem>
-        {getPagination(currentPage, totalPages).map((page, i) => (
-          <PaginationItem key={`${page}-${i}`}>
-            {page === "..." ? (
-              <PaginationEllipsis />
-            ) : (
-              <PaginationLink
-                onClick={() => onPageChange(page as number)}
-                className={cn(
-                  "border",
-                  currentPage === page
-                    ? "bg-black/5 border-black/10"
-                    : "border-black/5",
+          <CommonButton
+            label="Next"
+            variant="outline"
+            size="sm"
+            onClick={() => onPageChange(safePage + 1)}
+            disabled={safePage === totalPages}
+          />
+        </div>
+      );
+    }
+    if (props.mode === "numbered") {
+      const {
+        rowsPerPage = [
+          { label: "10", value: "10" },
+          { label: "20", value: "20" },
+          { label: "30", value: "30" },
+        ],
+        withLabel = false,
+      } = props;
+      return (
+        <Pagination
+          className={cn("flex justify-between items-center", className)}
+        >
+          <CommonSelect
+            label="Show per page"
+            options={rowsPerPage}
+            onValueChange={(value) => {
+              onValueChange?.(value);
+              onPageChange(1);
+            }}
+            orientation="horizontal"
+            className="w-fit"
+            value={String(safeLimit)}
+          />
+          <span>{`${startRange} - ${endRange} of ${totalRecords}`}</span>
+          <PaginationContent>
+            <PaginationItem>
+              <CommonButton
+                {...(withLabel && { label: "Previous" })}
+                leftIcon={<ChevronLeft />}
+                onClick={() => onPageChange(safePage - 1)}
+                disabled={safePage === 1}
+                variant="ghost"
+              />
+            </PaginationItem>
+            {getPagination(safePage, totalPages).map((page, i) => (
+              <PaginationItem key={`${page}-${i}`}>
+                {page === "..." ? (
+                  <PaginationEllipsis />
+                ) : (
+                  <PaginationLink
+                    href="#"
+                    aria-current={safePage === page ? "page" : undefined}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      onPageChange(page);
+                    }}
+                    className={cn(
+                      "border",
+                      safePage === page
+                        ? "bg-black/5 border-black/10"
+                        : "border-black/5",
+                    )}
+                  >
+                    {page}
+                  </PaginationLink>
                 )}
-              >
-                {page}
-              </PaginationLink>
-            )}
-          </PaginationItem>
-        ))}
-        <PaginationItem>
-          <CommonButton
-            {...(withLabel && { label: "Next" })}
-            rightIcon={<ChevronRight />}
-            onClick={() => onPageChange(currentPage + 1)}
-            disabled={currentPage === totalPages}
-            variant="ghost"
-          />
-        </PaginationItem>
-      </PaginationContent>
-    </Pagination>
-  );
+              </PaginationItem>
+            ))}
+            <PaginationItem>
+              <CommonButton
+                {...(withLabel && { label: "Next" })}
+                rightIcon={<ChevronRight />}
+                onClick={() => onPageChange(safePage + 1)}
+                disabled={safePage === totalPages}
+                variant="ghost"
+              />
+            </PaginationItem>
+          </PaginationContent>
+        </Pagination>
+      );
+    }
+  };
+  return renderPagination();
 };
 
 export default CommonPagination;
