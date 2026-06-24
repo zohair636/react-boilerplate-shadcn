@@ -25,6 +25,7 @@ import { getTableColumns, renderFilters } from "./common-table.utils";
 import { CommonDropdown } from "../dropdown";
 import { RenderIcon } from "@/utils/icon-utils";
 import { Skeleton } from "@/components/ui/skeleton";
+import { CommonPagination } from "../pagination";
 
 const CommonTable = <TData, TValue>({
   columns,
@@ -32,6 +33,7 @@ const CommonTable = <TData, TValue>({
   fallback = "No results.",
   pagination = true,
   sort = true,
+  paginationProps,
   filters,
   fallbackIcon,
   enableColumnVisibility = false,
@@ -86,7 +88,7 @@ const CommonTable = <TData, TValue>({
     );
   }, [rowSelection, enableRowSelection, onRowSelectionChange, table]);
 
-  if (!columns?.length || !data?.length) return null;
+  if (!columns?.length) return null;
 
   return (
     <div className={cn("space-y-2 mx-2", tableWrapperClassName)}>
@@ -138,7 +140,7 @@ const CommonTable = <TData, TValue>({
         </div>
       )}
       <div className={cn("overflow-hidden rounded-md border", className)}>
-        <Table>
+        <Table aria-busy={isLoading}>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
@@ -173,6 +175,7 @@ const CommonTable = <TData, TValue>({
                 <TableRow
                   key={row.id}
                   data-state={row.getIsSelected() && "selected"}
+                  aria-selected={row.getIsSelected()}
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>
@@ -205,23 +208,8 @@ const CommonTable = <TData, TValue>({
           </TableBody>
         </Table>
       </div>
-      {pagination && (
-        <div className="flex items-center justify-end space-x-2 py-4">
-          <CommonButton
-            label="Previous"
-            variant="outline"
-            size="sm"
-            onClick={() => table.previousPage()}
-            disabled={!table.getCanPreviousPage()}
-          />
-          <CommonButton
-            label="Next"
-            variant="outline"
-            size="sm"
-            onClick={() => table.nextPage()}
-            disabled={!table.getCanNextPage()}
-          />
-        </div>
+      {pagination && paginationProps && (
+        <CommonPagination {...paginationProps} />
       )}
     </div>
   );

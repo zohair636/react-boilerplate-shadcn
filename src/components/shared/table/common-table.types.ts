@@ -1,5 +1,6 @@
 import type { ColumnDef } from "@tanstack/react-table";
-import type { ReactNode } from "react";
+import type { ComponentProps, ReactNode } from "react";
+import { CommonPagination } from "../pagination";
 
 export type FiltersConfig =
   | { type: "search"; key: string; placeholder?: string }
@@ -20,6 +21,7 @@ export interface CommonTableProps<TData, TValue> {
   fallback?: ReactNode;
   fallbackIcon?: ReactNode;
   pagination?: boolean;
+  paginationProps?: ComponentProps<typeof CommonPagination>;
   sort?: boolean;
   filters?: FiltersConfig | FiltersConfig[];
   enableColumnVisibility?: boolean;
