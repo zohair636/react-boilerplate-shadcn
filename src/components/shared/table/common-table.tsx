@@ -7,6 +7,7 @@ import {
   getSortedRowModel,
   useReactTable,
   type ColumnFiltersState,
+  type PaginationState,
   type SortingState,
   type VisibilityState,
 } from "@tanstack/react-table";
@@ -54,17 +55,53 @@ const CommonTable = <TData, TValue>({
   );
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = useState({});
+  const [paginationState, setPaginationState] = useState<PaginationState>({
+    pageIndex: 0,
+    pageSize: paginationProps?.limit ?? 10,
+  });
 
   const tableColumns = useMemo(
     () => getTableColumns(columns, enableRowSelection),
     [columns, enableRowSelection],
   );
 
+  useEffect(() => {
+    if (!pagination) return;
+
+    setPaginationState((prev) => ({
+      ...prev,
+      pageSize: paginationProps?.limit ?? prev.pageSize,
+      pageIndex: 0,
+    }));
+  }, [pagination, paginationProps?.limit]);
+
+  const handlePageChange = (page: number) => {
+    paginationProps?.onPageChange?.(page);
+    if (pagination) {
+      setPaginationState((prev) => ({
+        ...prev,
+        pageIndex: Math.max(0, page - 1),
+      }));
+    }
+  };
+
+  const handlePageSizeChange = (value: string | null) => {
+    paginationProps?.onValueChange?.(value);
+    if (pagination) {
+      setPaginationState((prev) => ({
+        ...prev,
+        pageIndex: 0,
+        pageSize: Number(value ?? prev.pageSize),
+      }));
+    }
+  };
+
   const table = useReactTable({
     data,
     columns: tableColumns,
     getCoreRowModel: getCoreRowModel(),
     ...(pagination && { getPaginationRowModel: getPaginationRowModel() }),
+    ...(pagination && { onPaginationChange: setPaginationState }),
     ...(sort && { onSortingChange: setSorting }),
     ...(sort && { getSortedRowModel: getSortedRowModel() }),
     ...(filters && { onColumnFiltersChange: setColumnFilters }),
@@ -74,6 +111,7 @@ const CommonTable = <TData, TValue>({
     }),
     ...(enableRowSelection && { onRowSelectionChange: setRowSelection }),
     state: {
+      ...(pagination && { pagination: paginationState }),
       ...(sort && { sorting }),
       ...(filters && { columnFilters }),
       ...(enableColumnVisibility && { columnVisibility }),
@@ -208,9 +246,32 @@ const CommonTable = <TData, TValue>({
           </TableBody>
         </Table>
       </div>
-      {pagination && paginationProps && (
-        <CommonPagination {...paginationProps} />
-      )}
+      {pagination &&
+        paginationProps &&
+        (paginationProps.mode === "default" ? (
+          <CommonPagination
+            {...paginationProps}
+            records={data}
+            totalRecords={data.length}
+            currentPage={table.getState().pagination.pageIndex + 1}
+            limit={table.getState().pagination.pageSize}
+            onPageChange={handlePageChange}
+            onPrev={() => table.previousPage()}
+            onNext={() => table.nextPage()}
+            canPrev={table.getCanPreviousPage()}
+            canNext={table.getCanNextPage()}
+          />
+        ) : (
+          <CommonPagination
+            {...paginationProps}
+            records={data}
+            totalRecords={data.length}
+            currentPage={table.getState().pagination.pageIndex + 1}
+            limit={table.getState().pagination.pageSize}
+            onPageChange={handlePageChange}
+            onValueChange={handlePageSizeChange}
+          />
+        ))}
     </div>
   );
 };
