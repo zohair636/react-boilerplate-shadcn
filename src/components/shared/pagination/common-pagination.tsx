@@ -18,7 +18,7 @@ const CommonPagination = <T,>(props: CommonPaginationProps<T>) => {
     currentPage,
     limit,
     onPageChange,
-    onValueChange,
+    onPageSizeChange,
     className,
   } = props;
   const totalRecords = props?.totalRecords ?? records.length;
@@ -48,8 +48,9 @@ const CommonPagination = <T,>(props: CommonPaginationProps<T>) => {
             onClick={() => {
               if (onPrev) {
                 onPrev();
+              } else {
+                onPageChange(safePage - 1);
               }
-              onPageChange(safePage - 1);
             }}
             disabled={
               disabled || (canPrev !== undefined ? !canPrev : safePage === 1)
@@ -62,8 +63,9 @@ const CommonPagination = <T,>(props: CommonPaginationProps<T>) => {
             onClick={() => {
               if (onNext) {
                 onNext();
+              } else {
+                onPageChange(safePage + 1);
               }
-              onPageChange(safePage + 1);
             }}
             disabled={
               disabled ||
@@ -90,7 +92,7 @@ const CommonPagination = <T,>(props: CommonPaginationProps<T>) => {
             label="Show per page"
             options={rowsPerPage}
             onValueChange={(value) => {
-              onValueChange?.(value);
+              onPageSizeChange?.(value);
               onPageChange(1);
             }}
             orientation="horizontal"

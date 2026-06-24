@@ -9,7 +9,7 @@ type CommonPaginationBase<T> = {
 
 type DefaultPaginationConfig<T> = {
   mode: "default";
-  onValueChange?: (value: string | null) => void;
+  onPageSizeChange?: (value: string | null) => void;
   onPrev?: () => void;
   onNext?: () => void;
   canPrev?: boolean;
@@ -21,7 +21,7 @@ type NumberedPaginationConfig<T> = {
   mode: "numbered";
   withLabel?: boolean;
   rowsPerPage: { label: string; value: string | null }[];
-  onValueChange: (value: string | null) => void;
+  onPageSizeChange: (value: string | null) => void;
 } & CommonPaginationBase<T>;
 
 export type CommonPaginationProps<T> =
