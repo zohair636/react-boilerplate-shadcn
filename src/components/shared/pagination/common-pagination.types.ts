@@ -1,6 +1,6 @@
 type CommonPaginationBase<T> = {
   records: T[];
-  totalRecords?: number
+  totalRecords?: number;
   currentPage: number;
   limit: number;
   onPageChange: (page: number) => void;
@@ -10,6 +10,11 @@ type CommonPaginationBase<T> = {
 type DefaultPaginationConfig<T> = {
   mode: "default";
   onValueChange?: (value: string | null) => void;
+  onPrev?: () => void;
+  onNext?: () => void;
+  canPrev?: boolean;
+  canNext?: boolean;
+  disabled?: boolean;
 } & CommonPaginationBase<T>;
 
 type NumberedPaginationConfig<T> = {

@@ -33,6 +33,7 @@ const CommonPagination = <T,>(props: CommonPaginationProps<T>) => {
 
   const renderPagination = () => {
     if (props.mode === "default") {
+      const { onPrev, onNext, canPrev, canNext, disabled } = props;
       return (
         <div
           className={cn(
@@ -44,15 +45,30 @@ const CommonPagination = <T,>(props: CommonPaginationProps<T>) => {
             label="Previous"
             variant="outline"
             size="sm"
-            onClick={() => onPageChange(safePage - 1)}
-            disabled={safePage === 1}
+            onClick={() => {
+              if (onPrev) {
+                onPrev();
+              }
+              onPageChange(safePage - 1);
+            }}
+            disabled={
+              disabled || (canPrev !== undefined ? !canPrev : safePage === 1)
+            }
           />
           <CommonButton
             label="Next"
             variant="outline"
             size="sm"
-            onClick={() => onPageChange(safePage + 1)}
-            disabled={safePage === totalPages}
+            onClick={() => {
+              if (onNext) {
+                onNext();
+              }
+              onPageChange(safePage + 1);
+            }}
+            disabled={
+              disabled ||
+              (canNext !== undefined ? !canNext : safePage === totalPages)
+            }
           />
         </div>
       );
