@@ -86,7 +86,7 @@ const CommonTable = <TData, TValue>({
   };
 
   const handlePageSizeChange = (value: string | null) => {
-    paginationProps?.onValueChange?.(value);
+    paginationProps?.onPageSizeChange?.(value);
     if (pagination) {
       setPaginationState((prev) => ({
         ...prev,
@@ -269,7 +269,7 @@ const CommonTable = <TData, TValue>({
             currentPage={table.getState().pagination.pageIndex + 1}
             limit={table.getState().pagination.pageSize}
             onPageChange={handlePageChange}
-            onValueChange={handlePageSizeChange}
+            onPageSizeChange={handlePageSizeChange}
           />
         ))}
     </div>
