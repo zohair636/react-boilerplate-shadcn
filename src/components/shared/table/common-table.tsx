@@ -128,6 +128,8 @@ const CommonTable = <TData, TValue>({
 
   if (!columns?.length) return null;
 
+  const skeletonLoaderSize = Math.min(table.getState().pagination.pageSize, 5);
+
   return (
     <div className={cn("space-y-2 mx-2", tableWrapperClassName)}>
       {/* filters */}
@@ -178,6 +180,15 @@ const CommonTable = <TData, TValue>({
         </div>
       )}
       <div className={cn("overflow-hidden rounded-md border", className)}>
+        {enableRowSelection && ( //only for screen readers
+          <span role="status" aria-live="polite" className="sr-only">
+            {table.getSelectedRowModel().rows.length} row(s) selected
+          </span>
+        )}
+        {/* only for screen readers */}
+        <span role="status" aria-live="polite" className="sr-only">
+          {isLoading ? "Table data is loading" : "Table data loaded"}
+        </span>
         <Table aria-busy={isLoading}>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
@@ -198,7 +209,7 @@ const CommonTable = <TData, TValue>({
           <TableBody>
             {isLoading ? (
               <>
-                {[...Array(5)].map((_, i) => (
+                {[...Array(skeletonLoaderSize)].map((_, i) => (
                   <TableRow key={i}>
                     {table.getVisibleLeafColumns().map((column) => (
                       <TableCell key={column.id}>
@@ -230,6 +241,8 @@ const CommonTable = <TData, TValue>({
                 <TableCell
                   colSpan={table.getVisibleLeafColumns().length}
                   className={cn("h-24 text-center", fallbackClassName)}
+                  role="cell"
+                  aria-label="No data available"
                 >
                   <span
                     className={cn(
