@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/carousel";
 import type { CommonCarouselProps } from "./common-carousel.types";
 import Autoplay from "embla-carousel-autoplay";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useMemo, useRef, useState } from "react";
 import { CommonButton } from "../button";
 import { cn } from "@/lib/utils";
 
@@ -28,9 +28,9 @@ const CommonCarousel = <T,>({
   contentClassName,
   itemClassName,
 }: CommonCarouselProps<T>) => {
-  const [apiInternal, setAPIInternal] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
   const [count, setCount] = useState(0);
+  const apiInternal = useRef<CarouselApi>(null);
 
   const autoplayPlugin = useMemo(
     () =>
@@ -47,36 +47,25 @@ const CommonCarousel = <T,>({
 
   const handleSetApi = useCallback(
     (api: CarouselApi) => {
-      setAPIInternal(api);
+      if (!api) return;
+
+      apiInternal.current = api;
       setAPIExternal?.(api);
+
+      const onInit = () => {
+        setCount(api.scrollSnapList().length);
+        setCurrent(api.selectedScrollSnap());
+      };
+
+      const onSelect = () => setCurrent(api.selectedScrollSnap());
+
+      api.on("init", onInit);
+      api.on("select", onSelect);
+
+      if (api.selectedScrollSnap() !== undefined) onInit();
     },
     [setAPIExternal],
   );
-
-  useEffect(() => {
-    if (!apiInternal) return;
-
-    const onInit = () => {
-      setCount(apiInternal.scrollSnapList().length);
-      setCurrent(apiInternal.selectedScrollSnap());
-    };
-
-    const onSelect = () => {
-      setCurrent(apiInternal.selectedScrollSnap());
-    };
-
-    apiInternal.on("init", onInit);
-    apiInternal.on("select", onSelect);
-
-    if (apiInternal.selectedScrollSnap() !== undefined) {
-      onInit();
-    }
-
-    return () => {
-      apiInternal.off("init", onInit);
-      apiInternal.off("select", onSelect);
-    };
-  }, [apiInternal]);
 
   if (!options?.length) return null;
 
@@ -109,7 +98,7 @@ const CommonCarousel = <T,>({
           {[...Array(count)].map((_, index) => (
             <CommonButton
               key={index}
-              onClick={() => apiInternal?.scrollTo(index)}
+              onClick={() => apiInternal.current?.scrollTo(index)}
               className={cn(
                 "h-1.5 rounded-full transition-all duration-300",
                 current === index
