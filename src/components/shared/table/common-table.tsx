@@ -7,7 +7,8 @@ import {
   getSortedRowModel,
   useReactTable,
   type ColumnFiltersState,
-  type PaginationState,
+  type OnChangeFn,
+  type RowSelectionState,
   type SortingState,
   type VisibilityState,
 } from "@tanstack/react-table";
@@ -21,7 +22,7 @@ import {
 } from "@/components/ui/table";
 import { CommonButton } from "../button";
 import { cn } from "@/lib/utils";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { getTableColumns, renderFilters } from "./common-table.utils";
 import { CommonDropdown } from "../dropdown";
 import { RenderIcon } from "@/utils/icon-utils";
@@ -55,45 +56,41 @@ const CommonTable = <TData, TValue>({
   );
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = useState({});
-  const [paginationState, setPaginationState] = useState<PaginationState>({
-    pageIndex: 0,
+  const [pageIndex, setPageIndex] = useState(0);
+  const paginationState = {
+    pageIndex,
     pageSize: paginationProps?.limit ?? 10,
-  });
+  };
 
   const tableColumns = useMemo(
     () => getTableColumns(columns, enableRowSelection),
     [columns, enableRowSelection],
   );
 
-  useEffect(() => {
-    if (!pagination) return;
-
-    setPaginationState((prev) => ({
-      ...prev,
-      pageSize: paginationProps?.limit ?? prev.pageSize,
-      pageIndex: 0,
-    }));
-  }, [pagination, paginationProps?.limit]);
-
   const handlePageChange = (page: number) => {
     paginationProps?.onPageChange?.(page);
     if (pagination) {
-      setPaginationState((prev) => ({
-        ...prev,
-        pageIndex: Math.max(0, page - 1),
-      }));
+      setPageIndex(Math.max(0, page - 1));
     }
   };
 
   const handlePageSizeChange = (value: string | null) => {
     paginationProps?.onPageSizeChange?.(value);
     if (pagination) {
-      setPaginationState((prev) => ({
-        ...prev,
-        pageIndex: 0,
-        pageSize: Number(value ?? prev.pageSize),
-      }));
+      setPageIndex(0);
     }
+  };
+
+  const handleRowSelectionChange: OnChangeFn<RowSelectionState> = (updater) => {
+    setRowSelection((prev) => {
+      const next = typeof updater === "function" ? updater(prev) : updater;
+
+      if (enableRowSelection) {
+        const selectedRows = data.filter((_, index) => next[index]);
+        onRowSelectionChange?.(selectedRows);
+      }
+      return next;
+    });
   };
 
   const table = useReactTable({
@@ -101,7 +98,13 @@ const CommonTable = <TData, TValue>({
     columns: tableColumns,
     getCoreRowModel: getCoreRowModel(),
     ...(pagination && { getPaginationRowModel: getPaginationRowModel() }),
-    ...(pagination && { onPaginationChange: setPaginationState }),
+    ...(pagination && {
+      onPaginationChange: (updater) => {
+        const next =
+          typeof updater === "function" ? updater(paginationState) : updater;
+        setPageIndex(next.pageIndex);
+      },
+    }),
     ...(sort && { onSortingChange: setSorting }),
     ...(sort && { getSortedRowModel: getSortedRowModel() }),
     ...(filters && { onColumnFiltersChange: setColumnFilters }),
@@ -109,7 +112,9 @@ const CommonTable = <TData, TValue>({
     ...(enableColumnVisibility && {
       onColumnVisibilityChange: setColumnVisibility,
     }),
-    ...(enableRowSelection && { onRowSelectionChange: setRowSelection }),
+    ...(enableRowSelection && {
+      onRowSelectionChange: handleRowSelectionChange,
+    }),
     state: {
       ...(pagination && { pagination: paginationState }),
       ...(sort && { sorting }),
@@ -118,13 +123,6 @@ const CommonTable = <TData, TValue>({
       ...(enableRowSelection && { rowSelection }),
     },
   });
-
-  useEffect(() => {
-    if (!enableRowSelection) return;
-    onRowSelectionChange?.(
-      table.getSelectedRowModel().rows.map((row) => row.original),
-    );
-  }, [rowSelection, enableRowSelection, onRowSelectionChange, table]);
 
   if (!columns?.length) return null;
 
@@ -181,14 +179,14 @@ const CommonTable = <TData, TValue>({
       )}
       <div className={cn("overflow-hidden rounded-md border", className)}>
         {enableRowSelection && ( //only for screen readers
-          <span role="status" aria-live="polite" className="sr-only">
+          <output aria-live="polite" className="sr-only">
             {table.getSelectedRowModel().rows.length} row(s) selected
-          </span>
+          </output>
         )}
         {/* only for screen readers */}
-        <span role="status" aria-live="polite" className="sr-only">
+        <output aria-live="polite" className="sr-only">
           {isLoading ? "Table data is loading" : "Table data loaded"}
-        </span>
+        </output>
         <Table aria-busy={isLoading}>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
@@ -241,7 +239,6 @@ const CommonTable = <TData, TValue>({
                 <TableCell
                   colSpan={table.getVisibleLeafColumns().length}
                   className={cn("h-24 text-center", fallbackClassName)}
-                  role="cell"
                   aria-label="No data available"
                 >
                   <span
