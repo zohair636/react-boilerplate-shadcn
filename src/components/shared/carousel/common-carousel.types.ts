@@ -13,6 +13,7 @@ export interface CommonCarouselProps<T> {
   autoPlayDelay?: number;
   setApi?: (api: CarouselApi) => void;
   showControls?: boolean;
+  showDots?: boolean;
   className?: string;
   contentClassName?: string;
   itemClassName?: string;
