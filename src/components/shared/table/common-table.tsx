@@ -139,8 +139,8 @@ const CommonTable = <TData, TValue>({
           )}
         >
           {filters &&
-            (Array.isArray(filters) ? filters : [filters]).map((filter, i) => (
-              <div key={i}>
+            (Array.isArray(filters) ? filters : [filters]).map((filter) => (
+              <div key={filter.key}>
                 {renderFilters(
                   filter,
                   table,
@@ -208,7 +208,7 @@ const CommonTable = <TData, TValue>({
             {isLoading ? (
               <>
                 {[...Array(skeletonLoaderSize)].map((_, i) => (
-                  <TableRow key={i}>
+                  <TableRow key={`skeleton-row-${i}`}>
                     {table.getVisibleLeafColumns().map((column) => (
                       <TableCell key={column.id}>
                         <Skeleton className="h-4 w-full" />
