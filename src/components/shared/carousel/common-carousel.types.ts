@@ -5,7 +5,7 @@ import type { ReactNode } from "react";
 export interface CommonCarouselProps<T> {
   options: T[];
   renderItem: (item: T, index: number) => ReactNode;
-  getItemKey?: (item: T, index: number) => string | number;
+  getItemKey: (item: T, index: number) => string | number;
   align?: "center" | "end" | "start";
   loop?: boolean;
   orientation?: OrientationType;

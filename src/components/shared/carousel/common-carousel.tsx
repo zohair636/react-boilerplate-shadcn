@@ -83,7 +83,7 @@ const CommonCarousel = <T,>({
         <CarouselContent className={contentClassName}>
           {options.map((item, index) => (
             <CarouselItem
-              key={getItemKey ? getItemKey(item, index) : index}
+              key={getItemKey(item, index)}
               className={itemClassName}
             >
               {renderItem(item, index)}
@@ -97,7 +97,7 @@ const CommonCarousel = <T,>({
         <div className="flex items-center gap-1.5">
           {[...Array(count)].map((_, index) => (
             <CommonButton
-              key={index}
+              key={`dot-${index}`}
               onClick={() => apiInternal.current?.scrollTo(index)}
               className={cn(
                 "h-1.5 rounded-full transition-all duration-300",
