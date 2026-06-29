@@ -15,6 +15,7 @@ const CommonTextArea = ({
   errorClassName,
   value,
   onChange,
+  ref,
   ...rest
 }: CommonTextAreaProps) => {
   const generatedId = useId();
@@ -24,12 +25,14 @@ const CommonTextArea = ({
   const showError = !!error && !value;
   return (
     <Field>
-      <CommonFieldLabel
-        id={fieldId}
-        label={label}
-        className={labelClassName}
-        required={required}
-      />
+      {label && (
+        <CommonFieldLabel
+          id={fieldId}
+          label={label}
+          className={labelClassName}
+          required={required}
+        />
+      )}
       {description && (
         <FieldDescription id={descriptionId} className={descriptionClassName}>
           {description}
@@ -37,6 +40,7 @@ const CommonTextArea = ({
       )}
       <Textarea
         id={fieldId}
+        ref={ref}
         aria-invalid={showError}
         aria-errormessage={errorId}
         aria-describedby={descriptionId}
