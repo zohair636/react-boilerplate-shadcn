@@ -1,5 +1,9 @@
 import { useId } from "react";
-import type { CommonAvatarProps } from "./common-avatar.types";
+import type {
+  CommonAvatarProps,
+  GroupAvatarProps,
+  SingleAvatarProps,
+} from "./common-avatar.types";
 import {
   Avatar,
   AvatarBadge,
@@ -7,6 +11,43 @@ import {
   AvatarGroup,
   AvatarImage,
 } from "@/components/ui/avatar";
+
+const SingleAvatar = ({
+  size,
+  src,
+  className,
+  fallback,
+  badge,
+  badgeClassName,
+}: SingleAvatarProps) => {
+  return (
+    <Avatar size={size}>
+      <AvatarImage src={src} alt={fallback ?? "Avatar"} className={className} />
+      {fallback && <AvatarFallback>{fallback}</AvatarFallback>}
+      {badge && <AvatarBadge className={badgeClassName} />}
+    </Avatar>
+  );
+};
+
+const GroupAvatar = ({ avatarList, className }: GroupAvatarProps) => {
+  const generateId = useId();
+  return (
+    <AvatarGroup>
+      {avatarList?.map((avatar, index) => (
+        <Avatar key={`${generateId}-${avatar.src ?? index}`}>
+          <AvatarImage
+            src={avatar.src}
+            alt={avatar.fallback ?? "Avatar"}
+            className={className}
+          />
+          {avatar.fallback && (
+            <AvatarFallback>{avatar.fallback}</AvatarFallback>
+          )}
+        </Avatar>
+      ))}
+    </AvatarGroup>
+  );
+};
 
 const CommonAvatar = ({
   src,
@@ -18,44 +59,23 @@ const CommonAvatar = ({
   avatarList,
   size = "default",
 }: CommonAvatarProps) => {
-  const generateId = useId();
-
   if (!src && variant === "default") return null;
   if (variant === "group" && !avatarList?.length) return null;
 
-  const renderAvatar = () => {
-    if (variant === "default") {
-      return (
-        <Avatar size={size}>
-          <AvatarImage
-            src={src}
-            alt={`${generateId}-${src}`}
-            className={className}
-          />
-          <AvatarFallback>{fallback}</AvatarFallback>
-          {badge && <AvatarBadge className={badgeClassName} />}
-        </Avatar>
-      );
-    }
-    if (variant === "group") {
-      return (
-        <AvatarGroup>
-          {avatarList?.map((avatar) => (
-            <Avatar key={`${generateId}-${avatar.src}`}>
-              <AvatarImage
-                src={avatar.src}
-                alt={`${generateId}-${avatar.src}`}
-                className={className}
-              />
-              <AvatarFallback>{avatar.fallback}</AvatarFallback>
-            </Avatar>
-          ))}
-        </AvatarGroup>
-      );
-    }
-  };
+  if (variant === "group") {
+    return <GroupAvatar avatarList={avatarList} className={className} />;
+  }
 
-  return <>{renderAvatar()}</>;
+  return (
+    <SingleAvatar
+      src={src}
+      fallback={fallback}
+      badge={badge}
+      className={className}
+      badgeClassName={badgeClassName}
+      size={size}
+    />
+  );
 };
 
 export default CommonAvatar;
