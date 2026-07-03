@@ -5,6 +5,7 @@ const CommonImage = ({
   alt,
   loading = "lazy",
   fetchPriority = "auto",
+  decoding = "async",
   width,
   height,
   ...rest
@@ -17,6 +18,7 @@ const CommonImage = ({
       height={height}
       loading={loading}
       fetchPriority={fetchPriority}
+      decoding={decoding}
       {...rest}
     />
   );
