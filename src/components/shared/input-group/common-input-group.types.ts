@@ -16,3 +16,22 @@ export interface CommonInputGroupProps {
   className?: string;
   mode?: "input" | "textarea";
 }
+
+export type SharedFieldProps = Pick<
+  CommonInputGroupProps,
+  | "placeholder"
+  | "icon"
+  | "align"
+  | "required"
+  | "disabled"
+  | "value"
+  | "onChange"
+  | "error"
+> & {
+  fieldId: string;
+  errorId?: string;
+};
+
+export type InputGroupInputFieldProps = SharedFieldProps & {
+  type?: HTMLInputTypeAttribute;
+};
