@@ -58,14 +58,7 @@ const ComposedCollapsible = ({
 };
 
 const CommonCollapsible = (props: CommonCollapsibleProps) => {
-  const {
-    open,
-    onOpenChange,
-    defaultOpen,
-    disabled,
-    className,
-    mode = "basic",
-  } = props;
+  const { open, onOpenChange, defaultOpen, disabled, className, mode } = props;
   return (
     <Collapsible
       open={open}
