@@ -3,58 +3,62 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
-import type { CommonCollapsibleProps } from "./common-collapsible.types";
+import type {
+  CollapsibleBasicModeConfig,
+  CollapsibleComposedModeConfig,
+  CommonCollapsibleProps,
+} from "./common-collapsible.types";
+
+const BasicCollapsible = ({
+  trigger,
+  triggerClassName,
+  keepMounted,
+  contentClassName,
+  children,
+}: CollapsibleBasicModeConfig) => {
+  return (
+    <>
+      <CollapsibleTrigger className={triggerClassName}>
+        {trigger}
+      </CollapsibleTrigger>
+      <CollapsibleContent
+        keepMounted={keepMounted}
+        className={contentClassName}
+      >
+        {children}
+      </CollapsibleContent>
+    </>
+  );
+};
+
+const ComposedCollapsible = ({
+  beforeTrigger,
+  afterTrigger,
+  trigger,
+  triggerClassName,
+  keepMounted,
+  contentClassName,
+  children,
+}: CollapsibleComposedModeConfig) => {
+  return (
+    <>
+      <CollapsibleTrigger className={triggerClassName}>
+        {beforeTrigger}
+        {trigger}
+        {afterTrigger}
+      </CollapsibleTrigger>
+      <CollapsibleContent
+        keepMounted={keepMounted}
+        className={contentClassName}
+      >
+        {children}
+      </CollapsibleContent>
+    </>
+  );
+};
 
 const CommonCollapsible = (props: CommonCollapsibleProps) => {
-  const {
-    open,
-    onOpenChange,
-    trigger,
-    defaultOpen = false,
-    disabled = false,
-    keepMounted = true,
-    children,
-    mode,
-    className,
-    contentClassName,
-    triggerClassName,
-  } = props;
-
-  const renderItems = () => {
-    if (mode === "basic") {
-      return (
-        <>
-          <CollapsibleTrigger className={triggerClassName}>
-            {trigger}
-          </CollapsibleTrigger>
-          <CollapsibleContent
-            keepMounted={keepMounted}
-            className={contentClassName}
-          >
-            {children}
-          </CollapsibleContent>
-        </>
-      );
-    }
-    if (mode === "composed") {
-      const { beforeTrigger, afterTrigger } = props;
-      return (
-        <>
-          {beforeTrigger}
-          <CollapsibleTrigger className={triggerClassName}>
-            {trigger}
-          </CollapsibleTrigger>
-          {afterTrigger}
-          <CollapsibleContent
-            keepMounted={keepMounted}
-            className={contentClassName}
-          >
-            {children}
-          </CollapsibleContent>
-        </>
-      );
-    }
-  };
+  const { open, onOpenChange, defaultOpen, disabled, className, mode } = props;
   return (
     <Collapsible
       open={open}
@@ -63,7 +67,11 @@ const CommonCollapsible = (props: CommonCollapsibleProps) => {
       disabled={disabled}
       className={className}
     >
-      {renderItems()}
+      {mode === "basic" ? (
+        <BasicCollapsible {...props} />
+      ) : (
+        <ComposedCollapsible {...props} />
+      )}
     </Collapsible>
   );
 };

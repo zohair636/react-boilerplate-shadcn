@@ -1,15 +1,5 @@
 import type { ReactNode } from "react";
 
-interface CollapsibleBasicModeConfig extends CollapsibleBasicProps {
-  mode: "basic";
-}
-
-interface CollapsibleComposedModeConfig extends CollapsibleBasicProps {
-  mode: "composed";
-  beforeTrigger?: ReactNode;
-  afterTrigger?: ReactNode;
-}
-
 type CollapsibleBasicProps = {
   open?: boolean;
   onOpenChange?: (open: boolean) => void;
@@ -22,6 +12,16 @@ type CollapsibleBasicProps = {
   contentClassName?: string;
   triggerClassName?: string;
 };
+
+export interface CollapsibleBasicModeConfig extends CollapsibleBasicProps {
+  mode: "basic";
+}
+
+export interface CollapsibleComposedModeConfig extends CollapsibleBasicProps {
+  mode: "composed";
+  beforeTrigger?: ReactNode;
+  afterTrigger?: ReactNode;
+}
 
 export type CommonCollapsibleProps =
   | CollapsibleBasicModeConfig
