@@ -5,15 +5,10 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
-import {
-  Bar,
-  BarChart,
-  CartesianGrid,
-  LabelList,
-  XAxis,
-  YAxis,
-} from "recharts";
+import { Bar, BarChart, CartesianGrid, LabelList } from "recharts";
 import type { CommonBarChartProps } from "./common-bar-chart.types";
+import { BarChartHorizontalAxis } from "./components/horizontal-axis";
+import { BarChartVerticalAxis } from "./components/vertical-axis";
 
 const CommonBarChart = <TData extends Record<string, unknown>>({
   data,
@@ -32,40 +27,11 @@ const CommonBarChart = <TData extends Record<string, unknown>>({
   className,
   type = "category",
   layout = "horizontal",
-  indicator = "dashed",
+  indicator = "dot",
   chartLegend = false,
 }: CommonBarChartProps<TData>) => {
   if (!data?.length || !bars?.length) return null;
 
-  const renderAxis = () => {
-    if (layout === "horizontal") {
-      return (
-        <XAxis
-          dataKey={xAxisDataKey as string}
-          tickLine={tickLine}
-          tickMargin={tickMargin}
-          axisLine={axisLine}
-          tickFormatter={tickFormatter}
-          type={type}
-        />
-      );
-    }
-    if (layout === "vertical") {
-      return (
-        <>
-          <XAxis dataKey={xAxisDataKey as string} type="number" hide />
-          <YAxis
-            dataKey={yAxisDataKey as string}
-            type="category"
-            tickLine={tickLine}
-            tickMargin={tickMargin}
-            axisLine={axisLine}
-            tickFormatter={tickFormatter}
-          />
-        </>
-      );
-    }
-  };
   return (
     <ChartContainer config={config} className={className}>
       <BarChart
@@ -74,7 +40,25 @@ const CommonBarChart = <TData extends Record<string, unknown>>({
         layout={layout}
       >
         <CartesianGrid vertical={showVerticalGridLines} />
-        {renderAxis()}
+        {layout === "horizontal" ? (
+          <BarChartHorizontalAxis<TData>
+            xAxisDataKey={xAxisDataKey}
+            tickLine={tickLine}
+            tickMargin={tickMargin}
+            axisLine={axisLine}
+            tickFormatter={tickFormatter}
+            type={type}
+          />
+        ) : (
+          <BarChartVerticalAxis<TData>
+            xAxisDataKey={xAxisDataKey}
+            yAxisDataKey={yAxisDataKey}
+            tickLine={tickLine}
+            tickMargin={tickMargin}
+            axisLine={axisLine}
+            tickFormatter={tickFormatter}
+          />
+        )}
         <ChartTooltip
           cursor={cursor}
           content={
@@ -91,7 +75,7 @@ const CommonBarChart = <TData extends Record<string, unknown>>({
             {bar.label?.show && (
               <LabelList
                 dataKey={bar.dataKey}
-                position={bar.label?.position ?? 'top'}
+                position={bar.label?.position ?? "top"}
                 offset={bar.label?.offset}
                 fontSize={bar.label?.fontSize}
                 className={bar.label?.className}

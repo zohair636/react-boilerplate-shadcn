@@ -35,3 +35,27 @@ export interface CommonBarChartProps<TData extends Record<string, unknown>> {
   indicator?: ChartIndicator;
   chartLegend?: boolean;
 }
+
+export type BarChartHorizontalAxisProps<
+  TData extends Record<string, unknown> = Record<string, unknown>,
+> = Pick<
+  CommonBarChartProps<TData>,
+  | "xAxisDataKey"
+  | "tickLine"
+  | "tickMargin"
+  | "axisLine"
+  | "tickFormatter"
+  | "type"
+>;
+
+export type BarChartVerticalAxisProps<
+  TData extends Record<string, unknown> = Record<string, unknown>,
+> = Pick<
+  CommonBarChartProps<TData>,
+  | "xAxisDataKey"
+  | "yAxisDataKey"
+  | "tickLine"
+  | "tickMargin"
+  | "axisLine"
+  | "tickFormatter"
+>;
