@@ -3,7 +3,7 @@ import { cn } from "@/lib/utils";
 import { Label } from "@/components/ui/label";
 
 const CommonLabel = ({
-  id,
+  htmlFor,
   label,
   required,
   helper,
@@ -14,7 +14,8 @@ const CommonLabel = ({
   return (
     <Label
       ref={ref}
-      htmlFor={id}
+      htmlFor={htmlFor}
+      aria-required={required}
       className={cn(
         "flex items-center gap-0.5 text-sm! font-normal leading-4",
         className,

@@ -1,13 +1,13 @@
-import React, { type LabelHTMLAttributes, type Ref } from "react";
+import type { LabelHTMLAttributes, ReactNode, Ref } from "react";
 
 export interface CommonLabelProps extends Omit<
   LabelHTMLAttributes<HTMLLabelElement>,
-  "id" | "required"
+  "htmlFor" | "required"
 > {
-  id?: string;
-  label: React.ReactNode;
+  htmlFor?: string;
+  label: ReactNode;
   required?: boolean;
-  helper?: React.ReactNode;
+  helper?: ReactNode;
   ref?: Ref<HTMLLabelElement>;
 }
 
