@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import type { ReactNode, Ref } from "react";
 
 export type SimpleItem = string;
 
@@ -15,22 +15,20 @@ export type GroupItem<TGroup extends string = string> = {
 export type SelectableItem = SimpleItem | OptionItem;
 
 export type SimpleList = SimpleItem[];
-
-export type OptionList<TValue extends string = string> = ReadonlyArray<OptionItem<TValue>>;
-
-export type GroupedList<TGroup extends string = string> = ReadonlyArray<GroupItem<TGroup>>;
+export type OptionList<TValue extends string = string> = ReadonlyArray<
+  OptionItem<TValue>
+>;
+export type GroupedList<TGroup extends string = string> = ReadonlyArray<
+  GroupItem<TGroup>
+>;
 
 export type AnyList = SimpleList | OptionList | GroupedList;
 
-export interface CommonComboboxProps {
-  options: AnyList;
-  variant?: "default" | "multiple" | "grouped";
+interface BaseComboboxProps {
   placeholder?: string;
   fallback?: string;
   label?: string;
   icon?: ReactNode;
-  value?: string;
-  onChange?: (value: string) => void;
   required?: boolean;
   disabled?: boolean;
   showClear?: boolean;
@@ -38,4 +36,40 @@ export interface CommonComboboxProps {
   labelClassName?: string;
   contentClassName?: string;
   chipClassName?: string;
+  ref?: Ref<HTMLInputElement>;
 }
+
+export type DefaultVariantProps = BaseComboboxProps & {
+  variant?: "default";
+  options: SimpleList | OptionList;
+  onChange?: (value: string) => void;
+};
+
+export type MultipleVariantProps = BaseComboboxProps & {
+  variant: "multiple";
+  options: SimpleList | OptionList;
+  onChange?: (values: string[]) => void;
+};
+
+export type GroupedVariantProps = BaseComboboxProps & {
+  variant: "grouped";
+  options: GroupedList;
+  onChange?: (value: string) => void;
+};
+
+export type CommonComboboxProps =
+  | DefaultVariantProps
+  | MultipleVariantProps
+  | GroupedVariantProps;
+
+export type DefaultComboboxProps = Omit<DefaultVariantProps, "variant"> & {
+  id: string;
+};
+
+export type MultipleComboboxProps = Omit<MultipleVariantProps, "variant"> & {
+  id: string;
+};
+
+export type GroupedComboboxProps = Omit<GroupedVariantProps, "variant"> & {
+  id: string;
+};
