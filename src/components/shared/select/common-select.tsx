@@ -13,6 +13,7 @@ import { Field, FieldError } from "@/components/ui/field";
 import CommonFieldLabel from "../label/field-label";
 import { ChevronDown, X } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { CommonButton } from "../button";
 
 const CommonSelect = ({
   id,
@@ -48,13 +49,6 @@ const CommonSelect = ({
     onValueChange?.(null);
   };
 
-  const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === "Enter" || e.key === " ") {
-      e.preventDefault();
-      handleClear(e);
-    }
-  };
-
   return (
     <Field
       data-invalid={isInvalid}
@@ -63,7 +57,7 @@ const CommonSelect = ({
     >
       {label && (
         <CommonFieldLabel
-          id={fieldId}
+          htmlFor={fieldId}
           label={label}
           required={required}
           className={labelClassName}
@@ -84,16 +78,15 @@ const CommonSelect = ({
           <SelectValue placeholder={placeholderOption} />
 
           {hasValue ? (
-            <span
-              role="button"
-              tabIndex={0}
+            <CommonButton
+              type="button"
+              leftIcon={<X className="size-4 shrink-0 opacity-50" />}
+              variant="ghost"
+              size="icon"
+              onClick={handleClear}
+              className="rounded-full hover:bg-muted"
               aria-label="Clear selection"
-              onPointerDown={handleClear}
-              onKeyDown={handleKeyDown}
-              className="ml-auto p-0.5 rounded hover:bg-muted"
-            >
-              <X className="size-4 shrink-0 opacity-50" />
-            </span>
+            />
           ) : (
             <ChevronDown className="ml-auto size-4 shrink-0 opacity-50" />
           )}
