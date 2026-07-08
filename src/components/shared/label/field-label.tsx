@@ -2,7 +2,7 @@ import type { CommonFieldLabelProps } from "./common-label.types";
 import { FieldLabel } from "@/components/ui/field";
 
 const CommonFieldLabel = ({
-  id,
+  htmlFor,
   label,
   required,
   className,
@@ -11,7 +11,7 @@ const CommonFieldLabel = ({
 }: CommonFieldLabelProps) => {
   return (
     <div className="flex items-center gap-1">
-      <FieldLabel htmlFor={id} ref={ref} className={className} {...rest}>
+      <FieldLabel htmlFor={htmlFor} ref={ref} className={className} {...rest}>
         {label}
       </FieldLabel>
       {required && <span className="text-destructive">*</span>}
