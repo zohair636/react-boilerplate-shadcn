@@ -11,7 +11,13 @@ const CommonFieldLabel = ({
 }: CommonFieldLabelProps) => {
   return (
     <div className="flex items-center gap-1">
-      <FieldLabel htmlFor={htmlFor} ref={ref} className={className} {...rest}>
+      <FieldLabel
+        htmlFor={htmlFor}
+        aria-required={required}
+        ref={ref}
+        className={className}
+        {...rest}
+      >
         {label}
       </FieldLabel>
       {required && <span className="text-destructive">*</span>}
