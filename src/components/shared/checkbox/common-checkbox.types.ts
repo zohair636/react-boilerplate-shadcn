@@ -6,6 +6,7 @@ type CommonCheckboxBaseProps = {
   className?: string;
   orientation?: "horizontal" | "vertical" | "responsive";
   disabled?: boolean;
+  isInvalid?: boolean;
 };
 
 export type DefaultCheckboxProps = CommonCheckboxBaseProps & {
