@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/carousel";
 import type { CommonCarouselProps } from "./common-carousel.types";
 import Autoplay from "embla-carousel-autoplay";
-import { useCallback, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { CommonButton } from "../button";
 import { cn } from "@/lib/utils";
 
@@ -30,6 +30,7 @@ const CommonCarousel = <T,>({
 }: CommonCarouselProps<T>) => {
   const [current, setCurrent] = useState(0);
   const [count, setCount] = useState(0);
+  const [api, setAPIState] = useState<CarouselApi>();
   const apiInternal = useRef<CarouselApi>(null);
 
   const autoplayPlugin = useMemo(
@@ -46,26 +47,32 @@ const CommonCarousel = <T,>({
   );
 
   const handleSetApi = useCallback(
-    (api: CarouselApi) => {
-      if (!api) return;
-
-      apiInternal.current = api;
-      setAPIExternal?.(api);
-
-      const onInit = () => {
-        setCount(api.scrollSnapList().length);
-        setCurrent(api.selectedScrollSnap());
-      };
-
-      const onSelect = () => setCurrent(api.selectedScrollSnap());
-
-      api.on("init", onInit);
-      api.on("select", onSelect);
-
-      if (api.selectedScrollSnap() !== undefined) onInit();
+    (nextApi: CarouselApi) => {
+      apiInternal.current = nextApi;
+      setAPIExternal?.(nextApi);
+      setAPIState(nextApi);
     },
     [setAPIExternal],
   );
+
+  useEffect(() => {
+    if (!api) return;
+
+    const onInit = () => {
+      setCount(api.scrollSnapList().length);
+      setCurrent(api.selectedScrollSnap());
+    };
+    const onSelect = () => setCurrent(api.selectedScrollSnap());
+
+    onInit();
+    api.on("init", onInit);
+    api.on("select", onSelect);
+
+    return () => {
+      api.off("init", onInit);
+      api.off("select", onSelect);
+    };
+  }, [api]);
 
   if (!options?.length) return null;
 
