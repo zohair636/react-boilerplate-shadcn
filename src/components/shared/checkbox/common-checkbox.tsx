@@ -8,7 +8,7 @@ import {
   FieldSet,
 } from "@/components/ui/field";
 import CommonFieldLabel from "../label/field-label";
-import { useId } from "react";
+import { useId, useMemo } from "react";
 import type {
   CommonCheckboxProps,
   DefaultCheckboxProps,
@@ -67,6 +67,10 @@ const GroupCheckbox = ({
   const isInvalid =
     !!required && (Array.isArray(checked) ? !checked?.length : !checked);
 
+  const checkedSet = useMemo(() => {
+    return new Set<string>(Array.isArray(checked) ? checked : []);
+  }, [checked]);
+
   const handleGroupChange = (value: string, isChecked: boolean) => {
     const current = Array.isArray(checked) ? checked : [];
     const updated = isChecked
@@ -83,9 +87,6 @@ const GroupCheckbox = ({
       <FieldGroup className={className}>
         {options?.map((option) => {
           const optionId = `${fieldId}-${option.value}`;
-          const isChecked = Array.isArray(checked)
-            ? checked.includes(option.value)
-            : false;
           return (
             <Field
               key={optionId}
@@ -95,7 +96,7 @@ const GroupCheckbox = ({
               <Checkbox
                 id={optionId}
                 name={fieldId}
-                checked={isChecked}
+                checked={checkedSet.has(option.value)}
                 onCheckedChange={(value) =>
                   handleGroupChange(option.value, value as boolean)
                 }
