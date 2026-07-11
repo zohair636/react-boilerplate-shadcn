@@ -10,6 +10,7 @@ interface DropDownListItem {
   variant?: "default" | "destructive";
   subOptions?: DropDownListItem[];
   subMenu?: {
+    id: string;
     label: string;
     icon?: ReactNode;
     items: DropDownListItem[];
@@ -28,20 +29,23 @@ interface CheckboxDropDownListItem {
 
 type RadioGroupDropDownListItem = Omit<
   DropDownListItem,
-  "onClick" | "variant" | "subOptions" | "subMenu"
+  "onClick" | "variant" | "subOptions" | "subMenu" | "disabled" | "shortcut"
 >;
 
 interface DefaultDropDownOptionLabel {
+  id: string;
   label?: string;
   items?: DropDownListItem[];
 }
 
 interface CheckboxDropDownOptionLabel {
+  id: string;
   label?: string;
   items?: CheckboxDropDownListItem[];
 }
 
 interface RadioGroupDropDownOptionLabel {
+  id: string;
   label?: string;
   items?: RadioGroupDropDownListItem[];
 }
@@ -68,6 +72,20 @@ type RadioGroupDropdownProps = BaseDropdownProps & {
   value: string;
   onValueChange: (value: string) => void;
 };
+
+export type DefaultDropdownModeProps = Pick<
+  DefaultDropdownProps,
+  "options" | "itemClassName" | "className"
+>;
+
+export type CheckboxesDropdownModeProps = Pick<
+  CheckboxesDropdownProps,
+  "options" | "itemClassName"
+>;
+export type RadioGroupDropdownModeProps = Pick<
+  RadioGroupDropdownProps,
+  "options" | "value" | "onValueChange" | "itemClassName"
+>;
 
 export type CommonDropdownProps =
   | DefaultDropdownProps
