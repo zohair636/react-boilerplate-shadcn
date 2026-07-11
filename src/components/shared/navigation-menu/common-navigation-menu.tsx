@@ -27,9 +27,9 @@ const CommonNavigationMenu = ({
           <NavigationMenuTrigger>{trigger}</NavigationMenuTrigger>
           <NavigationMenuContent>
             <div className={className}>
-              {options?.map((option, index) => (
+              {options?.map((option) => (
                 <NavigationMenuLink
-                  key={`${option.title}-${index}`}
+                  key={option.id}
                   render={
                     <Link
                       to={option.href || "/"}

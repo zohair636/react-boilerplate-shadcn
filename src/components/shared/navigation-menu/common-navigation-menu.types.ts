@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 
 interface NavigationMenuOption {
+  id: string;
   title: string;
   description?: string;
   href: string;
