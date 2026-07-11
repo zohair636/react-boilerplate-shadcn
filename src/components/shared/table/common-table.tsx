@@ -161,6 +161,7 @@ const CommonTable = <TData, TValue>({
               mode="checkboxes"
               options={[
                 {
+                  id: "columns",
                   items: table
                     .getAllColumns()
                     .filter((column) => column.getCanHide())

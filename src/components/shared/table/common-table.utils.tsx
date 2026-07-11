@@ -53,6 +53,7 @@ export const renderFilters = <TData,>(
         }
         options={[
           {
+            id: item.key,
             items: item.options.map((option) => ({
               label: option.label,
               value: option.value,
