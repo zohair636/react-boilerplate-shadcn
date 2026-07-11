@@ -1,6 +1,6 @@
 export const getPagination = (page: number, total: number) => {
   if (total <= 7) return [...Array(total)].map((_, i) => i + 1);
-  const pagination: (number | "...")[] = [];
+  const pagination: (number | "start-ellipsis" | 'end-ellipsis')[] = [];
 
   pagination.push(1);
 
@@ -8,7 +8,7 @@ export const getPagination = (page: number, total: number) => {
   const end = Math.min(total - 1, page + 2);
 
   if (start > 2) {
-    pagination.push("...");
+    pagination.push("start-ellipsis");
   }
 
   for (let i = start; i <= end; i++) {
@@ -16,7 +16,7 @@ export const getPagination = (page: number, total: number) => {
   }
 
   if (end < total - 1) {
-    pagination.push("...");
+    pagination.push("end-ellipsis");
   }
 
   pagination.push(total);

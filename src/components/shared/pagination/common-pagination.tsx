@@ -110,30 +110,34 @@ const CommonPagination = <T,>(props: CommonPaginationProps<T>) => {
                 variant="ghost"
               />
             </PaginationItem>
-            {getPagination(safePage, totalPages).map((page, i) => (
-              <PaginationItem key={`${page}-${i}`}>
-                {page === "..." ? (
-                  <PaginationEllipsis />
-                ) : (
-                  <PaginationLink
-                    href="#"
-                    aria-current={safePage === page ? "page" : undefined}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      onPageChange(page);
-                    }}
-                    className={cn(
-                      "border",
-                      safePage === page
-                        ? "bg-black/5 border-black/10"
-                        : "border-black/5",
-                    )}
-                  >
-                    {page}
-                  </PaginationLink>
-                )}
-              </PaginationItem>
-            ))}
+            {getPagination(safePage, totalPages).map((page) => {
+              const isEllipsis =
+                page === "start-ellipsis" || page === "end-ellipsis";
+              return (
+                <PaginationItem key={page}>
+                  {isEllipsis ? (
+                    <PaginationEllipsis />
+                  ) : (
+                    <PaginationLink
+                      href="#"
+                      aria-current={safePage === page ? "page" : undefined}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        onPageChange(page);
+                      }}
+                      className={cn(
+                        "border",
+                        safePage === page
+                          ? "bg-black/5 border-black/10"
+                          : "border-black/5",
+                      )}
+                    >
+                      {page}
+                    </PaginationLink>
+                  )}
+                </PaginationItem>
+              );
+            })}
             <PaginationItem>
               <CommonButton
                 {...(withLabel && { label: "Next" })}
