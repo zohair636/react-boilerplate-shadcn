@@ -1,5 +1,7 @@
-import { InputGroupAddon, InputGroupInput } from "@/components/ui/input-group";
-import { RenderIcon } from "@/utils/icon-utils";
+import {
+  InputGroupAddon,
+  InputGroupInput,
+} from "@/components/ui/input-group";
 import type { InputGroupInputFieldProps } from "../common-input-group.types";
 
 const InputField = ({
@@ -12,16 +14,22 @@ const InputField = ({
   errorId,
   value,
   onChange,
-  icon,
-  align,
+  startAlign,
+  endAlign,
+  addonStart,
+  addonEnd,
 }: InputGroupInputFieldProps) => {
   return (
     <>
+      {addonStart && (
+        <InputGroupAddon align={startAlign ?? "inline-start"}>{addonStart}</InputGroupAddon>
+      )}
       <InputGroupInput
         id={fieldId}
         placeholder={placeholder}
         type={type}
         disabled={disabled}
+        required={required}
         aria-required={required}
         aria-disabled={disabled}
         aria-invalid={!!error}
@@ -29,9 +37,9 @@ const InputField = ({
         value={value}
         onChange={(e) => onChange(e.target.value)}
       />
-      <InputGroupAddon align={align}>
-        <RenderIcon src={icon} />
-      </InputGroupAddon>
+      {addonEnd && (
+        <InputGroupAddon align={endAlign ?? "inline-end"}>{addonEnd}</InputGroupAddon>
+      )}
     </>
   );
 };

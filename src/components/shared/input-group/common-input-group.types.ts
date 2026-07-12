@@ -6,13 +6,15 @@ export interface CommonInputGroupProps {
   description?: ReactNode;
   placeholder?: string;
   type?: HTMLInputTypeAttribute;
-  icon?: ReactNode;
-  align?: "block-end" | "block-start" | "inline-end" | "inline-start";
+  startAlign?: "block-end" | "block-start" | "inline-end" | "inline-start";
+  endAlign?: "block-end" | "block-start" | "inline-end" | "inline-start";
   required?: boolean;
   disabled?: boolean;
   value: string;
   onChange: (value: string) => void;
   error?: string;
+  addonStart?: ReactNode;
+  addonEnd?: ReactNode;
   className?: string;
   mode?: "input" | "textarea";
 }
@@ -20,8 +22,8 @@ export interface CommonInputGroupProps {
 export type SharedFieldProps = Pick<
   CommonInputGroupProps,
   | "placeholder"
-  | "icon"
-  | "align"
+  | "startAlign"
+  | "endAlign"
   | "required"
   | "disabled"
   | "value"
@@ -34,4 +36,6 @@ export type SharedFieldProps = Pick<
 
 export type InputGroupInputFieldProps = SharedFieldProps & {
   type?: HTMLInputTypeAttribute;
+  addonStart?: ReactNode;
+  addonEnd?: ReactNode;
 };

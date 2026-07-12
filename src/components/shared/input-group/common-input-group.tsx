@@ -12,13 +12,15 @@ const CommonInputGroup = ({
   description,
   placeholder = "Your placeholder...",
   type,
-  icon,
-  align,
+  startAlign,
+  endAlign,
   required,
   disabled,
   value,
   onChange,
   error,
+  addonStart,
+  addonEnd,
   className,
   mode = "input",
 }: CommonInputGroupProps) => {
@@ -30,8 +32,8 @@ const CommonInputGroup = ({
     fieldId,
     errorId,
     placeholder,
-    icon,
-    align,
+    startAlign,
+    endAlign,
     required,
     disabled,
     value,
@@ -46,7 +48,12 @@ const CommonInputGroup = ({
       )}
       <InputGroup>
         {mode === "input" ? (
-          <InputField type={type} {...sharedProps} />
+          <InputField
+            type={type}
+            addonStart={addonStart}
+            addonEnd={addonEnd}
+            {...sharedProps}
+          />
         ) : (
           <TextareaField {...sharedProps} />
         )}
