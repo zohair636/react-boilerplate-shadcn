@@ -2,8 +2,7 @@ import {
   InputGroupAddon,
   InputGroupTextarea,
 } from "@/components/ui/input-group";
-import { RenderIcon } from "@/utils/icon-utils";
-import type { SharedFieldProps } from "../common-input-group.types";
+import type { InputGroupTextareaFieldProps } from "../common-input-group.types";
 
 const TextareaField = ({
   fieldId,
@@ -14,11 +13,18 @@ const TextareaField = ({
   errorId,
   value,
   onChange,
-  icon,
-  align,
-}: SharedFieldProps) => {
+  addonStart,
+  addonEnd,
+  startAlign,
+  endAlign,
+}: InputGroupTextareaFieldProps) => {
   return (
     <>
+      {addonStart && (
+        <InputGroupAddon align={startAlign ?? "block-start"}>
+          {addonStart}
+        </InputGroupAddon>
+      )}
       <InputGroupTextarea
         id={fieldId}
         placeholder={placeholder}
@@ -30,9 +36,11 @@ const TextareaField = ({
         value={value}
         onChange={(e) => onChange(e.target.value)}
       />
-      <InputGroupAddon align={align}>
-        <RenderIcon src={icon} />
-      </InputGroupAddon>
+      {addonEnd && (
+        <InputGroupAddon align={endAlign ?? "block-end"}>
+          {addonEnd}
+        </InputGroupAddon>
+      )}
     </>
   );
 };

@@ -6,27 +6,28 @@ import { InputGroup } from "@/components/ui/input-group";
 import InputField from "./components/input-field";
 import TextareaField from "./components/textarea-field";
 
-const CommonInputGroup = ({
-  id,
-  label,
-  description,
-  placeholder = "Your placeholder...",
-  type,
-  startAlign,
-  endAlign,
-  required,
-  disabled,
-  value,
-  onChange,
-  error,
-  addonStart,
-  addonEnd,
-  className,
-  mode = "input",
-}: CommonInputGroupProps) => {
+const CommonInputGroup = (props: CommonInputGroupProps) => {
   const generatedId = useId();
+  const {
+    id,
+    label,
+    description,
+    placeholder = "Your placeholder...",
+    startAlign,
+    endAlign,
+    required,
+    disabled,
+    value,
+    onChange,
+    error,
+    addonStart,
+    addonEnd,
+    className,
+    mode = "input",
+  } = props;
   const fieldId = id ?? generatedId;
   const errorId = error ? `${fieldId}-error` : undefined;
+  const type = props.mode !== "textarea" ? props.type : undefined;
 
   const sharedProps = {
     fieldId,
@@ -39,6 +40,8 @@ const CommonInputGroup = ({
     value,
     onChange,
     error,
+    addonStart,
+    addonEnd,
   };
 
   return (
@@ -48,12 +51,7 @@ const CommonInputGroup = ({
       )}
       <InputGroup>
         {mode === "input" ? (
-          <InputField
-            type={type}
-            addonStart={addonStart}
-            addonEnd={addonEnd}
-            {...sharedProps}
-          />
+          <InputField type={type} {...sharedProps} />
         ) : (
           <TextareaField {...sharedProps} />
         )}

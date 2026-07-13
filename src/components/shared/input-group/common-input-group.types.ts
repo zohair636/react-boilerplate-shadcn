@@ -1,13 +1,14 @@
 import type { HTMLInputTypeAttribute, ReactNode } from "react";
 
-export interface CommonInputGroupProps {
+type AlignTypes = "block-end" | "block-start" | "inline-end" | "inline-start";
+
+type BaseProps = {
   id?: string;
   label?: ReactNode;
   description?: ReactNode;
   placeholder?: string;
-  type?: HTMLInputTypeAttribute;
-  startAlign?: "block-end" | "block-start" | "inline-end" | "inline-start";
-  endAlign?: "block-end" | "block-start" | "inline-end" | "inline-start";
+  startAlign?: AlignTypes;
+  endAlign?: AlignTypes;
   required?: boolean;
   disabled?: boolean;
   value: string;
@@ -17,10 +18,10 @@ export interface CommonInputGroupProps {
   addonEnd?: ReactNode;
   className?: string;
   mode?: "input" | "textarea";
-}
+};
 
 export type SharedFieldProps = Pick<
-  CommonInputGroupProps,
+  BaseProps,
   | "placeholder"
   | "startAlign"
   | "endAlign"
@@ -29,6 +30,8 @@ export type SharedFieldProps = Pick<
   | "value"
   | "onChange"
   | "error"
+  | "addonStart"
+  | "addonEnd"
 > & {
   fieldId: string;
   errorId?: string;
@@ -36,6 +39,10 @@ export type SharedFieldProps = Pick<
 
 export type InputGroupInputFieldProps = SharedFieldProps & {
   type?: HTMLInputTypeAttribute;
-  addonStart?: ReactNode;
-  addonEnd?: ReactNode;
 };
+
+export type InputGroupTextareaFieldProps = SharedFieldProps;
+
+export type CommonInputGroupProps =
+  | (BaseProps & { mode?: "input"; type?: HTMLInputTypeAttribute })
+  | (BaseProps & { mode: "textarea" });
