@@ -46,6 +46,7 @@ const CommonSelect = ({
 
   const handleClear = (e: React.MouseEvent | React.KeyboardEvent) => {
     e.stopPropagation();
+    e.preventDefault()
     onValueChange?.(null);
   };
 
