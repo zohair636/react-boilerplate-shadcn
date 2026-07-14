@@ -17,6 +17,7 @@ const TextareaField = ({
   addonEnd,
   startAlign,
   endAlign,
+  inputClassName,
 }: InputGroupTextareaFieldProps) => {
   return (
     <>
@@ -35,6 +36,7 @@ const TextareaField = ({
         aria-errormessage={errorId}
         value={value}
         onChange={(e) => onChange(e.target.value)}
+        className={inputClassName}
       />
       {addonEnd && (
         <InputGroupAddon align={endAlign ?? "block-end"}>

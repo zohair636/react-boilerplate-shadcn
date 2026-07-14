@@ -16,6 +16,8 @@ type BaseProps = {
   error?: string;
   addonStart?: ReactNode;
   addonEnd?: ReactNode;
+  inputContainerClassName?: string;
+  inputClassName?: string;
   className?: string;
   mode?: "input" | "textarea";
 };
@@ -32,6 +34,7 @@ export type SharedFieldProps = Pick<
   | "error"
   | "addonStart"
   | "addonEnd"
+  | "inputClassName"
 > & {
   fieldId: string;
   errorId?: string;

@@ -22,6 +22,7 @@ const CommonInputGroup = (props: CommonInputGroupProps) => {
     error,
     addonStart,
     addonEnd,
+    inputContainerClassName,
     className,
     mode = "input",
   } = props;
@@ -49,7 +50,7 @@ const CommonInputGroup = (props: CommonInputGroupProps) => {
       {label && (
         <CommonFieldLabel htmlFor={fieldId} label={label} required={required} />
       )}
-      <InputGroup>
+      <InputGroup className={inputContainerClassName}>
         {mode === "input" ? (
           <InputField type={type} {...sharedProps} />
         ) : (

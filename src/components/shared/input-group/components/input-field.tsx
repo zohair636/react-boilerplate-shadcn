@@ -18,6 +18,7 @@ const InputField = ({
   endAlign,
   addonStart,
   addonEnd,
+  inputClassName
 }: InputGroupInputFieldProps) => {
   return (
     <>
@@ -36,6 +37,7 @@ const InputField = ({
         aria-errormessage={errorId}
         value={value}
         onChange={(e) => onChange(e.target.value)}
+        className={inputClassName}
       />
       {addonEnd && (
         <InputGroupAddon align={endAlign ?? "inline-end"}>{addonEnd}</InputGroupAddon>
