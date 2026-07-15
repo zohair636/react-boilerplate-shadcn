@@ -44,9 +44,12 @@ const CommonSelect = ({
     value: string;
   }[];
 
-  const handleClear = (e: React.MouseEvent | React.KeyboardEvent) => {
+  const handlePointerDown = (e: React.PointerEvent) => {
+    e.preventDefault();
     e.stopPropagation();
-    e.preventDefault()
+  };
+
+  const handleClear = () => {
     onValueChange?.(null);
   };
 
@@ -84,6 +87,7 @@ const CommonSelect = ({
               leftIcon={<X className="size-4 shrink-0 opacity-50" />}
               variant="ghost"
               size="icon"
+              onPointerDown={handlePointerDown}
               onClick={handleClear}
               className="rounded-full hover:bg-muted"
               aria-label="Clear selection"
