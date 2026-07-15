@@ -7,22 +7,77 @@ import Grouped from "./components/grouped";
 import Default from "./components/default";
 
 const CommonCombobox = (props: CommonComboboxProps) => {
+  const generatedId = useId();
+  const id = `${generatedId}-combobox`;
   const {
+    label,
+    labelClassName,
     placeholder,
     fallback = "No items found.",
     required,
     disabled,
     showClear,
     icon,
-    label,
-    labelClassName,
     className,
     contentClassName,
     chipClassName,
     ref,
   } = props;
-  const generatedId = useId();
-  const id = `${generatedId}-combobox`;
+
+  const content = (() => {
+    switch (props.variant) {
+      case "multiple":
+        return (
+          <Multiple
+            id={id}
+            options={props.options}
+            disabled={disabled}
+            required={required}
+            placeholder={placeholder}
+            className={className}
+            fallback={fallback}
+            onChange={props.onChange}
+            chipClassName={chipClassName}
+            contentClassName={contentClassName}
+          />
+        );
+      case "grouped":
+        return (
+          <Grouped
+            id={id}
+            options={props.options}
+            placeholder={placeholder}
+            fallback={fallback}
+            disabled={disabled}
+            required={required}
+            showClear={showClear}
+            className={className}
+            icon={icon}
+            onChange={props.onChange}
+            ref={ref}
+            contentClassName={contentClassName}
+          />
+        );
+      case "default":
+      case undefined:
+        return (
+          <Default
+            id={id}
+            options={props.options}
+            placeholder={props.placeholder}
+            disabled={disabled}
+            showClear={showClear}
+            className={className}
+            icon={icon}
+            fallback={fallback}
+            onChange={props.onChange}
+            ref={ref}
+            required={required}
+            contentClassName={contentClassName}
+          />
+        );
+    }
+  })();
 
   return (
     <>
@@ -30,59 +85,11 @@ const CommonCombobox = (props: CommonComboboxProps) => {
         <CommonLabel
           htmlFor={id}
           label={label}
-          className={cn("mb-2", labelClassName)}
+          className={cn("font-semibold", labelClassName)}
           required={required}
         />
       )}
-
-      {(!props.variant || props.variant === "default") && (
-        <Default
-          id={id}
-          options={props.options}
-          placeholder={props.placeholder}
-          disabled={disabled}
-          showClear={showClear}
-          className={className}
-          icon={icon}
-          fallback={fallback}
-          onChange={props.onChange}
-          ref={ref}
-          required={required}
-          contentClassName={contentClassName}
-        />
-      )}
-
-      {props.variant === "multiple" && (
-        <Multiple
-          id={id}
-          options={props.options}
-          disabled={disabled}
-          required={required}
-          placeholder={placeholder}
-          className={className}
-          fallback={fallback}
-          onChange={props.onChange}
-          chipClassName={chipClassName}
-          contentClassName={contentClassName}
-        />
-      )}
-
-      {props.variant === "grouped" && (
-        <Grouped
-          id={id}
-          options={props.options}
-          placeholder={placeholder}
-          fallback={fallback}
-          disabled={disabled}
-          required={required}
-          showClear={showClear}
-          className={className}
-          icon={icon}
-          onChange={props.onChange}
-          ref={ref}
-          contentClassName={contentClassName}
-        />
-      )}
+      {content}
     </>
   );
 };
