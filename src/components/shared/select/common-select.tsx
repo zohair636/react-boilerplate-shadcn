@@ -8,12 +8,13 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import type { CommonSelectProps } from "./common-select.types";
-import React, { useId } from "react";
+import { useId } from "react";
 import { Field, FieldError } from "@/components/ui/field";
 import CommonFieldLabel from "../label/field-label";
 import { ChevronDown, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { CommonButton } from "../button";
+import { preventTriggerPointerDown } from "@/utils/event-handlers";
 
 const CommonSelect = ({
   id,
@@ -43,11 +44,6 @@ const CommonSelect = ({
     label: string;
     value: string;
   }[];
-
-  const handlePointerDown = (e: React.PointerEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-  };
 
   const handleClear = () => {
     onValueChange?.(null);
@@ -87,7 +83,7 @@ const CommonSelect = ({
               leftIcon={<X className="size-4 shrink-0 opacity-50" />}
               variant="ghost"
               size="icon"
-              onPointerDown={handlePointerDown}
+              onPointerDown={preventTriggerPointerDown}
               onClick={handleClear}
               className="rounded-full hover:bg-muted"
               aria-label="Clear selection"
