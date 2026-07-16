@@ -46,7 +46,7 @@ const CommonInputGroup = (props: CommonInputGroupProps) => {
   };
 
   return (
-    <Field className={className}>
+    <Field data-invalid={!!error} className={className}>
       {label && (
         <CommonFieldLabel htmlFor={fieldId} label={label} required={required} />
       )}
