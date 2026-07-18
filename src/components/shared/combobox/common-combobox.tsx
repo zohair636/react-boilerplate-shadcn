@@ -70,6 +70,7 @@ const CommonCombobox = (props: CommonComboboxProps) => {
             className={className}
             icon={icon}
             fallback={fallback}
+            value={props.value}
             onChange={props.onChange}
             ref={ref}
             required={required}

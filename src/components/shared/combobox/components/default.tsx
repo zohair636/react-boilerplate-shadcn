@@ -19,13 +19,19 @@ const Default = ({
   className,
   icon,
   fallback,
+  value,
   onChange,
   ref,
   required,
   contentClassName,
 }: DefaultComboboxProps) => {
   return (
-    <Combobox id={id} items={options}>
+    <Combobox
+      id={id}
+      items={options}
+      value={value || null}
+      onValueChange={(val) => onChange?.(val ? getOptionValue(val) : '')}
+    >
       <ComboboxInput
         placeholder={placeholder}
         disabled={disabled}
@@ -43,7 +49,6 @@ const Default = ({
             <ComboboxItem
               key={getOptionValue(item)}
               value={item}
-              onSelect={() => onChange?.(getOptionValue(item))}
               className={contentClassName}
             >
               {getOptionLabel(item)}

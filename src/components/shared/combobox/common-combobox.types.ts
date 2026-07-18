@@ -42,6 +42,7 @@ interface BaseComboboxProps {
 export type DefaultVariantProps = BaseComboboxProps & {
   variant?: "default";
   options: SimpleList | OptionList;
+  value: string;
   onChange?: (value: string) => void;
 };
 
