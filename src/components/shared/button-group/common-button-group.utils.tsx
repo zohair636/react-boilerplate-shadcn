@@ -33,9 +33,16 @@ export const renderItem = (item: ButtonGroupItem) => {
   }
 };
 
-export const withInjectedSeparators = (nodes: ReactNode[]): ReactNode[] => {
-  return nodes.flatMap((node, index) => {
-    if (index === 0) return [node];
-    return [<ButtonGroupSeparator key={`auto-separator-${index}`} />, node];
+export const withInjectedSeparators = (
+  items: ButtonGroupItem[],
+): ReactNode[] => {
+  return items.flatMap((item, index) => {
+    const rendered = renderItem(item);
+    if (index === 0) return [rendered];
+    const previousItem = items[index - 1];
+    return [
+      <ButtonGroupSeparator key={`sep-${previousItem.key}-${item.key}`} />,
+      rendered,
+    ];
   });
 };

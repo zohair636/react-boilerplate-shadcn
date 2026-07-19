@@ -7,13 +7,15 @@ import {
 
 const CommonButtonGroup = ({
   items,
-  widthSeparator = false,
+  widthSeparators = false,
   ...rest
 }: CommonButtonGroupProps) => {
   if (!items?.length) return null;
 
-  const rendered = items.map(renderItem);
-  const content = widthSeparator ? withInjectedSeparators(rendered) : rendered;
+  const content = widthSeparators
+    ? withInjectedSeparators(items)
+    : items.map(renderItem);
+
   return <ButtonGroup {...rest}>{content}</ButtonGroup>;
 };
 

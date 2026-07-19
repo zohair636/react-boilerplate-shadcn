@@ -41,5 +41,5 @@ export interface CommonButtonGroupProps extends Omit<
   "children"
 > {
   items: ButtonGroupItem[];
-  widthSeparator?: boolean;
+  widthSeparators?: boolean;
 }
