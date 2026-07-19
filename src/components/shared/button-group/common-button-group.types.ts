@@ -1,23 +1,45 @@
-import type { OrientationType } from "@/types/orientation";
-import type { ComponentProps } from "react";
+import type { ComponentProps, ReactNode } from "react";
 import CommonButton from "../button/common-button";
+import { CommonDropdown } from "../dropdown";
+import { CommonPopover } from "../popover";
+import { CommonInput } from "../input";
+import { ButtonGroup } from "@/components/ui/button-group";
 
-export interface CommonButtonGroupProps {
-  orientation?: OrientationType;
-  leftButton?: ComponentProps<typeof CommonButton>;
-  rightButton?: ComponentProps<typeof CommonButton>;
-  separator?: boolean;
-  mode?: "button" | "input";
-  className?: string;
+export type ButtonGroupItem =
+  | {
+      type: "button";
+      key: string;
+      props: ComponentProps<typeof CommonButton>;
+    }
+  | {
+      type: "dropdown";
+      key: string;
+      props: ComponentProps<typeof CommonDropdown>;
+    }
+  | {
+      type: "popover";
+      key: string;
+      props: ComponentProps<typeof CommonPopover>;
+    }
+  | {
+      type: "input";
+      key: string;
+      props: ComponentProps<typeof CommonInput>;
+    }
+  | {
+      type: "separator";
+      key: string;
+    }
+  | {
+      type: "custom";
+      key: string;
+      render: () => ReactNode;
+    };
+
+export interface CommonButtonGroupProps extends Omit<
+  ComponentProps<typeof ButtonGroup>,
+  "children"
+> {
+  items: ButtonGroupItem[];
+  widthSeparator?: boolean;
 }
-
-export type ButtonModeProps = {
-  mode: "button";
-  leftButton?: ComponentProps<typeof CommonButton>;
-  rightButton?: ComponentProps<typeof CommonButton>;
-  separator?: boolean;
-};
-
-export type InputModeProps = {
-  mode: "input";
-};

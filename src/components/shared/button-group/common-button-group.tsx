@@ -1,25 +1,20 @@
 import type { CommonButtonGroupProps } from "./common-button-group.types";
+import { ButtonGroup } from "@/components/ui/button-group";
 import {
-  ButtonGroup,
-  ButtonGroupSeparator,
-} from "@/components/ui/button-group";
-import CommonButton from "../button/common-button";
+  renderItem,
+  withInjectedSeparators,
+} from "./common-button-group.utils";
 
 const CommonButtonGroup = ({
-  orientation = "horizontal",
-  leftButton,
-  rightButton,
-  separator = false,
-  className,
+  items,
+  widthSeparator = false,
   ...rest
 }: CommonButtonGroupProps) => {
-  return (
-    <ButtonGroup orientation={orientation} className={className} {...rest}>
-      <CommonButton {...leftButton} />
-      {separator && <ButtonGroupSeparator />}
-      <CommonButton {...rightButton} />
-    </ButtonGroup>
-  );
+  if (!items?.length) return null;
+
+  const rendered = items.map(renderItem);
+  const content = widthSeparator ? withInjectedSeparators(rendered) : rendered;
+  return <ButtonGroup {...rest}>{content}</ButtonGroup>;
 };
 
 export default CommonButtonGroup;
