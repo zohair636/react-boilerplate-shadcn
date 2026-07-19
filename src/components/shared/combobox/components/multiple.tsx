@@ -20,6 +20,7 @@ const Multiple = ({
   id,
   options,
   fallback,
+  value,
   onChange,
   className,
   chipClassName,
@@ -30,15 +31,23 @@ const Multiple = ({
   ref,
 }: MultipleComboboxProps) => {
   const anchor = useComboboxAnchor();
+
+  const selectedItem = (value ?? [])
+    .map((val) => options.find((opt) => getOptionValue(opt) === val))
+    .filter((opt): opt is SelectableItem => opt !== undefined);
   return (
     <Combobox
       id={id}
       items={options}
-      itemToStringValue={(item: SelectableItem) => getOptionLabel(item)}
-      multiple
-      onValueChange={(value: SelectableItem[]) =>
-        onChange?.(value.map(getOptionValue))
+      value={selectedItem}
+      onValueChange={(val: SelectableItem[]) =>
+        onChange?.(val.map(getOptionValue))
       }
+      itemToStringValue={(item: SelectableItem) => getOptionLabel(item)}
+      isItemEqualToValue={(item: SelectableItem, value: SelectableItem) =>
+        getOptionValue(item) === getOptionValue(value)
+      }
+      multiple
     >
       <ComboboxChips ref={anchor} className="w-full">
         <ComboboxValue>

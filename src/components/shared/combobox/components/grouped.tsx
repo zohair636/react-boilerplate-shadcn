@@ -22,13 +22,22 @@ const Grouped = ({
   className,
   icon,
   fallback,
+  value,
   onChange,
   ref,
   required,
-  contentClassName
+  contentClassName,
 }: GroupedComboboxProps) => {
   return (
-    <Combobox id={id} items={options}>
+    <Combobox
+      id={id}
+      items={options}
+      value={value}
+      onValueChange={(val: string | null) => {
+        onChange?.(val ?? "");
+      }}
+      itemToStringValue={(item: string) => item}
+    >
       <ComboboxInput
         placeholder={placeholder}
         disabled={disabled}
@@ -49,9 +58,8 @@ const Grouped = ({
               <ComboboxCollection>
                 {(item) => (
                   <ComboboxItem
-                    key={item}
+                    key={`${group.value}-${item}`}
                     value={item}
-                    onSelect={() => onChange?.(item)}
                     className={contentClassName}
                   >
                     {item}

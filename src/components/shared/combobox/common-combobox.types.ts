@@ -42,19 +42,21 @@ interface BaseComboboxProps {
 export type DefaultVariantProps = BaseComboboxProps & {
   variant?: "default";
   options: SimpleList | OptionList;
-  value: string;
+  value?: string;
   onChange?: (value: string) => void;
 };
 
 export type MultipleVariantProps = BaseComboboxProps & {
   variant: "multiple";
   options: SimpleList | OptionList;
+  value?: string[];
   onChange?: (values: string[]) => void;
 };
 
 export type GroupedVariantProps = BaseComboboxProps & {
   variant: "grouped";
   options: GroupedList;
+  value?: string;
   onChange?: (value: string) => void;
 };
 

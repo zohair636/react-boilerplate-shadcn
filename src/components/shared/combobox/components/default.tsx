@@ -8,7 +8,10 @@ import {
 } from "@/components/ui/combobox";
 import { InputGroupAddon } from "@/components/ui/input-group";
 import { getOptionLabel, getOptionValue } from "../common-combobox.utils";
-import type { DefaultComboboxProps } from "../common-combobox.types";
+import type {
+  DefaultComboboxProps,
+  SelectableItem,
+} from "../common-combobox.types";
 
 const Default = ({
   id,
@@ -25,12 +28,21 @@ const Default = ({
   required,
   contentClassName,
 }: DefaultComboboxProps) => {
+  const selectedItem =
+    options.find((opt) => getOptionValue(opt) === value) ?? null;
   return (
     <Combobox
       id={id}
       items={options}
-      value={value || null}
-      onValueChange={(val) => onChange?.(val ? getOptionValue(val) : '')}
+      value={selectedItem}
+      onValueChange={(val) => {
+        onChange?.(val ? getOptionValue(val) : "");
+      }}
+      itemToStringValue={(item: SelectableItem) => getOptionLabel(item)}
+      isItemEqualToValue={(
+        item: SelectableItem,
+        value: SelectableItem | null,
+      ) => value !== null && getOptionValue(item) === getOptionValue(value)}
     >
       <ComboboxInput
         placeholder={placeholder}

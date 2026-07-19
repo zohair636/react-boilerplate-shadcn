@@ -36,6 +36,7 @@ const CommonCombobox = (props: CommonComboboxProps) => {
             placeholder={placeholder}
             className={className}
             fallback={fallback}
+            value={props.value}
             onChange={props.onChange}
             chipClassName={chipClassName}
             contentClassName={contentClassName}
@@ -53,6 +54,7 @@ const CommonCombobox = (props: CommonComboboxProps) => {
             showClear={showClear}
             className={className}
             icon={icon}
+            value={props.value}
             onChange={props.onChange}
             ref={ref}
             contentClassName={contentClassName}
