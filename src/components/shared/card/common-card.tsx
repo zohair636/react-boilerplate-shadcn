@@ -17,9 +17,10 @@ const CommonCard = ({
   size,
   footer,
   className,
+  ...rest
 }: CommonCardProps) => {
   return (
-    <Card size={size} className={className}>
+    <Card size={size} className={className} {...rest}>
       <CardHeader>
         {title && <CardTitle>{title}</CardTitle>}
         {description && <CardDescription>{description}</CardDescription>}

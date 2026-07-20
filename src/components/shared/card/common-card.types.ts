@@ -1,6 +1,10 @@
-import type { ReactNode } from "react";
+import { Card } from "@/components/ui/card";
+import type { ComponentProps, ReactNode } from "react";
 
-export interface CommonCardProps {
+export interface CommonCardProps extends Omit<
+  ComponentProps<typeof Card>,
+  "className"
+> {
   title?: string;
   description?: string;
   action?: ReactNode;
