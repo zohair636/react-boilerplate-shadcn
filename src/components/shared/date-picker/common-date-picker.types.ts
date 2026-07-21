@@ -13,8 +13,8 @@ interface DatePickerBaseProps {
 
 export type SingleDatePickerProps = DatePickerBaseProps & {
   mode: "single";
-  value?: Date;
-  onChange?: (select: Date | undefined) => void;
+  value: Date | undefined;
+  onChange: (select: Date | undefined) => void;
   showWeekNumber?: boolean;
   disabled?: boolean;
   captionLayout?: "dropdown" | "dropdown-months" | "dropdown-years" | "label";
