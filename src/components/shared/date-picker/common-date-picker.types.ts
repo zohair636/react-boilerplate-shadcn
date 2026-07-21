@@ -5,6 +5,8 @@ interface DatePickerBaseProps {
   placeholder?: string;
   open?: boolean;
   onOpenChange?: (open: boolean) => void;
+  required?: boolean;
+  className?: string;
   triggerClassName?: string;
   labelClassName?: string;
 }
@@ -26,6 +28,13 @@ export type DateRangePickerProps = DatePickerBaseProps & {
   className?: string;
 };
 
+export type InputDatePickerProps = DatePickerBaseProps & {
+  mode: "input";
+  date?: Date;
+  onDateChange?: (date: Date | undefined) => void;
+};
+
 export type CommonDatePickerProps =
   | SingleDatePickerProps
-  | DateRangePickerProps;
+  | DateRangePickerProps
+  | InputDatePickerProps;
