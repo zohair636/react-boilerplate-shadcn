@@ -1,7 +1,7 @@
-import type { ReactNode } from "react";
+import type { ReactElement, ReactNode } from "react";
 
 export interface CommonPopoverProps {
-  trigger: ReactNode;
+  trigger: ReactElement;
   children: ReactNode;
   open?: boolean;
   onOpenChange?: (open: boolean) => void;

@@ -17,7 +17,7 @@ const CommonPopover = ({
   if (!trigger || !children) return null;
   return (
     <Popover open={open} onOpenChange={onOpenChange}>
-      <PopoverTrigger>{trigger}</PopoverTrigger>
+      <PopoverTrigger render={trigger} />
       <PopoverContent align={align} side={side} className={className}>
         {children}
       </PopoverContent>
