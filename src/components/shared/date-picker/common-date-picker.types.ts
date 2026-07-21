@@ -22,8 +22,8 @@ export type SingleDatePickerProps = DatePickerBaseProps & {
 
 export type DateRangePickerProps = DatePickerBaseProps & {
   mode: "range";
-  value?: DateRange;
-  onChange?: (select: DateRange | undefined) => void;
+  value: DateRange;
+  onChange: (select: DateRange | undefined) => void;
   numberOfMonths?: number;
   className?: string;
 };
