@@ -1,6 +1,6 @@
 import axios from "axios";
 import { env } from "./env";
-import { getLocalStorage } from "@/utils/localstorage-utils";
+import { getLocalStorage } from "@/utils/storage-utils";
 
 const axiosInstance = axios.create({
   baseURL: env.VITE_API_BASE_URL,

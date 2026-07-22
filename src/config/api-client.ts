@@ -1,6 +1,6 @@
 import { isAxiosError, type AxiosRequestConfig } from "axios";
 import axiosInstance from "./axios-instance";
-import { removeLocalStorageStorageItem } from "@/utils/localstorage-utils";
+import { removeLocalStorageStorageItem } from "@/utils/storage-utils";
 
 const handleError = (error: unknown) => {
   if (isAxiosError(error)) {
