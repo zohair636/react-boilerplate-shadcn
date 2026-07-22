@@ -1,6 +1,6 @@
 import { isAxiosError, type AxiosRequestConfig } from "axios";
 import axiosInstance from "./axios-instance";
-import { removeLocalStorageStorageItem } from "@/utils/storage-utils";
+import { removeLocalStorageItem } from "@/utils/storage-utils";
 
 const handleError = (error: unknown) => {
   if (isAxiosError(error)) {
@@ -8,7 +8,7 @@ const handleError = (error: unknown) => {
     const message = error.response?.data?.message;
 
     if (status === 401) {
-        removeLocalStorageStorageItem("token");
+      removeLocalStorageItem("token");
       window.location.href = "/auth/login";
     }
 
