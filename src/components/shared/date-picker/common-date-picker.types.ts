@@ -1,6 +1,7 @@
 import type { DateRange } from "react-day-picker";
 
 interface DatePickerBaseProps {
+  id?: string;
   label?: string;
   placeholder?: string;
   open?: boolean;
