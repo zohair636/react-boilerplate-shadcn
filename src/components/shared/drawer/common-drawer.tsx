@@ -21,7 +21,7 @@ const CommonDrawer = ({
   children,
   nested,
   direction = "right",
-  modal = false,
+  modal = true,
   className,
   contentClassName,
   confirm,
