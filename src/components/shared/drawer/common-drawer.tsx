@@ -19,7 +19,9 @@ const CommonDrawer = ({
   title,
   description,
   children,
+  nested,
   direction = "right",
+  modal = false,
   className,
   contentClassName,
   confirm,
@@ -28,8 +30,14 @@ const CommonDrawer = ({
   const confirmLabel = confirm?.label || "Submit";
   const cancelLabel = cancel?.label || "Cancel";
   return (
-    <Drawer open={open} onOpenChange={onOpenChange} direction={direction}>
-      <DrawerTrigger asChild>{trigger}</DrawerTrigger>
+    <Drawer
+      open={open}
+      onOpenChange={onOpenChange}
+      swipeDirection={direction}
+      showSwipeHandle={direction === "down" ? true : false}
+      modal={modal}
+    >
+      <DrawerTrigger render={trigger} />
       <DrawerContent className={className}>
         <DrawerHeader>
           <DrawerTitle>{title}</DrawerTitle>
@@ -41,6 +49,7 @@ const CommonDrawer = ({
           {children}
         </div>
         <DrawerFooter>
+          {nested}
           {confirm && (
             <CommonButton
               {...confirm}
@@ -48,9 +57,11 @@ const CommonDrawer = ({
               onClick={confirm.onClick}
             />
           )}
-          <DrawerClose asChild>
-            <CommonButton {...cancel} label={cancelLabel} variant="outline" />
-          </DrawerClose>
+          <DrawerClose
+            render={
+              <CommonButton {...cancel} label={cancelLabel} variant="outline" />
+            }
+          />
         </DrawerFooter>
       </DrawerContent>
     </Drawer>
