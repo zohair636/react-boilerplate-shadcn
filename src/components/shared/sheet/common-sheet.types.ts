@@ -1,9 +1,9 @@
-import type { ReactNode } from "react";
+import type { ReactElement, ReactNode } from "react";
 
 export interface CommonSheetProps {
   open?: boolean;
   onOpenChange?: (open: boolean) => void;
-  trigger?: ReactNode;
+  trigger?: ReactElement;
   side?: "top" | "bottom" | "left" | "right";
   title?: string;
   description?: string;

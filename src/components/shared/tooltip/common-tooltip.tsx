@@ -17,7 +17,7 @@ const CommonToolTip = ({
 }: CommonTooltipProps) => {
   return (
     <Tooltip open={open} onOpenChange={onOpenChange}>
-      <TooltipTrigger className={triggerClassName}>{trigger}</TooltipTrigger>
+      <TooltipTrigger render={trigger} className={triggerClassName} />
       <TooltipContent
         side={side}
         sideOffset={sideOffset}

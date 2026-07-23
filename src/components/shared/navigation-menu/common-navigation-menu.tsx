@@ -24,7 +24,7 @@ const CommonNavigationMenu = ({
     <NavigationMenu>
       <NavigationMenuList>
         <NavigationMenuItem>
-          <NavigationMenuTrigger>{trigger}</NavigationMenuTrigger>
+          <NavigationMenuTrigger render={trigger} />
           <NavigationMenuContent>
             <div className={className}>
               {options?.map((option) => (

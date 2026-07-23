@@ -24,10 +24,14 @@ const CommonAlertDialog = ({
 }: CommonAlertDialogProps) => {
   return (
     <AlertDialog>
-      <AlertDialogTrigger>{trigger}</AlertDialogTrigger>
+      <AlertDialogTrigger render={trigger} />
       <AlertDialogContent size={size}>
         <AlertDialogHeader>
-          {icon && <AlertDialogMedia><RenderIcon src={icon} alt={title} /></AlertDialogMedia>}
+          {icon && (
+            <AlertDialogMedia>
+              <RenderIcon src={icon} alt={title} />
+            </AlertDialogMedia>
+          )}
           <AlertDialogTitle>{title}</AlertDialogTitle>
           {description && (
             <AlertDialogDescription>{description}</AlertDialogDescription>

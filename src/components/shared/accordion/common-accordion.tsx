@@ -36,7 +36,7 @@ const CommonAccordion = ({
     >
       {options.map((option) => (
         <AccordionItem key={option.value} value={option.value}>
-          <AccordionTrigger>{option.trigger}</AccordionTrigger>
+          <AccordionTrigger render={option.trigger} />
           <AccordionContent>
             <p>{option.content}</p>
           </AccordionContent>

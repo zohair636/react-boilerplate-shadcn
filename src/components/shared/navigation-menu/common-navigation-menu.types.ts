@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import type { ReactElement, ReactNode } from "react";
 
 interface NavigationMenuOption {
   id: string;
@@ -9,7 +9,7 @@ interface NavigationMenuOption {
 }
 
 export interface CommonNavigationMenuProps {
-  trigger: ReactNode;
+  trigger: ReactElement;
   options: NavigationMenuOption[];
   className?: string;
   contentClassName?: string;

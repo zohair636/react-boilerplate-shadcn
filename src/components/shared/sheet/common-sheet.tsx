@@ -21,7 +21,7 @@ const CommonSheet = ({
 }: CommonSheetProps) => {
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
-      {trigger && <SheetTrigger>{trigger}</SheetTrigger>}
+      {trigger && <SheetTrigger render={trigger} />}
       <SheetContent
         side={side}
         showCloseButton={showCloseButton}

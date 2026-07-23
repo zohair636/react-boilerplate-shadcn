@@ -1,9 +1,9 @@
 import type { AccordionRootProps } from "@base-ui/react";
-import type { ReactNode } from "react";
+import type { ReactElement, ReactNode } from "react";
 
 export interface AccordionOption {
   value: string;
-  trigger: ReactNode;
+  trigger: ReactElement;
   content: ReactNode;
 }
 

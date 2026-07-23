@@ -16,9 +16,7 @@ const CommonHoverCard = ({
 }: CommonHoverCardProps) => {
   return (
     <HoverCard>
-      <HoverCardTrigger delay={delay} closeDelay={closeDelay}>
-        {trigger}
-      </HoverCardTrigger>
+      <HoverCardTrigger render={trigger} delay={delay} closeDelay={closeDelay} />
       <HoverCardContent side={side} align={align} className={className}>
         {children}
       </HoverCardContent>

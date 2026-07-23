@@ -16,7 +16,7 @@ const CommonDropdown = (props: CommonDropdownProps) => {
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger>{trigger}</DropdownMenuTrigger>
+      <DropdownMenuTrigger render={trigger} />
       <DropdownMenuContent className={cn("w-auto max-w-56", className)}>
         {mode === "default" && (
           <DefaultDropdown

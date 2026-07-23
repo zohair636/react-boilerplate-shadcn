@@ -18,9 +18,7 @@ const BasicCollapsible = ({
 }: CollapsibleBasicModeConfig) => {
   return (
     <>
-      <CollapsibleTrigger className={triggerClassName}>
-        {trigger}
-      </CollapsibleTrigger>
+      <CollapsibleTrigger render={trigger} className={triggerClassName} />
       <CollapsibleContent
         keepMounted={keepMounted}
         className={contentClassName}
@@ -42,11 +40,9 @@ const ComposedCollapsible = ({
 }: CollapsibleComposedModeConfig) => {
   return (
     <>
-      <CollapsibleTrigger className={triggerClassName}>
-        {beforeTrigger}
-        {trigger}
-        {afterTrigger}
-      </CollapsibleTrigger>
+      {beforeTrigger}
+      <CollapsibleTrigger render={trigger} className={triggerClassName} />
+      {afterTrigger}
       <CollapsibleContent
         keepMounted={keepMounted}
         className={contentClassName}

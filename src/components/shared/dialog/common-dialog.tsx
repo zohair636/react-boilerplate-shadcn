@@ -27,7 +27,7 @@ const CommonDialog = ({
 }: CommonDialogProps) => {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      {trigger && <DialogTrigger>{trigger}</DialogTrigger>}
+      {trigger && <DialogTrigger render={trigger} />}
       <DialogContent showCloseButton={showCloseControls}>
         <DialogHeader>
           <DialogTitle>{title}</DialogTitle>

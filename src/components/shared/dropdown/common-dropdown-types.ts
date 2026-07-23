@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import type { ReactElement, ReactNode } from "react";
 
 interface DropDownListItem {
   label: string;
@@ -51,7 +51,7 @@ interface RadioGroupDropDownOptionLabel {
 }
 
 type BaseDropdownProps = {
-  trigger: ReactNode;
+  trigger: ReactElement;
   className?: string;
   itemClassName?: string;
 };

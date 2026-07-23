@@ -1,7 +1,7 @@
-import type { ReactNode } from "react";
+import type { ReactElement, ReactNode } from "react";
 
 export interface CommonTooltipProps {
-  trigger: ReactNode;
+  trigger: ReactElement;
   children: ReactNode;
   side?: "top" | "right" | "bottom" | "left";
   open?: boolean;

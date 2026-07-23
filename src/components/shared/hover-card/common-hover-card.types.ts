@@ -1,7 +1,7 @@
-import type { ReactNode } from "react";
+import type { ReactElement, ReactNode } from "react";
 
 export interface CommonHoverCardProps {
-  trigger?: ReactNode;
+  trigger?: ReactElement;
   delay?: number;
   closeDelay?: number;
   children: ReactNode;

@@ -1,9 +1,9 @@
-import type { ReactNode } from "react";
+import type { ReactElement, ReactNode } from "react";
 
 type CollapsibleBasicProps = {
   open?: boolean;
   onOpenChange?: (open: boolean) => void;
-  trigger: ReactNode;
+  trigger: ReactElement;
   children: ReactNode;
   defaultOpen?: boolean;
   disabled?: boolean;

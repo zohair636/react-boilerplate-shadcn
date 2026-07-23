@@ -1,8 +1,8 @@
-import type { ReactNode } from "react";
+import type { ReactElement, ReactNode } from "react";
 import type { CommonButtonProps } from "../button";
 
 export interface CommonAlertDialogProps {
-  trigger: ReactNode;
+  trigger: ReactElement;
   title: string;
   description?: string;
   icon?: ReactNode;
