@@ -17,7 +17,6 @@ import {
   getOptionValue,
   internalFilter,
 } from "../common-combobox.utils";
-import { CommonButton } from "../../button";
 import { ChevronDown, X } from "lucide-react";
 import { preventTriggerPointerDown } from "@/utils/event-handlers";
 import { useMemo, useState, type MouseEvent } from "react";
